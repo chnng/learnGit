@@ -35,7 +35,7 @@ public class OkHttpEventListener extends EventListener {
   @Override
   public void dnsStart(Call call, String domainName) {
     super.dnsStart(call, domainName);
-    log("dnsStart:" + domainName);
+    log("dnsStart: " + domainName);
   }
 
   @Override
