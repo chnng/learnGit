@@ -15,7 +15,7 @@ android {
         config {
             keyAlias 'chnng'
             keyPassword '123456'
-            storeFile file('E:/chnng/chnng_key_store.jks')
+            storeFile file('chnng_key_store.jks')
             storePassword '123456'
         }
     }
@@ -31,15 +31,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation 'com.android.support:appcompat-v7:27.+'
     implementation 'com.android.support:support-annotations:27.+'
-    testCompile 'junit:junit:4.12'
-    compile 'com.google.code.gson:gson:2.7'
-    compile 'com.jakewharton:butterknife:8.4.0'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.google.code.gson:gson:2.7'
+    implementation 'com.jakewharton:butterknife:8.4.0'
     //    compile 'com.squareup.retrofit2:retrofit:2.3.0'
     //    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     //    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
