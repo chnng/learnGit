@@ -1,1 +1,1 @@
-include ':app', ':test-java'
+include ':app', ':test-java', ':okhttp'
