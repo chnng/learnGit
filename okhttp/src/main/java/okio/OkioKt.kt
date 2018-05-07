@@ -19,9 +19,8 @@
 
 package okio
 
-import android.os.Build
-import android.support.annotation.RequiresApi
 //import org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+import okio.Util.checkOffsetAndCount
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -54,17 +53,17 @@ fun Sink.buffer(): BufferedSink = RealBufferedSink(this)
 fun OutputStream.sink(): Sink = OutputStreamSink(this, Timeout())
 
 private class OutputStreamSink(
-  private val out: OutputStream,
-  private val timeout: Timeout
+        private val out: OutputStream,
+        private val timeout: Timeout
 ) : Sink {
 
   override fun write(source: Buffer, byteCount: Long) {
-    Util.checkOffsetAndCount(source.size, 0, byteCount)
+    checkOffsetAndCount(source.size, 0, byteCount)
     var remaining = byteCount
     while (remaining > 0) {
       timeout.throwIfReached()
       val head = source.head!!
-      val toCopy = minOf(remaining, (head.limit - head.pos).toLong()).toInt()
+      val toCopy = minOf(remaining, head.limit - head.pos).toInt()
       out.write(head.data, head.pos, toCopy)
 
       head.pos += toCopy
@@ -91,8 +90,8 @@ private class OutputStreamSink(
 fun InputStream.source(): Source = InputStreamSource(this, Timeout())
 
 private class InputStreamSource(
-  private val input: InputStream,
-  private val timeout: Timeout
+        private val input: InputStream,
+        private val timeout: Timeout
 ) : Source {
 
   override fun read(sink: Buffer, byteCount: Long): Long {
@@ -101,7 +100,7 @@ private class InputStreamSource(
     try {
       timeout.throwIfReached()
       val tail = sink.writableSegment(1)
-      val maxToCopy = minOf(byteCount, (Segment.SIZE - tail.limit).toLong()).toInt()
+      val maxToCopy = minOf(byteCount, Segment.SIZE - tail.limit).toInt()
       val bytesRead = input.read(tail.data, tail.limit, maxToCopy)
       if (bytesRead == -1) return -1
       tail.limit += bytesRead
@@ -197,18 +196,16 @@ fun File.appendingSink(): Sink = FileOutputStream(this, true).sink()
 fun File.source(): Source = inputStream().source()
 
 /** Returns a source that reads from `path`. */
-@RequiresApi(Build.VERSION_CODES.O)
 @Throws(IOException::class)
 //@IgnoreJRERequirement // Can only be invoked on Java 7+.
 fun Path.sink(vararg options: OpenOption): Sink =
-    Files.newOutputStream(this, *options).sink()
+        Files.newOutputStream(this, *options).sink()
 
 /** Returns a sink that writes to `path`. */
-@RequiresApi(Build.VERSION_CODES.O)
 @Throws(IOException::class)
 //@IgnoreJRERequirement // Can only be invoked on Java 7+.
 fun Path.source(vararg options: OpenOption): Source =
-    Files.newInputStream(this, *options).source()
+        Files.newInputStream(this, *options).source()
 
 /**
  * Returns true if this error is due to a firmware bug fixed after Android 4.2.2.

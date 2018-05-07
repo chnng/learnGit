@@ -3,13 +3,17 @@ package com.learn.git.okhttp;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 import okio.Buffer;
+import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.ByteString;
 import okio.Okio;
+import okio.Sink;
 import okio.Source;
 
 /**
@@ -50,6 +54,68 @@ public class OkioTest {
       System.out.printf("%08x: %s %d x %d%n", chunk.size(), type, width, height);
     } else {
       System.out.printf("%08x: %s%n", chunk.size(), type);
+    }
+  }
+
+  public void readLines0(File file) throws IOException {
+    try (Source fileSource = Okio.source(file);
+         BufferedSource bufferedSource = Okio.buffer(fileSource)) {
+
+      while (true) {
+        String line = bufferedSource.readUtf8Line();
+        if (line == null) break;
+
+        if (line.contains("square")) {
+          System.out.println(line);
+        }
+      }
+
+    }
+  }
+
+  public void readLines1(File file) throws IOException {
+    try (BufferedSource source = Okio.buffer(Okio.source(file))) {
+      for (String line; (line = source.readUtf8Line()) != null; ) {
+        if (line.contains("square")) {
+          System.out.println(line);
+        }
+      }
+    }
+  }
+
+  public void readLines2(File file) throws IOException {
+    try (BufferedSource source = Okio.buffer(Okio.source(file))) {
+      while (!source.exhausted()) {
+        String line = source.readUtf8LineStrict(1024L);
+        if (line.contains("square")) {
+          System.out.println(line);
+        }
+      }
+    }
+  }
+
+  public void writeEnv0(File file) throws IOException {
+    try (Sink fileSink = Okio.sink(file);
+         BufferedSink bufferedSink = Okio.buffer(fileSink)) {
+
+      for (Map.Entry<String, String> entry : System.getenv().entrySet()) {
+        bufferedSink.writeUtf8(entry.getKey());
+        bufferedSink.writeUtf8("=");
+        bufferedSink.writeUtf8(entry.getValue());
+        bufferedSink.writeUtf8("\n");
+      }
+
+    }
+  }
+
+  public void writeEnv1(File file) throws IOException {
+    try (BufferedSink sink = Okio.buffer(Okio.sink(file))) {
+      for (Map.Entry<String, String> entry : System.getenv().entrySet()) {
+        sink.writeUtf8(entry.getKey())
+                .writeUtf8("=")
+                .writeUtf8(entry.getValue())
+                .writeUtf8("\n");
+      }
     }
   }
 }

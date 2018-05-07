@@ -15,7 +15,6 @@
  */
 package okio;
 
-import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 
@@ -172,7 +171,6 @@ public final class Okio {
 
   /** Returns a source that reads from {@code path}. */
 //  @IgnoreJRERequirement // Should only be invoked on Java 7+.
-  @RequiresApi(api = Build.VERSION_CODES.O)
   public static Source source(Path path, OpenOption... options) throws IOException {
     if (path == null) throw new IllegalArgumentException("path == null");
     return source(Files.newInputStream(path, options));
@@ -192,7 +190,6 @@ public final class Okio {
 
   /** Returns a sink that writes to {@code path}. */
 //  @IgnoreJRERequirement // Should only be invoked on Java 7+.
-  @RequiresApi(api = Build.VERSION_CODES.O)
   public static Sink sink(Path path, OpenOption... options) throws IOException {
     if (path == null) throw new IllegalArgumentException("path == null");
     return sink(Files.newOutputStream(path, options));

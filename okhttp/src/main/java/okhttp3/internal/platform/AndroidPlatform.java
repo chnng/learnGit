@@ -15,9 +15,7 @@
  */
 package okhttp3.internal.platform;
 
-import android.os.Build;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -81,13 +79,13 @@ class AndroidPlatform extends Platform {
     } catch (ClassCastException e) {
       // On android 8.0, socket.connect throws a ClassCastException due to a bug
       // see https://issuetracker.google.com/issues/63649622
-      if (Build.VERSION.SDK_INT == 26) {
-        IOException ioException = new IOException("Exception in connect");
-        ioException.initCause(e);
-        throw ioException;
-      } else {
+//      if (Build.VERSION.SDK_INT == 26) {
+//        IOException ioException = new IOException("Exception in connect");
+//        ioException.initCause(e);
+//        throw ioException;
+//      } else {
         throw e;
-      }
+//      }
     }
   }
 
@@ -137,19 +135,19 @@ class AndroidPlatform extends Platform {
   }
 
   @Override public void log(int level, String message, Throwable t) {
-    int logLevel = level == WARN ? Log.WARN : Log.DEBUG;
-    if (t != null) message = message + '\n' + Log.getStackTraceString(t);
-
-    // Split by line, then ensure each line can fit into Log's maximum length.
-    for (int i = 0, length = message.length(); i < length; i++) {
-      int newline = message.indexOf('\n', i);
-      newline = newline != -1 ? newline : length;
-      do {
-        int end = Math.min(newline, i + MAX_LOG_LENGTH);
-        Log.println(logLevel, "OkHttp", message.substring(i, end));
-        i = end;
-      } while (i < newline);
-    }
+//    int logLevel = level == WARN ? Log.WARN : Log.DEBUG;
+//    if (t != null) message = message + '\n' + Log.getStackTraceString(t);
+//
+//    // Split by line, then ensure each line can fit into Log's maximum length.
+//    for (int i = 0, length = message.length(); i < length; i++) {
+//      int newline = message.indexOf('\n', i);
+//      newline = newline != -1 ? newline : length;
+//      do {
+//        int end = Math.min(newline, i + MAX_LOG_LENGTH);
+//        Log.println(logLevel, "OkHttp", message.substring(i, end));
+//        i = end;
+//      } while (i < newline);
+//    }
   }
 
   @Override public Object getStackTraceForCloseable(String closer) {
