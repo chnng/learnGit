@@ -16,7 +16,6 @@
 package okio;
 
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 
 import java.io.File;
 import java.io.FileInputStream;

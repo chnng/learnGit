@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:clipChildren="false"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_margin="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
@@ -18,85 +15,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hello World!"/>
-
-        <!--<TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:maxWidth="150dp"
-            android:ellipsize="end"
-            android:text="一二三四五六七八九十一二三四五六七八九十"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="一二三四五六七八九十一二三四五六七八九十"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="15:00"/>
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="300dp"
-            android:layout_height="200dp">
-
-            <ImageView
-                android:id="@+id/iv_rtc_user_icon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
-                android:src="@mipmap/ic_launcher"
-                android:visibility="visible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_rtc_user_name"
-                android:layout_gravity="start"
-                android:layout_marginLeft="13dp"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:maxWidth="180dp"
-                android:singleLine="true"
-                android:text="一二三四五六七八九十一二三四五六七八九十"
-                android:textSize="17sp"
-                app:layout_constraintStart_toEndOf="@+id/iv_rtc_user_icon"
-                app:layout_constraintTop_toTopOf="@+id/iv_rtc_user_icon"
-                app:layout_goneMarginLeft="20dp"
-                app:layout_goneMarginTop="40dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_rtc_video_timer"
-                android:layout_gravity="start"
-                android:layout_marginTop="10dp"
-                android:text="一二三四五六七八九十一二三四五六七八九十"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@+id/tv_rtc_user_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_rtc_user_name"/>
-
-        </android.support.constraint.ConstraintLayout>-->
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
-
         <Button
             android:id="@+id/button0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:text="request"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:src="@mipmap/ic_launcher"/>
 
         <Button
             android:id="@+id/button1"
@@ -107,4 +36,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</android.support.v4.widget.NestedScrollView>

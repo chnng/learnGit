@@ -1,6 +1,7 @@
 package com.learn.git;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,6 +11,9 @@ import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.learn.git.okhttp.OkHttpEventListener;
+import com.sigseg.android.map.ImageViewerActivity;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -48,19 +53,6 @@ public class MainActivity extends AppCompatActivity {
                        .eventListener(new OkHttpEventListener())
                        .build();
     mTextView = findViewById(R.id.textView);
-//    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-//    sdf.setTimeZone(TimeZone.getTimeZone("GMT+0"));
-//    TimeZone timeZone = sdf.getTimeZone();
-//    String format = sdf.format(new Date());
-
-    Matrix matrix = new Matrix();
-    matrix.setScale(1.5f, 1.5f);
-    matrix.preTranslate(10, 10);
-    mTextView.setText(matrix.toString());
-    matrix.reset();
-    matrix.setScale(1.5f, 1.5f);
-    matrix.postTranslate(10, 10);
-    mTextView.append('\n' + matrix.toString());
   }
 
   public void onClick(View view) {
@@ -100,11 +92,6 @@ public class MainActivity extends AppCompatActivity {
       break;
     case R.id.button1:
       okHttpClient.dispatcher().cancelAll();
-      //      int i = ContextCompat.checkSelfPermission(this,
-      //      Manifest.permission.READ_CONTACTS); Toast.makeText(this,
-      //              "has permission:" + (i ==
-      //              PackageManager.PERMISSION_GRANTED), Toast.LENGTH_SHORT)
-      //              .show();
       int i = ContextCompat.checkSelfPermission(
           this, Manifest.permission.RECORD_AUDIO);
       mTextView.append("RECORD_AUDIO:" +
@@ -119,30 +106,45 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void sendNotification() {
-    NotificationManager notificationManager =
-        (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-    if (notificationManager == null) {
-      return;
+    //    NotificationManager notificationManager =
+    //        (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+    //    if (notificationManager == null) {
+    //      return;
+    //    }
+    //    Intent intent = new Intent();
+    //    intent.setClassName(this, "com.qinhe.ispeak.AppStartActivity");
+    //    intent.addCategory(Intent.CATEGORY_LAUNCHER);
+    //    intent.setAction(Intent.ACTION_MAIN);
+    //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+    //                    Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+    //    PendingIntent pendingIntent = PendingIntent.getActivity(
+    //        this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    //    NotificationCompat.Builder builder =
+    //        new NotificationCompat.Builder(this, null)
+    //            .setLargeIcon(BitmapFactory.decodeResource(getResources(),
+    //                                                       R.mipmap.ic_launcher))
+    //            .setSmallIcon(R.mipmap.ic_launcher)
+    //            .setContentTitle("中文")
+    //            .setContentText("中文")
+    //            .setAutoCancel(true)
+    //            .setDefaults(Notification.DEFAULT_ALL)
+    //            .setContentIntent(pendingIntent)
+    //            .setFullScreenIntent(pendingIntent, true);
+    //    notificationManager.notify(4, builder.build());
+//    new MyFragment().show(getSupportFragmentManager(), "");
+    startActivity(new Intent(this, ImageViewerActivity.class));
+  }
+
+  public static class MyFragment extends BottomSheetDialogFragment {
+
+    private BottomSheetBehavior mBehavior;
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+      BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
+      View view = View.inflate(getContext(), R.layout.activity_main, null);
+      dialog.setContentView(view);
+      mBehavior = BottomSheetBehavior.from((View) view.getParent());
+      return dialog;
     }
-    Intent intent = new Intent();
-    intent.setClassName(this, "com.qinhe.ispeak.AppStartActivity");
-    intent.addCategory(Intent.CATEGORY_LAUNCHER);
-    intent.setAction(Intent.ACTION_MAIN);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                    Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-    PendingIntent pendingIntent = PendingIntent.getActivity(
-        this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    NotificationCompat.Builder builder =
-        new NotificationCompat.Builder(this, null)
-            .setLargeIcon(BitmapFactory.decodeResource(getResources(),
-                                                       R.mipmap.ic_launcher))
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("中文")
-            .setContentText("中文")
-            .setAutoCancel(true)
-            .setDefaults(Notification.DEFAULT_ALL)
-            .setContentIntent(pendingIntent)
-            .setFullScreenIntent(pendingIntent, true);
-    notificationManager.notify(4, builder.build());
   }
 }
