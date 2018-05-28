@@ -2,43 +2,32 @@ package com.learn.git;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.learn.git.okhttp.OkHttpEventListener;
-import com.sigseg.android.map.ImageViewerActivity;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.HashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okio.Buffer;
-import okio.BufferedSink;
-import okio.OkioKt;
 
 public class MainActivity extends AppCompatActivity {
   OkHttpClient okHttpClient;
@@ -53,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                        .eventListener(new OkHttpEventListener())
                        .build();
     mTextView = findViewById(R.id.textView);
+    uri();
   }
 
   public void onClick(View view) {
@@ -131,20 +121,77 @@ public class MainActivity extends AppCompatActivity {
     //            .setContentIntent(pendingIntent)
     //            .setFullScreenIntent(pendingIntent, true);
     //    notificationManager.notify(4, builder.build());
-//    new MyFragment().show(getSupportFragmentManager(), "");
-    startActivity(new Intent(this, ImageViewerActivity.class));
+    //    new MyFragment().show(getSupportFragmentManager(), "");
+    //    startActivity(new Intent(this, ImageViewerActivity.class));
+    //    System.setProperty("http.keepAlive", "false");
+    ImageView imageView = findViewById(R.id.imageView);
+    GlideUrl url =
+        new GlideUrl("http://admin.zpjuxingyuan"
+                         + ".com/Public/live_img/2018-05-11/5af50b4de0fc0.jpg",
+                     () -> {
+                       HashMap<String, String> map = new HashMap<>();
+                       //      map.put("Connection", "close");
+                       //      map.put("Content-type", "image/jpeg");
+                       //      map.put("Accept-Encoding", "");
+                       return map;
+                     });
+    //    Glide.with(this).load("http://admin.zpjuxingyuan" +
+    //            ".com/Public/live_img/2018-05-11/5af50b4de0fc0.jpg").crossFade().skipMemoryCache
+    //            (true).diskCacheStrategy(DiskCacheStrategy.NONE).error(R.mipmap.ic_launcher)
+    //            //            .listener(new RequestListener<GlideUrl,
+    //            GlideDrawable>() {
+    //            //              @Override
+    //            //              public boolean onException(Exception e,
+    //            GlideUrl model,
+    //            // Target<GlideDrawable>
+    //            //                      target, boolean isFirstResource) {
+    //            //                return false;
+    //            //              }
+    //            //
+    //            //              @Override
+    //            //              public boolean onResourceReady(GlideDrawable
+    //            resource, GlideUrl
+    //            // model, Target<GlideDrawable> target, boolean
+    //            isFromMemoryCache, boolean
+    //            // isFirstResource) {
+    //            //                return false;
+    //            //              }
+    //            //            })
+    //            .into(imageView);
   }
 
   public static class MyFragment extends BottomSheetDialogFragment {
 
     private BottomSheetBehavior mBehavior;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-      BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
+      BottomSheetDialog dialog =
+          (BottomSheetDialog)super.onCreateDialog(savedInstanceState);
       View view = View.inflate(getContext(), R.layout.activity_main, null);
       dialog.setContentView(view);
-      mBehavior = BottomSheetBehavior.from((View) view.getParent());
+      mBehavior = BottomSheetBehavior.from((View)view.getParent());
       return dialog;
     }
+  }
+
+  private void uri() {
+    Log.d("url", "url");
+    Log.d("url", getUri("https://www.baidu.com").toString());
+    Log.d("url", getUri("//www.baidu.com/").toString());
+    Log.d("url", getUri("/123.js").toString());
+  }
+
+  private Uri getUri(String url) {
+    Uri srcUri = Uri.parse("https://www.baidu.com/db.js");
+    if (srcUri != null) {
+      if (url.startsWith("//")) {
+        url = srcUri.getScheme() + ':' + url;
+      } else if (url.startsWith("/")) {
+        String srcUrl = srcUri.toString();
+        url = srcUrl.substring(0, srcUrl.lastIndexOf("/")) + url;
+      }
+    }
+    return Uri.parse(url);
   }
 }
