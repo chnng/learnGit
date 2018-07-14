@@ -1,4 +1,4 @@
-package com.learn.git.okhttp;
+package com.learn.git.api.okhttp;
 
 import android.support.annotation.Nullable;
 import android.util.Log;

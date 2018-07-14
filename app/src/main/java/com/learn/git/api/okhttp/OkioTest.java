@@ -1,4 +1,4 @@
-package com.learn.git.okhttp;
+package com.learn.git.api.okhttp;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;

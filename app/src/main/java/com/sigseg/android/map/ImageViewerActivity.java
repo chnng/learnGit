@@ -1,11 +1,9 @@
 package com.sigseg.android.map;
 
-import android.content.Intent;
-import android.net.Uri;
-import java.io.InputStream;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -13,6 +11,8 @@ import android.view.WindowManager;
 
 import com.learn.git.R;
 import com.sigseg.android.io.RandomAccessFileInputStream;
+
+import java.io.InputStream;
 
 
 public class ImageViewerActivity extends Activity {
@@ -31,7 +31,7 @@ public class ImageViewerActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_map);
         imageSurfaceView = (ImageSurfaceView) findViewById(R.id.worldview);
 
         // Setup/restore state

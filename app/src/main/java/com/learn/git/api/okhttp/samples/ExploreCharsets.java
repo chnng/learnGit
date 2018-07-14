@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.learn.git.okhttp.samples;
+package com.learn.git.api.okhttp.samples;
 
 import java.io.IOException;
+
 import okio.ByteString;
 import okio.Utf8;
 
