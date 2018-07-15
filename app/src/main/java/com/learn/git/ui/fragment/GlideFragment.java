@@ -15,7 +15,7 @@ public class GlideFragment extends BaseFragment {
     ImageView imageView;
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_glide;
+        return R.layout.fragment_test;
     }
 
     @Override

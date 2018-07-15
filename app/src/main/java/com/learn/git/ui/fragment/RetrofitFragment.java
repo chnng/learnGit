@@ -1,5 +1,6 @@
 package com.learn.git.ui.fragment;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,12 +33,12 @@ public class RetrofitFragment extends BaseFragment {
 
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_okhttp;
+        return R.layout.fragment_test;
     }
 
     @Override
     public void onCreate() {
-
+        tvResponse.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 
     @OnClick({R.id.button_request, R.id.button_cancel})
@@ -98,28 +99,33 @@ public class RetrofitFragment extends BaseFragment {
         }
     }
 
-//    List<QueryMissionListBean> missionListItemBeans = new ArrayList<>();
+    List<QueryMissionListBean> missionList;
     private long duration;
     private void request() {
         duration = System.currentTimeMillis();
         mCompositeDisposable.add(RetrofitHelper.getServer().queryMissionList(new QueryMissionListBody())
-                .map(RetrofitHelper.mapper())
-                .compose(RetrofitHelper.transformer())
+                .compose(RetrofitHelper.resultTransFragment(this))
                 .flatMap((Function<List<QueryMissionListBean>, ObservableSource<List<QueryMissionListItemBean>>>) queryMissionListBeans -> {
 //                    LogUtil.d("queryMissionListBeans" + queryMissionListBeans.toString());
-//                    missionListItemBeans = queryMissionListBeans;
+                    missionList = queryMissionListBeans;
                     List<Observable<BaseResponse<List<QueryMissionListItemBean>>>> list = new ArrayList<>();
                     for (QueryMissionListBean queryMissionListBean : queryMissionListBeans) {
                         QueryMissionListItemBody itemBody = new QueryMissionListItemBody();
                         itemBody.BedNumber = queryMissionListBean.identify_code;
                         list.add(RetrofitHelper.getServer().queryMissionListItem(itemBody));
                     }
-                    return Observable.concatDelayError(list).map(RetrofitHelper.mapper()).compose(RetrofitHelper.transformer());
+                    return Observable.concatDelayError(list).compose(RetrofitHelper.resultTransFragment(this));
                 })
                 .subscribeWith(new DisposableObserver<List<QueryMissionListItemBean>>() {
                     @Override
                     public void onNext(List<QueryMissionListItemBean> queryMissionListItemBeans) {
 //                        LogUtil.d(queryMissionListItemBeans.size() + "");
+                        for (QueryMissionListBean listBean : missionList) {
+                            if (listBean.itemList == null) {
+                                listBean.itemList = queryMissionListItemBeans;
+                                break;
+                            }
+                        }
                     }
 
                     @Override
@@ -130,6 +136,7 @@ public class RetrofitFragment extends BaseFragment {
                     @Override
                     public void onComplete() {
                         LogUtil.e("" + (System.currentTimeMillis() - duration));
+                        tvResponse.setText("duration:" + (System.currentTimeMillis() - duration) + "\n" + missionList);
                     }
                 }));
     }

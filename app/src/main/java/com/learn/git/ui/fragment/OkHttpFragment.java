@@ -24,7 +24,7 @@ public class OkHttpFragment extends BaseFragment {
 
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_okhttp;
+        return R.layout.fragment_test;
     }
 
     @Override

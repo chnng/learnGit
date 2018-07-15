@@ -3,6 +3,9 @@ package com.learn.git.api.retrofit;
 import com.learn.git.api.okhttp.OkHttpClientHelper;
 import com.learn.git.server.Server;
 import com.learn.git.server.bean.base.BaseResponse;
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -43,13 +46,27 @@ public class RetrofitHelper {
     }
 
     public static <T> ObservableTransformer<T, T> transformer() {
-        return upstream -> upstream.subscribeOn(Schedulers.io())
+        return tObservable -> tObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static <T> ObservableTransformer<BaseResponse<T>, T> resultTransformer() {
+    public static <T> ObservableTransformer<T, T> transActivity(LifecycleProvider<ActivityEvent> provider) {
+        return upstream -> upstream.compose(transformer())
+                .compose(provider.bindUntilEvent(ActivityEvent.DESTROY));
+    }
+
+    public static <T> ObservableTransformer<T, T> transFragment(LifecycleProvider<FragmentEvent> provider) {
+        return upstream -> upstream.compose(transformer())
+                .compose(provider.bindUntilEvent(FragmentEvent.DESTROY_VIEW));
+    }
+
+    public static <T> ObservableTransformer<BaseResponse<T>, T> resultTransActivity(LifecycleProvider<ActivityEvent> provider) {
         return upstream -> upstream.map(mapper())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .compose(transActivity(provider));
+    }
+
+    public static <T> ObservableTransformer<BaseResponse<T>, T> resultTransFragment(LifecycleProvider<FragmentEvent> provider) {
+        return upstream -> upstream.map(mapper())
+                .compose(transFragment(provider));
     }
 }

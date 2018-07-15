@@ -7,16 +7,19 @@ android {
     compileSdkVersion compile_sdk_version
     buildToolsVersion build_tools_version
     defaultConfig {
-        applicationId "com.learn.git"
+        applicationId 'com.learn.git'
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
         versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        versionName '1.0'
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        multiDexEnabled true
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
+        }
+        ndk {
+            abiFilters 'armeabi-v7a', 'x86'
         }
     }
     signingConfigs {
@@ -39,7 +42,27 @@ android {
             signingConfig signingConfigs.config
         }
     }
+
+    flavorDimensions "default"
     productFlavors {
+        product {
+            resValue "string", "appName", 'learnGit'
+            buildConfigField 'String', 'HOST', '"https://www.baidu.com/"'
+            manifestPlaceholders = ["APP_KEY": "123456789"]
+        }
+
+        temp {
+            applicationId 'com.learn.git_t'
+            resValue "string", "appName", 'learnTemp'
+            buildConfigField 'String', 'HOST', '"http://192.168.0.1/"'
+            manifestPlaceholders = ["APP_KEY": "00000000",]
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs 'libs'
+        }
     }
 }
 
@@ -55,7 +78,10 @@ dependencies {
 //    implementation "com.android.support:support-v13:$support_version"
     implementation "com.android.support:support-annotations:$support_version"
     implementation "com.android.support:design:$support_version"
+    implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+    implementation 'com.google.android:flexbox:1.0.0'
 
     implementation 'pub.devrel:easypermissions:1.2.0'
     // https://github.com/JakeWharton/butterknife
@@ -73,7 +99,7 @@ dependencies {
     // https://github.com/ReactiveX/RxAndroid
     implementation 'io.reactivex.rxjava2:rxjava:2.1.10'
     // https://github.com/trello/RxLifecycle
-    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
 
     // https://github.com/square/okhttp
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
