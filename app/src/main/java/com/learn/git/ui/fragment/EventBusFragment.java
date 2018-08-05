@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.learn.git.R;
 import com.learn.git.api.glide.GlideApp;
-import com.learn.git.cons.MessageCons;
+import com.learn.git.consant.MessageCons;
 import com.learn.git.api.eventbus.MessageEvent;
 import com.learn.git.ui.base.BaseFragment;
 import com.learn.git.util.HandlerUtil;

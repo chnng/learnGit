@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseActivity extends RxAppCompatActivity implements IContentView{
+public abstract class BaseActivity extends RxAppCompatActivity implements IBaseComponent {
 
     private Unbinder unbinder;
 

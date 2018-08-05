@@ -11,18 +11,17 @@ import android.widget.Button;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.learn.git.R;
-import com.learn.git.cons.MessageCons;
+import com.learn.git.consant.MessageCons;
 import com.learn.git.api.eventbus.MessageEvent;
 import com.learn.git.ui.base.BaseActivity;
 import com.learn.git.ui.fragment.EventBusFragment;
 import com.learn.git.ui.fragment.GlideFragment;
 import com.learn.git.ui.fragment.OkHttpFragment;
 import com.learn.git.ui.fragment.PermissionFragment;
+import com.learn.git.ui.fragment.PickerFragment;
 import com.learn.git.ui.fragment.RetrofitFragment;
 import com.learn.git.util.LogUtil;
 import com.learn.git.util.ToastUtil;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 
@@ -36,7 +35,7 @@ public class MainActivity extends BaseActivity {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        public MyViewHolder() {
+        MyViewHolder() {
             super(new Button(MainActivity.this));
         }
     }
@@ -50,7 +49,7 @@ public class MainActivity extends BaseActivity {
                 GlideFragment.class,
                 PermissionFragment.class,
                 EventBusFragment.class,
-                PermissionFragment.class,
+                PickerFragment.class,
         };
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
         layoutManager.setJustifyContent(JustifyContent.SPACE_AROUND);
@@ -103,10 +102,10 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        EventBus.getDefault().post(new MessageEvent.Builder<>()
-                .what(MessageCons.TEST_0)
-                .obj("activity pause")
-                .build());
+//        EventBus.getDefault().post(new MessageEvent.Builder<>()
+//                .what(MessageCons.TEST_0)
+//                .obj("activity pause")
+//                .build());
     }
 
     @Override

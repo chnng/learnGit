@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseFragment extends RxFragment implements IContentView {
+public abstract class BaseFragment extends RxFragment implements IBaseComponent {
 
     private Unbinder unbinder;
 

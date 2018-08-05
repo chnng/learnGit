@@ -1,6 +1,6 @@
 package com.learn.git.ui.base;
 
-public interface IContentView {
+public interface IBaseComponent {
     int getContentViewId();
 
     void onCreate();
