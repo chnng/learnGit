@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.learn.git.R;
 import com.learn.git.api.okhttp.OkHttpClientHelper;
-import com.learn.git.ui.base.BaseFragment;
+import com.learn.git.ui.common.MyFragment;
 
 import java.io.IOException;
 
@@ -18,18 +18,13 @@ import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class OkHttpFragment extends BaseFragment {
+public class OkHttpFragment extends MyFragment {
     @BindView(R.id.textView_response)
     TextView tvResponse;
 
     @Override
     public int getContentViewId() {
         return R.layout.fragment_test;
-    }
-
-    @Override
-    public void onCreate() {
-
     }
 
     @OnClick({R.id.button_request, R.id.button_cancel})

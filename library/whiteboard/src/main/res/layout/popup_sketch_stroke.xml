@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_popup">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="画笔类型"
+            android:textSize="11sp" />
+
+        <RadioGroup
+            android:id="@+id/stroke_type_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/stroke_type_rbtn_draw"
+                style="@style/stroke_color_btn"
+                android:button="@drawable/stroke_type_rbtn_draw"
+                android:checked="true" />
+
+            <RadioButton
+                style="@style/stroke_color_btn"
+                android:button="@drawable/stroke_type_rbtn_draw_bold"
+                android:visibility="gone" />
+
+            <RadioButton
+                android:id="@+id/stroke_type_rbtn_line"
+                style="@style/stroke_color_btn"
+                android:button="@drawable/stroke_type_rbtn_line" />
+
+            <RadioButton
+                android:id="@+id/stroke_type_rbtn_circle"
+                style="@style/stroke_color_btn"
+                android:button="@drawable/stroke_type_rbtn_circle" />
+
+            <RadioButton
+                android:id="@+id/stroke_type_rbtn_rectangle"
+                style="@style/stroke_color_btn"
+                android:button="@drawable/stroke_type_rbtn_rectangle" />
+
+            <RadioButton
+                android:id="@+id/stroke_type_rbtn_text"
+                style="@style/stroke_color_btn"
+                android:button="@drawable/stroke_type_rbtn_text"
+                android:visibility="gone" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="画笔大小"
+            android:textSize="11sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/stroke_circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/stroke_color_rbtn_black" />
+            </FrameLayout>
+
+            <SeekBar
+                android:id="@+id/stroke_seekbar"
+                style="@style/CustomSeekbarStyle"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="画笔颜色"
+            android:textSize="11sp" />
+
+        <RadioGroup
+            android:id="@+id/stroke_color_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/stroke_color_black"
+                style="@style/stroke_color_btn"
+                android:button="@drawable/stroke_color_rbtn_black"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/stroke_color_red"
+                style="@style/stroke_color_btn"
+                android:button="@drawable/stroke_color_rbtn_red" />
+
+            <RadioButton
+                android:id="@+id/stroke_color_green"
+                style="@style/stroke_color_btn"
+                android:button="@drawable/stroke_color_rbtn_green" />
+
+            <RadioButton
+                android:id="@+id/stroke_color_orange"
+                style="@style/stroke_color_btn"
+                android:button="@drawable/stroke_color_rbtn_orange" />
+
+            <RadioButton
+                android:id="@+id/stroke_color_blue"
+                style="@style/stroke_color_btn"
+                android:button="@drawable/stroke_color_rbtn_blue" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="不透明度"
+            android:textSize="11sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/stroke_alpha_circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/stroke_color_rbtn_black" />
+            </FrameLayout>
+
+            <SeekBar
+                android:id="@+id/stroke_alpha_seekbar"
+                style="@style/CustomSeekbarStyle"
+                android:layout_height="wrap_content"
+                android:progress="0" />
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>

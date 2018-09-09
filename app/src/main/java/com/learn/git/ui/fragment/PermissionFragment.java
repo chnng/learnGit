@@ -6,9 +6,9 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Toast;
 
+import com.aihui.lib.base.util.LogUtils;
 import com.learn.git.R;
-import com.learn.git.ui.base.BaseFragment;
-import com.learn.git.util.LogUtil;
+import com.learn.git.ui.common.MyFragment;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class PermissionFragment extends BaseFragment  implements EasyPermissions.PermissionCallbacks, EasyPermissions.RationaleCallbacks {
+public class PermissionFragment extends MyFragment implements EasyPermissions.PermissionCallbacks, EasyPermissions.RationaleCallbacks {
     private static final int RC_SMS_PERM = 122;
 
     private static final String[] LOCATION_AND_CONTACTS =
@@ -29,11 +29,6 @@ public class PermissionFragment extends BaseFragment  implements EasyPermissions
     @Override
     public int getContentViewId() {
         return R.layout.fragment_permission;
-    }
-
-    @Override
-    public void onCreate() {
-
     }
 
     @OnClick({R.id.button_sms, R.id.button_camera, R.id.button_contact})
@@ -121,12 +116,12 @@ public class PermissionFragment extends BaseFragment  implements EasyPermissions
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-        LogUtil.d("onPermissionsGranted:" + requestCode + ":" + perms.size());
+        LogUtils.e("onPermissionsGranted:" + requestCode + ":" + perms.size());
     }
 
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-        LogUtil.d("onPermissionsDenied:" + requestCode + ":" + perms.size());
+        LogUtils.e("onPermissionsDenied:" + requestCode + ":" + perms.size());
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             new AppSettingsDialog.Builder(this).setTitle("permission").setRationale("没有权限").build().show();
         }
@@ -134,12 +129,12 @@ public class PermissionFragment extends BaseFragment  implements EasyPermissions
 
     @Override
     public void onRationaleAccepted(int requestCode) {
-        LogUtil.d("onRationaleAccepted:" + requestCode);
+        LogUtils.e("onRationaleAccepted:" + requestCode);
     }
 
     @Override
     public void onRationaleDenied(int requestCode) {
-        LogUtil.d("onRationaleDenied:" + requestCode);
+        LogUtils.e("onRationaleDenied:" + requestCode);
     }
 
     @Override
@@ -147,7 +142,7 @@ public class PermissionFragment extends BaseFragment  implements EasyPermissions
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
-            LogUtil.d("onActivityResult:" + requestCode + " camera:" + hasCameraPermission()
+            LogUtils.e("onActivityResult:" + requestCode + " camera:" + hasCameraPermission()
                     + " location:" + hasLocationAndContactsPermissions()
                     + " sms:" + hasSmsPermission());
 //            String yes = getString(R.string.yes);

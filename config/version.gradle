@@ -1,0 +1,99 @@
+ext {
+    android = [
+            compileSdkVersion   : 27,
+            buildToolsVersion   : '28.0.2',
+            minSdkVersion       : 14,
+            targetSdkVersion    : 27,
+            supportVsersion     : '27.1.1',
+//            versionCode         : 1,
+//            versionName         : '1.0',
+//            defaultPublishConfig: 'release',
+//            publishNonDefault   : true
+    ]
+    dependencies = [
+            junit               : 'junit:junit:4.12',
+            multidex            : 'com.android.support:multidex:1.0.2',
+            appcompatV7         : 'com.android.support:appcompat-v7:' + android.supportVsersion,
+            supportV4           : 'com.android.support:support-v4:' + android.supportVsersion,
+            supportV13          : 'com.android.support:support-v13:' + android.supportVsersion,
+            supportAnnotations  : 'com.android.support:support-annotations:' + android.supportVsersion,
+            supportDesign       : 'com.android.support:design:' + android.supportVsersion,
+            recyclerviewV7      : 'com.android.support:recyclerview-v7:' + android.supportVsersion,
+            cardviewV7          : 'com.android.support:cardview-v7:' + android.supportVsersion,
+            constraintLayout    : 'com.android.support.constraint:constraint-layout:1.1.2',
+
+            // https://bugly.qq.com/docs/user-guide/instruction-manual-android-upgrade/?v=20180521124306
+            buglyJava           : 'com.tencent.bugly:crashreport:latest.release',
+            buglyNative         : 'com.tencent.bugly:nativecrashreport:latest.release',
+            // https://bugly.qq.com/docs/utility-tools/plugin-gradle-bugly/
+            buglySymtabfile     : 'com.tencent.bugly:symtabfileuploader:latest.release',
+            // https://github.com/google/gson
+            gson                : 'com.google.code.gson:gson:2.8.0',
+            // https://github.com/google/flexbox-layout
+            flexbox  : 'com.google.android:flexbox:1.0.0',
+            // https://github.com/ReactiveX/RxJava
+            rxjava              : 'io.reactivex.rxjava2:rxjava:2.1.16',
+            // https://github.com/ReactiveX/RxAndroid
+            rxandroid1          : 'io.reactivex:rxandroid:1.2.1',
+            rxandroid2          : 'io.reactivex.rxjava2:rxandroid:2.0.2',
+            // https://github.com/trello/RxLifecycle
+            rxlifecycle         : 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1',
+            // https://github.com/square/retrofit
+            retrofit            : 'com.squareup.retrofit2:retrofit:2.4.0',
+            retrofitGson        : 'com.squareup.retrofit2:converter-gson:2.4.0',
+            retrofitScalars     : 'com.squareup.retrofit2:converter-scalars:2.4.0',
+            retrofitRx1         : 'com.squareup.retrofit2:adapter-rxjava:2.4.0',
+            retrofitRx2         : 'com.squareup.retrofit2:adapter-rxjava2:2.4.0',
+            // https://github.com/square/okhttp
+            okhttp              : 'com.squareup.okhttp3:okhttp:3.11.0',
+            okhttpLogging       : 'com.squareup.okhttp3:logging-interceptor:3.11.0',
+            // https://github.com/bumptech/glide
+            glide               : 'com.github.bumptech.glide:glide:3.7.0',
+            glideCompiler       : 'com.github.bumptech.glide:compiler:4.7.1',
+            glideOkhttp         : 'com.github.bumptech.glide:okhttp3-integration:4.7.1',
+            // https://github.com/search?q=easypermissions
+            easypermissions     : 'pub.devrel:easypermissions:1.2.0',
+            // https://github.com/android-notes/Cockroach
+            cockroach           : 'com.wanjian:cockroach:0.0.5',
+            // https://github.com/greenrobot/EventBus
+            eventbus            : 'org.greenrobot:eventbus:3.1.1',
+            // https://github.com/JakeWharton/butterknife
+            butterknife         : "com.jakewharton:butterknife:$butterknife_version",
+            butterknifeCompiler : "com.jakewharton:butterknife-compiler:$butterknife_version",
+            // https://github.com/JessYanCoding/ProgressManager
+            progressmanager     : 'me.jessyan:progressmanager:1.5.0',
+            // https://github.com/JessYanCoding/RetrofitUrlManager
+            retrofitUrlManager     : 'me.jessyan:retrofit-url-manager:1.4.0',
+            // https://github.com/Justson/AgentWeb
+            agentweb            : 'com.just.agentweb:agentweb:1.2.5',
+            // https://github.com/zxing/zxing
+            zxing               : 'com.google.zxing:core:3.2.1',
+            // https://github.com/ybq/Android-SpinKit
+            spinKit             : 'com.github.ybq:Android-SpinKit:1.1.0',
+            // https://github.com/hongyangAndroid/AndroidAutoLayout
+            autolayout          : 'com.zhy:autolayout:1.4.5',
+            // https://github.com/hongyangAndroid/FitAndroid7
+            fileprovider        : 'com.zhy.base:fileprovider:1.0.0',
+            // https://github.com/hongyangAndroid/baseAdapter
+            baseAdapter         : 'com.zhy:base-rvadapter:3.0.3',
+            // https://github.com/afollestad/material-dialogs
+            materialDialogs     : 'com.afollestad.material-dialogs:core:0.9.4.5',
+            // https://github.com/barteksc/AndroidPdfViewer
+            pdfViewer           : 'com.github.barteksc:android-pdf-viewer:2.8.1',
+            // https://github.com/scwang90/SmartRefreshLayout
+            smartRefreshLayout  : 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1',
+            // https://github.com/Bigkoo/Android-PickerView
+            pickerView          : 'com.contrarywind:Android-PickerView:4.1.6',
+            // https://github.com/PhilJay/MPAndroidChart
+            mpAndroidChart      : 'com.github.PhilJay:MPAndroidChart:v3.0.3',
+            // https://javaee.github.io/javamail/Android
+            androidMail         : 'com.sun.mail:android-mail:1.6.0',
+            androidActivation   : 'com.sun.mail:android-activation:1.6.0',
+            // https://github.com/youth5201314/banner
+            youthBanner         : 'com.youth.banner:banner:1.4.10',
+            // https://github.com/pinguo-zhouwei/MZBannerView
+            mzBannerView        : 'com.github.pinguo-zhouwei:MZBannerView:v2.0.2',
+            // https://github.com/Azoft/CarouselLayoutManager
+            carousellayoutmanager : 'com.azoft.carousellayoutmanager:carousel:1.2.4',
+    ]
+}

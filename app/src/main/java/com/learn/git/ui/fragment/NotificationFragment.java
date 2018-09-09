@@ -1,18 +1,12 @@
 package com.learn.git.ui.fragment;
 
-import com.learn.git.ui.base.BaseFragment;
+import com.learn.git.ui.common.MyFragment;
 
-public class NotificationFragment extends BaseFragment {
+public class NotificationFragment extends MyFragment {
     @Override
     public int getContentViewId() {
         return 0;
     }
-
-    @Override
-    public void onCreate() {
-
-    }
-
 
     public void sendNotification() {
         //    NotificationManager notificationManager =

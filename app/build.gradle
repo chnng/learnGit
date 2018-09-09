@@ -3,28 +3,19 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //apply plugin: "androidx.navigation.safeargs"
 
+apply from: '../config/module.gradle'
+
 android {
-    compileSdkVersion compile_sdk_version
-    buildToolsVersion build_tools_version
     defaultConfig {
         applicationId 'com.learn.git'
-        minSdkVersion min_sdk_version
-        targetSdkVersion target_sdk_version
         versionCode 1
         versionName '1.0'
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         multiDexEnabled true
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
-        }
-        ndk {
-            abiFilters 'armeabi-v7a', 'x86'
-        }
     }
-    dexOptions {
-        javaMaxHeapSize '4g'
-    }
+//    dexOptions {
+//        javaMaxHeapSize '4g'
+//    }
     signingConfigs {
         config {
             keyAlias 'chnng'
@@ -61,12 +52,6 @@ android {
             manifestPlaceholders = ["APP_KEY": "00000000",]
         }
     }
-
-    sourceSets {
-        main {
-            jniLibs.srcDirs 'libs'
-        }
-    }
 }
 
 dependencies {
@@ -76,54 +61,32 @@ dependencies {
     })
     testImplementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$support_version"
-//    implementation "com.android.support:support-v4:$support_version"
-//    implementation "com.android.support:support-v13:$support_version"
-    implementation "com.android.support:support-annotations:$support_version"
-    implementation "com.android.support:design:$support_version"
-    implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-
-    implementation 'com.google.android:flexbox:1.0.0'
-
-    implementation 'pub.devrel:easypermissions:1.2.0'
-    // https://github.com/JakeWharton/butterknife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    // https://github.com/yshrsmz/KeyboardVisibilityEvent
-    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
-    // https://github.com/search?l=Java&o=desc&q=Keyboard&s=stars&type=Repositories
+//    // https://github.com/yshrsmz/KeyboardVisibilityEvent
+//    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
+//    // https://github.com/search?l=Java&o=desc&q=Keyboard&s=stars&type=Repositories
 //    implementation 'com.github.w446108264:XhsEmoticonsKeyboard:2.0.4'
+//    // https://github.com/wasabeef/glide-transformations
+//    implementation 'jp.wasabeef:glide-transformations:3.3.0'
+//    // If you want to use the GPU Filters
+//    implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
 
-    // https://github.com/greenrobot/EventBus
-    implementation 'org.greenrobot:eventbus:3.1.1'
-    // https://github.com/ReactiveX/RxJava
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    // https://github.com/ReactiveX/RxAndroid
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.10'
-    // https://github.com/trello/RxLifecycle
-    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
-
-    // https://github.com/square/okhttp
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
-    // https://github.com/square/retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    // https://github.com/google/gson
-    implementation 'com.google.code.gson:gson:2.8.5'
-    // https://github.com/JessYanCoding/ProgressManager
-    implementation 'me.jessyan:progressmanager:1.5.0'
-//    implementation project(':okhttp')
-
-    // https://github.com/bumptech/glide
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
-//    implementation 'com.github.bumptech.glide:annotations:4.7.1'
-    implementation 'com.github.bumptech.glide:okhttp3-integration:4.7.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
-    // https://github.com/wasabeef/glide-transformations
-    implementation 'jp.wasabeef:glide-transformations:3.3.0'
-    // If you want to use the GPU Filters
-    implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+    annotationProcessor rootProject.ext.dependencies.glideCompiler
+    implementation(rootProject.ext.dependencies.glide) {
+        exclude group: "com.android.support"
+    }
+    implementation(rootProject.ext.dependencies.glideOkhttp) {
+        exclude group: 'com.squareup.okhttp3'
+    }
+//    implementation rootProject.ext.dependencies.buglyJava
+//    implementation rootProject.ext.dependencies.buglyNative
+    implementation rootProject.ext.dependencies.flexbox
+    implementation rootProject.ext.dependencies.smartRefreshLayout
+    implementation rootProject.ext.dependencies.pickerView
+    implementation rootProject.ext.dependencies.mpAndroidChart
+    debugImplementation rootProject.ext.dependencies.youthBanner
+    implementation rootProject.ext.dependencies.mzBannerView
+    implementation rootProject.ext.dependencies.carousellayoutmanager
+    implementation project(path: ':library:base')
+    implementation project(path: ':library:javamail')
+    implementation project(path: ':library:ffmpeg')
 }

@@ -1,0 +1,94 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+
+/**头部*/
+
+.header {
+	height: 83px;
+	width: 100%;
+	background-color: #048A8B;
+	_zoom: 1;
+	position: fixed;
+	top: 0;
+	z-index: 1000
+}
+
+
+/*头部左边*/
+
+.header .left {
+	line-height: 38px;
+	height: 83px;
+	width: 33%;
+	float: left;
+}
+
+.header .left em {
+	font-style: normal;
+	font-size: 30px;
+	color: #FFFFFF;
+	line-height: 83px;
+}
+
+.header .left img {
+	line-height: 83px;
+	margin-top: 19px;
+	float: left;
+	margin-right: 10px;
+	margin-left: 20px;
+}
+
+
+/*头部中间*/
+
+.header .center {
+	float: left;
+	width: 33%;
+	height: 83px;
+	text-align: center;
+}
+
+.header .center em {
+	font-style: normal;
+	font-size: 30px;
+	color: #FFFFFF;
+	line-height: 80px;
+}
+
+
+/*头部右边*/
+
+.header .right {
+	width: 33%;
+	line-height: 83px;
+	height: 83px;
+	color: #FFFFFF;
+	text-align: right;
+	float: right;
+}
+
+.header .right em {
+	font-style: normal;
+	font-size: 30px;
+	color: #FFFFFF;
+	float: right;
+	text-align: center;
+}
+
+.header .right img {
+	display: inline-block;
+	margin-right: 10px;
+	margin-left: 10px;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 50%;
+	color: red;
+	font-weight: bold;
+	font-size: 30px;
+}

@@ -5,22 +5,17 @@ import android.widget.ImageView;
 
 import com.learn.git.R;
 import com.learn.git.api.glide.GlideApp;
-import com.learn.git.ui.base.BaseFragment;
+import com.learn.git.ui.common.MyFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class GlideFragment extends BaseFragment {
+public class GlideFragment extends MyFragment {
     @BindView(R.id.imageView_response)
     ImageView imageView;
     @Override
     public int getContentViewId() {
         return R.layout.fragment_test;
-    }
-
-    @Override
-    public void onCreate() {
-
     }
 
     @OnClick({R.id.button_request, R.id.button_cancel})

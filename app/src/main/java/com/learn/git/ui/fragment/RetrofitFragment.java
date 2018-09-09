@@ -4,15 +4,15 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
+import com.aihui.lib.base.util.LogUtils;
 import com.learn.git.R;
 import com.learn.git.api.retrofit.RetrofitHelper;
-import com.learn.git.server.bean.base.BaseResponse;
-import com.learn.git.server.bean.request.QueryMissionListBody;
-import com.learn.git.server.bean.request.QueryMissionListItemBody;
-import com.learn.git.server.bean.response.QueryMissionListBean;
-import com.learn.git.server.bean.response.QueryMissionListItemBean;
-import com.learn.git.ui.base.BaseFragment;
-import com.learn.git.util.LogUtil;
+import com.learn.git.bean.base.BaseResponse;
+import com.learn.git.bean.request.QueryMissionListBody;
+import com.learn.git.bean.request.QueryMissionListItemBody;
+import com.learn.git.bean.response.QueryMissionListBean;
+import com.learn.git.bean.response.QueryMissionListItemBean;
+import com.learn.git.ui.common.MyFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 
-public class RetrofitFragment extends BaseFragment {
+public class RetrofitFragment extends MyFragment {
     @BindView(R.id.textView_response)
     TextView tvResponse;
 
@@ -37,7 +37,8 @@ public class RetrofitFragment extends BaseFragment {
     }
 
     @Override
-    public void onCreate() {
+    public void initData() {
+        super.initData();
         tvResponse.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 
@@ -135,7 +136,7 @@ public class RetrofitFragment extends BaseFragment {
 
                     @Override
                     public void onComplete() {
-                        LogUtil.e("" + (System.currentTimeMillis() - duration));
+                        LogUtils.e("" + (System.currentTimeMillis() - duration));
                         tvResponse.setText("duration:" + (System.currentTimeMillis() - duration) + "\n" + missionList);
                     }
                 }));

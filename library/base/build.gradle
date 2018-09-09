@@ -1,0 +1,34 @@
+apply plugin: 'com.android.library'
+apply from: '../../config/module.gradle'
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.dependencies.multidex
+    api rootProject.ext.dependencies.appcompatV7
+    api rootProject.ext.dependencies.supportV13
+    api rootProject.ext.dependencies.supportDesign
+    api rootProject.ext.dependencies.recyclerviewV7
+    api rootProject.ext.dependencies.cardviewV7
+    api rootProject.ext.dependencies.supportAnnotations
+    api rootProject.ext.dependencies.constraintLayout
+    api rootProject.ext.dependencies.butterknife
+    api rootProject.ext.dependencies.easypermissions
+    api rootProject.ext.dependencies.cockroach
+    api rootProject.ext.dependencies.eventbus
+    api rootProject.ext.dependencies.okhttp
+    api rootProject.ext.dependencies.okhttpLogging
+    api rootProject.ext.dependencies.retrofit
+    api rootProject.ext.dependencies.retrofitGson
+    api rootProject.ext.dependencies.retrofitScalars
+    api rootProject.ext.dependencies.retrofitRx2
+    api rootProject.ext.dependencies.rxjava
+    api rootProject.ext.dependencies.rxandroid2
+    api(rootProject.ext.dependencies.rxlifecycle) {
+        exclude group: 'com.google.code.findbugs'
+    }
+    api rootProject.ext.dependencies.retrofitUrlManager
+    api rootProject.ext.dependencies.spinKit
+    api rootProject.ext.dependencies.autolayout
+    api rootProject.ext.dependencies.materialDialogs
+    api rootProject.ext.dependencies.fileprovider
+}

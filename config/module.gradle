@@ -1,0 +1,44 @@
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        ndk {
+            abiFilters 'armeabi-v7a', 'x86'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs 'libs'
+        }
+    }
+}
+
+repositories {
+    flatDir {
+//        String appFlatDir = '../library/base/libs'
+//        String moduleFlatDir = '../' + appFlatDir
+//        String moduleMFlatDir = 'module/m/libs'
+        dirs 'libs'/*, appFlatDir, moduleFlatDir, moduleMFlatDir*/
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.dependencies.supportAnnotations
+    annotationProcessor rootProject.ext.dependencies.butterknifeCompiler
+}

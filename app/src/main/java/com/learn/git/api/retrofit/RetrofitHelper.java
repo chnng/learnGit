@@ -1,8 +1,7 @@
 package com.learn.git.api.retrofit;
 
 import com.learn.git.api.okhttp.OkHttpClientHelper;
-import com.learn.git.server.Server;
-import com.learn.git.server.bean.base.BaseResponse;
+import com.learn.git.bean.base.BaseResponse;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
