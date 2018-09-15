@@ -30,10 +30,7 @@ android {
 
 repositories {
     flatDir {
-//        String appFlatDir = '../library/base/libs'
-//        String moduleFlatDir = '../' + appFlatDir
-//        String moduleMFlatDir = 'module/m/libs'
-        dirs 'libs'/*, appFlatDir, moduleFlatDir, moduleMFlatDir*/
+        dirs 'libs', project.rootDir.path + '/aar'
     }
 }
 

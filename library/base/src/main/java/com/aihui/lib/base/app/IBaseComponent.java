@@ -9,7 +9,7 @@ public interface IBaseComponent {
     /**
      * 设置布局ID
      *
-     * @return
+     * @return contentViewId
      */
     @LayoutRes
     int getContentViewId();

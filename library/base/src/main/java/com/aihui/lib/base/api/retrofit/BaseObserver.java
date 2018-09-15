@@ -1,6 +1,5 @@
 package com.aihui.lib.base.api.retrofit;
 
-
 import io.reactivex.observers.DisposableObserver;
 
 public abstract class BaseObserver<T> extends DisposableObserver<T> {

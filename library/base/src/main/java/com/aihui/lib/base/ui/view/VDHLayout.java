@@ -1,6 +1,7 @@
 package com.aihui.lib.base.ui.view;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -32,14 +33,14 @@ public class VDHLayout extends AutoRelativeLayout {
     private void init() {
         mDragHelper = ViewDragHelper.create(this, 1.0f, new ViewDragHelper.Callback() {
             @Override
-            public boolean tryCaptureView(View child, int pointerId) {
+            public boolean tryCaptureView(@NonNull View child, int pointerId) {
                 //mEdgeTrackerView禁止直接移动
 //                return child.getId()== R.id.rl_video /*|| child.getId() == R.id.patrol_room_view*/;
                 return child.getTag() != null && getContext().getString(R.string.vdh_drag_tag).equals(child.getTag().toString());
             }
 
             @Override
-            public int clampViewPositionHorizontal(View child, int left, int dx) {
+            public int clampViewPositionHorizontal(@NonNull View child, int left, int dx) {
                 int limitLeft = getPaddingLeft();
                 if (left < limitLeft) {
                     return limitLeft;
@@ -52,7 +53,7 @@ public class VDHLayout extends AutoRelativeLayout {
             }
 
             @Override
-            public int clampViewPositionVertical(View child, int top, int dy) {
+            public int clampViewPositionVertical(@NonNull View child, int top, int dy) {
                 int limitTop = getPaddingTop();
                 if (top < limitTop) {
                     return limitTop;
@@ -66,7 +67,7 @@ public class VDHLayout extends AutoRelativeLayout {
 
             //手指释放的时候回调
             @Override
-            public void onViewReleased(View releasedChild, float xvel, float yvel) {
+            public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
 
             }
 
@@ -77,12 +78,12 @@ public class VDHLayout extends AutoRelativeLayout {
             }
 
             @Override
-            public int getViewHorizontalDragRange(View child) {
+            public int getViewHorizontalDragRange(@NonNull View child) {
                 return getMeasuredWidth() - child.getMeasuredWidth();
             }
 
             @Override
-            public int getViewVerticalDragRange(View child) {
+            public int getViewVerticalDragRange(@NonNull View child) {
                 return getMeasuredHeight() - child.getMeasuredHeight();
             }
         });
@@ -98,7 +99,7 @@ public class VDHLayout extends AutoRelativeLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mDragHelper.processTouchEvent(event);
-        return true;
+        return false;
     }
 
     @Override

@@ -9,6 +9,13 @@ ext {
 //            versionName         : '1.0',
 //            defaultPublishConfig: 'release',
 //            publishNonDefault   : true
+
+            // https://developer.android.com/topic/libraries/architecture/adding-components
+            lifecycle_version   : '2.0.0-beta01',
+            room_version        : '2.0.0-beta01',
+            paging_version      : '2.0.0-beta01',
+            nav_version         : '1.0.0-alpha03',
+            work_version        : '1.0.0-alpha04',
     ]
     dependencies = [
             junit               : 'junit:junit:4.12',

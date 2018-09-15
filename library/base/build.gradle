@@ -26,6 +26,7 @@ dependencies {
     api(rootProject.ext.dependencies.rxlifecycle) {
         exclude group: 'com.google.code.findbugs'
     }
+    api rootProject.ext.dependencies.progressmanager
     api rootProject.ext.dependencies.retrofitUrlManager
     api rootProject.ext.dependencies.spinKit
     api rootProject.ext.dependencies.autolayout

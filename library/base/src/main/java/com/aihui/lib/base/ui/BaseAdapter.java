@@ -12,6 +12,13 @@ public abstract class BaseAdapter<T, VH extends BaseViewHolder> extends Recycler
 
     protected List<T> mList;
 
+    public BaseAdapter() {
+    }
+
+    public BaseAdapter(List<T> list) {
+        this.mList = list;
+    }
+
     public List<T> getList() {
         return mList;
     }
@@ -39,11 +46,18 @@ public abstract class BaseAdapter<T, VH extends BaseViewHolder> extends Recycler
             T t = mList.get(position);
             if (t != null) {
                 onBindViewHolder(holder, position, t);
+            } else {
+                onBindViewHolderNullable(holder, position);
             }
+        } else {
+            onBindViewHolderNullable(holder, position);
         }
     }
 
-    public abstract void onBindViewHolder(@NonNull VH holder, int position, @NonNull T bean);
+    protected abstract void onBindViewHolder(@NonNull VH holder, int position, @NonNull T bean);
+
+    protected void onBindViewHolderNullable(@NonNull VH holder, int position) {
+    }
 
     @Override
     public int getItemCount() {
@@ -55,39 +69,4 @@ public abstract class BaseAdapter<T, VH extends BaseViewHolder> extends Recycler
         notifyItemRemoved(position);
         notifyItemChanged(position);
     }
-
-//    public boolean isAllSelected() {
-//        if (mList == null) {
-//            return false;
-//        }
-//        try {
-//            for (T t : mList) {
-//                if (!((BaseSelectBean) t).isSelected) {
-//                    return false;
-//                }
-//            }
-//        } catch (ClassCastException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    public List<T> getSelectedList() {
-//        if (mList == null) {
-//            return null;
-//        }
-//        List<T> list = new ArrayList<>();
-//        try {
-//            for (T t : mList) {
-//                if (((BaseSelectBean) t).isSelected) {
-//                    list.add(t);
-//                }
-//            }
-//        } catch (ClassCastException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//        return list;
-//    }
 }

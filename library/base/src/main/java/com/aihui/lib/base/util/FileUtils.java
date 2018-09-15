@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.os.StatFs;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -200,7 +201,7 @@ public final class FileUtils {
      * @return
      * @throws IOException
      */
-    public static File createFile(File file) throws IOException {
+    public static File createFile(@NonNull File file) throws IOException {
         if (!file.exists()) {
             File parentFile = file.getParentFile();
             boolean ret = true;

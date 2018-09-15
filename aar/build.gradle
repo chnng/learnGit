@@ -1,0 +1,374 @@
+apply plugin: 'com.android.application'
+apply from: '../config/module.gradle'
+
+// 加载 local.properties 资源
+Properties properties = new Properties()
+InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
+properties.load(inputStream)
+
+android {
+    defaultConfig {
+        multiDexEnabled true
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+    }
+//    dexOptions {
+//        javaMaxHeapSize '4g'
+//    }
+    //移除lint检测的error
+    lintOptions {
+        abortOnError false
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+
+    signingConfigs {
+        config {
+            keyAlias properties.getProperty('KEY_ALIAS')
+            keyPassword properties.getProperty('KEY_PASSWORD')
+            storeFile file(properties.getProperty('STORE_FILE'))
+            storePassword properties.getProperty('STORE_PASSWORD')
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            buildConfigField 'boolean', 'AUTH', 'true'
+            resValue "string", "agora_app_id", rootProject.ext.global.agoraAppId
+        }
+        debug {
+            signingConfig signingConfigs.config
+            buildConfigField 'boolean', 'AUTH', 'true'
+            resValue "string", "agora_app_id", rootProject.ext.global.agoraAppId
+        }
+    }
+//    publishNonDefault true
+    flavorDimensions 'app', 'url'
+    productFlavors {
+        // 生产
+        formal {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
+        }
+        // 预生产
+        prepare {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.prepare + rootProject.ext.port.base
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.prepare + rootProject.ext.port.rcLocal
+            buildConfigField 'boolean', 'AUTH', 'false'
+            applicationIdSuffix 'pre'
+        }
+        // 预生产(不替换包名)
+        prepareNoSuffix {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.prepare + rootProject.ext.port.base
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.prepare + rootProject.ext.port.rcLocal
+            buildConfigField 'boolean', 'AUTH', 'false'
+        }
+        // 内网
+        local {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.prepare + rootProject.ext.port.base
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.local + rootProject.ext.port.rcLocal
+            buildConfigField 'boolean', 'AUTH', 'false'
+            applicationIdSuffix 'local'
+        }
+        // 山东淄博中西医结合医院外网
+        ziboFormal {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.ziboFormal + rootProject.ext.port.base
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.ziboFormal + rootProject.ext.port.rcZibo
+        }
+        // 山东淄博中西医结合医院内网
+        ziboLocal {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.ziboLocal + rootProject.ext.port.base
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.ziboLocal + rootProject.ext.port.rcLocal
+        }
+        // 泰兴人民医院新院和老院外网
+        taixingFormal {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.taixingFormal + rootProject.ext.port.base
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.taixingFormal + rootProject.ext.port.rcFormal
+        }
+        // 泰兴人民医院新院和老院内网
+        taixingLocal {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.taixingLocal + rootProject.ext.port.base
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.taixingboLocal + rootProject.ext.port.rcLocal
+        }
+        // 南阳骨科医院外网
+        nanyangFormal {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.nanyangFormal + rootProject.ext.port.base
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.nanyangFormal + rootProject.ext.port.rcFormal
+        }
+        // 南阳骨科医院内网
+        nanyangLocal {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.nanyangLocal + rootProject.ext.port.base
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.nanyangLocal + rootProject.ext.port.rcLocal
+        }
+        // 北京大学深圳医院
+        beidaszLocal {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.beidaszLocal + rootProject.ext.port.base
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.beidaszLocal + rootProject.ext.port.rcLocal
+        }
+//        thH5 {
+//            dimension 'app'
+//            applicationId rootProject.ext.th.applicationId
+//            versionCode rootProject.ext.th.versionCode
+//            versionName rootProject.ext.th.versionName
+//            buildConfigField 'String', 'APP_CODE', rootProject.ext.th.appCode
+//        }
+        thNati {
+            dimension 'app'
+            applicationId rootProject.ext.th.applicationIdNati
+            versionCode rootProject.ext.th.versionCode
+            versionName rootProject.ext.th.versionName
+            buildConfigField 'String', 'APP_CODE', rootProject.ext.th.appCode
+
+            resValue "string", "bugly_app_id", rootProject.ext.th.buglyAppId
+        }
+        mn {
+            dimension 'app'
+            applicationId rootProject.ext.mn.applicationId
+            versionCode rootProject.ext.mn.versionCode
+            versionName rootProject.ext.mn.versionName
+            buildConfigField 'String', 'APP_CODE', rootProject.ext.mn.appCode
+        }
+        mProject {
+            dimension 'app'
+            applicationId rootProject.ext.m.applicationId
+            versionCode rootProject.ext.m.versionCode
+            versionName rootProject.ext.m.versionName
+            minSdkVersion 18
+            buildConfigField 'String', 'APP_CODE', rootProject.ext.m.appCode
+
+            resValue "string", "bugly_app_id", rootProject.ext.m.buglyAppId
+        }
+        expertRemote {
+            dimension 'app'
+            applicationId rootProject.ext.er.applicationId
+            versionCode rootProject.ext.er.versionCode
+            versionName rootProject.ext.er.versionName
+            buildConfigField 'String', 'APP_CODE', rootProject.ext.er.appCode
+        }
+        callVideo {
+            dimension 'app'
+            applicationId rootProject.ext.call.applicationId
+            versionCode rootProject.ext.call.versionCode
+            versionName rootProject.ext.call.versionName
+            buildConfigField 'String', 'APP_CODE', rootProject.ext.call.appCode
+        }
+    }
+
+    android.variantFilter { variant ->
+        def names = variant.flavors*.name
+        // To check for a certain build type, use variant.buildType.name == "<buildType>"
+        def nuanpingApp = (names.contains('callVideo')
+                || names.contains('mProject'))
+        if (variant.buildType.name == 'release') {
+//            variant.getFlavors().each() { flavor ->
+//            }
+//            variant.setIgnore(true)
+        }
+        if (names.contains('prepare')) {
+            // Gradle ignores any variants that satisfy the conditions above.
+            if (nuanpingApp) {
+                setIgnore(true)
+            }
+        } else if (names.contains('prepareNoSuffix')) {
+            if (!nuanpingApp) {
+                setIgnore(true)
+            }
+        } else if (names.contains('local')
+                && !names.contains('mProject')
+                && !names.contains('mn')
+//                && !names.contains('expertRemote')
+        ) {
+            setIgnore(true)
+        } else if (names.contains('ziboFormal')
+                && !names.contains('expertRemote')
+        ) {
+            setIgnore(true)
+        } else if (names.contains('ziboLocal')
+                && !names.contains('mProject')
+                && !names.contains('expertRemote')
+        ) {
+            setIgnore(true)
+        } else if ((names.contains('taixingFormal')
+                || names.contains('nanyangFormal'))
+                && !names.contains('mProject')
+        ) {
+            setIgnore(true)
+        } else if (names.contains('taixingLocal')
+                || names.contains('nanyangLocal')
+        ) {
+            setIgnore(true)
+        } else if ((names.contains('beidaszLocal')
+        )
+                && !names.contains('mn')
+        ) {
+            setIgnore(true)
+        }
+    }
+//    productFlavors.all { flavor ->
+//    }
+    android.applicationVariants.all { variant ->
+//        if (variant.buildType.name == "debug") { //防止AS无法安装debug包(apk)
+//        variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + '/apk')
+//        }
+        variant.outputs.all {
+            def baseName = variant.baseName, flavorName = '', apkName = ''
+            def index = baseName.indexOf('-')
+            def url = baseName.substring(index, baseName.indexOf('-', index + 1))
+            def flavorUrl = url.substring(1)
+            if (flavorUrl != 'formal') {
+                flavorUrl = flavorUrl
+                        .replace('Formal', '')
+                        .replace('prepareNoSuffix', 'p')
+                        .replace('prepare', 'p')
+                        .replace('Prepare', 'P')
+                        .replace('local', 'l')
+                        .replace('Local', 'L')
+//                variant.mergedFlavor.versionName += flavorUrl
+            }
+            if (baseName.contains('thNati')) {
+                flavorName = rootProject.ext.th.appNameNati
+                apkName = rootProject.ext.th.appNameNati + url
+                if (baseName.contains('prepare')) {
+                    flavorName = apkName
+                    variant.buildConfigField 'boolean', 'AUTH', 'false' // 测试版
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.prepare + rootProject.ext.port.th
+                } else {
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.th
+                }
+                variant.mergedFlavor.manifestPlaceholders = [APP_NAME: flavorName, AMAP_KEY: rootProject.ext.th.amapKey]
+            } else if (baseName.contains('thH5')) {
+                flavorName = rootProject.ext.th.appName
+                apkName = rootProject.ext.th.appName + url
+                if (baseName.contains('prepare')) {
+                    flavorName = apkName
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.prepare + rootProject.ext.port.th
+                } else if (baseName.contains('local')) {
+                    flavorName = apkName
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.local + rootProject.ext.port.th
+                } else {
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.th
+                }
+                variant.mergedFlavor.manifestPlaceholders = [APP_NAME: flavorName, AMAP_KEY: rootProject.ext.th.amapKey]
+            } else if (baseName.contains('mn')) {
+                flavorName = rootProject.ext.mn.appName
+                apkName = rootProject.ext.mn.appName + url
+                if (baseName.contains('prepare')) {
+                    flavorName = apkName
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.prepare + rootProject.ext.port.mn
+                } else if (baseName.contains('local')) {
+                    flavorName = apkName
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.local + rootProject.ext.port.mn
+                } else if (baseName.contains('beidaszLocal')) {
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.beidaszLocal + rootProject.ext.port.mn
+                } else {
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
+                }
+                variant.mergedFlavor.manifestPlaceholders = [APP_NAME: flavorName, AMAP_KEY: rootProject.ext.mn.amapKey]
+            } else if (baseName.contains('mProject')) {
+                flavorName = rootProject.ext.m.appName
+                apkName = rootProject.ext.m.appName + url
+                if (baseName.contains('prepare')) {
+                    flavorName = apkName
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.prepare + rootProject.ext.port.mn
+                } else if (baseName.contains('local')) {
+                    flavorName = apkName
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.local + rootProject.ext.port.mLocal
+                } else if (baseName.contains('ziboLocal')) {
+                    // 淄博网页接口为生产域名
+                    variant.buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
+                } else if (baseName.contains('taixingFormal')) {
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.taixingFormal + rootProject.ext.port.mn
+                } else if (baseName.contains('nanyangFormal')) {
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.nanyangFormal + rootProject.ext.port.mn
+                } else {
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
+                }
+                variant.mergedFlavor.manifestPlaceholders = [APP_NAME: flavorName, AMAP_KEY: rootProject.ext.m.amapKey]
+            } else if (baseName.contains('expertRemote')) {
+                flavorName = rootProject.ext.er.appName
+                if (baseName.contains('prepare')) {
+                    flavorName = rootProject.ext.er.appName + url
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.prepare + rootProject.ext.port.erLocal
+                } else if (baseName.contains('local')) {
+                    flavorName = rootProject.ext.er.appName + url
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.local + rootProject.ext.port.erLocal
+                } else if (baseName.contains('ziboFormal')) {
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.ziboFormal + rootProject.ext.port.erZibo
+                } else if (baseName.contains('ziboLocal')) {
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.ziboLocal + rootProject.ext.port.erLocal
+                } else {
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.erFormal
+                }
+                variant.mergedFlavor.manifestPlaceholders = [APP_NAME: flavorName, AMAP_KEY: rootProject.ext.er.amapKey]
+            } else if (baseName.contains('callVideo')) {
+                flavorName = rootProject.ext.call.appName
+                variant.buildConfigField 'String', 'WEB_URL', 'null'
+                if (baseName.contains('prepare')) {
+                    flavorName = rootProject.ext.call.appName + url
+                    variant.buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.prepare + rootProject.ext.port.base
+                }
+                variant.mergedFlavor.manifestPlaceholders = [APP_NAME: flavorName]
+            }
+            print '====>> variant:' + variant.baseName + ' flavor:' + variant.flavorName + ' to ' + flavorName + ' version:' + variant.versionName + '\n'
+            outputFileName = "${flavorName}-v${variant.versionName}_${releaseTime()}.apk"
+        }
+    }
+}
+
+static def releaseTime() {
+    return new Date().format("yyyy-MM-dd"/*_HH:mm:ss*/, TimeZone.getTimeZone("GMT+8"))
+}
+
+repositories {
+    flatDir {
+        dirs 'libs', '../module/m/libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(':library:base')
+    def flag = gradle.ext.COMPILE_FLAG
+//    if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_TH_H5) != 0) {
+//        thH5Implementation project(':module:th:h5')
+//    }
+    if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_TH_NATIVE) != 0) {
+        thNatiImplementation project(':module:th:native')
+    }
+    if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_MN) != 0) {
+        mnImplementation project(':module:mn')
+    }
+    if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_M) != 0) {
+        mProjectImplementation project(':module:m')
+    }
+    if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_ER) != 0) {
+        expertRemoteImplementation project(':module:er')
+    }
+    if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_CALL) != 0) {
+        callVideoImplementation project(':module:call')
+    }
+}

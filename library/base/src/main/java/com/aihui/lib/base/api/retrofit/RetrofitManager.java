@@ -1,6 +1,8 @@
 package com.aihui.lib.base.api.retrofit;
 
 import android.content.ComponentCallbacks;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
@@ -30,6 +32,7 @@ import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import me.jessyan.progressmanager.ProgressManager;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -61,7 +64,7 @@ public class RetrofitManager {
 
     private RetrofitManager() {
         mGson = new Gson();
-        mOkHttpClient = RetrofitUrlManager.getInstance().with(new OkHttpClient.Builder())
+        mOkHttpClient = RetrofitUrlManager.getInstance().with(ProgressManager.getInstance().with(new OkHttpClient.Builder()))
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .addInterceptor(new HttpLoggingInterceptor(LogUtils::http)
                         .setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -144,6 +147,17 @@ public class RetrofitManager {
 
     }
 
+    @Nullable
+    private static <T> LifecycleTransformer<T> lifecycleTransformer(ComponentCallbacks callbacks) {
+        LifecycleTransformer<T> transformer = null;
+        if (callbacks instanceof RxActivity || callbacks instanceof RxAppCompatActivity) {
+            transformer = ((LifecycleProvider<ActivityEvent>) callbacks).bindUntilEvent(ActivityEvent.DESTROY);
+        } else if (callbacks instanceof Fragment || callbacks instanceof android.app.Fragment) {
+            transformer = ((LifecycleProvider<FragmentEvent>) callbacks).bindUntilEvent(FragmentEvent.DESTROY_VIEW);
+        }
+        return transformer;
+    }
+
     public static <T> Transformer<T, T> switchScheduler() {
         return new Transformer<T, T>() {
             @Override
@@ -160,44 +174,48 @@ public class RetrofitManager {
         };
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> Transformer<T, T> switchSchedulerWith(ComponentCallbacks callbacks) {
-        LifecycleTransformer transformer = null;
-        if (callbacks instanceof RxActivity || callbacks instanceof RxAppCompatActivity) {
-            transformer = ((LifecycleProvider) callbacks).bindUntilEvent(ActivityEvent.DESTROY);
-        } else if (callbacks instanceof Fragment || callbacks instanceof android.app.Fragment) {
-            transformer = ((LifecycleProvider) callbacks).bindUntilEvent(FragmentEvent.DESTROY_VIEW);
-        }
+    public static <T> Transformer<T, T> bindLifecycle(ComponentCallbacks callbacks) {
+        LifecycleTransformer<T> transformer = lifecycleTransformer(callbacks);
         if (transformer == null) {
             return new Transformer<T, T>() {
                 @Override
                 public Publisher<T> apply(Flowable<T> upstream) {
-                    return upstream.compose(switchScheduler());
+                    return upstream;
                 }
 
                 @Override
                 public ObservableSource<T> apply(Observable<T> upstream) {
-                    return upstream.compose(switchScheduler());
+                    return upstream;
                 }
             };
         } else {
-            LifecycleTransformer finalTransformer = transformer;
             return new Transformer<T, T>() {
                 @Override
                 public Publisher<T> apply(Flowable<T> upstream) {
-                    return upstream.compose(switchScheduler())
-                            .compose(finalTransformer);
+                    return upstream.compose(transformer);
                 }
 
                 @Override
                 public ObservableSource<T> apply(Observable<T> upstream) {
-                    return upstream.compose(switchScheduler())
-                            .compose(finalTransformer);
+                    return upstream.compose(transformer);
                 }
             };
         }
     }
 
+    public static <T> Transformer<T, T> switchSchedulerWith(ComponentCallbacks callbacks) {
+        return new Transformer<T, T>() {
+            @Override
+            public Publisher<T> apply(Flowable<T> upstream) {
+                return upstream.compose(switchScheduler()).compose(bindLifecycle(callbacks));
+            }
+
+            @Override
+            public ObservableSource<T> apply(Observable<T> upstream) {
+                return upstream.compose(switchScheduler()).compose(bindLifecycle(callbacks));
+            }
+        };
+    }
 //    public static <T> Transformer<BaseResponseBean<T>, T> parseResponseWith(ComponentCallbacks callbacks) {
 //        return new Transformer<BaseResponseBean<T>, T>() {
 //            @Override

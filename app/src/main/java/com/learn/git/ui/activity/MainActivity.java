@@ -24,6 +24,7 @@ import com.learn.git.ui.fragment.OkHttpFragment;
 import com.learn.git.ui.fragment.PermissionFragment;
 import com.learn.git.ui.fragment.PickerFragment;
 import com.learn.git.ui.fragment.RetrofitFragment;
+import com.learn.git.ui.fragment.WebFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -56,6 +57,7 @@ public class MainActivity extends BaseActivity {
                 PickerFragment.class,
                 EmailFragment.class,
                 FFmpegFragment.class,
+                WebFragment.class,
         };
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
         layoutManager.setJustifyContent(JustifyContent.SPACE_AROUND);

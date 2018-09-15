@@ -39,6 +39,8 @@ public final class TimeUtils {
     public final static SimpleDateFormat sdf10 = getSimpleDateFormat("HH:mm:ss");
     // 20180713
     public final static SimpleDateFormat sdf11 = getSimpleDateFormat("yyyyMMdd");
+    // 2018.07.13
+    public final static SimpleDateFormat sdf12 = getSimpleDateFormat("yyyy.MM.dd");
 
     @NonNull
     private static SimpleDateFormat getSimpleDateFormat(String s) {

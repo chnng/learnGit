@@ -55,4 +55,9 @@ public class ParallelHttpClient extends AsyncHttpClient {
             System.setProperty("http.keepAlive", "false");
         }
     }
+
+    @Override
+    public void setConnectionTimeout(int connectionTimeout) {
+        super.setConnectionTimeout(connectionTimeout + 10000);
+    }
 }
