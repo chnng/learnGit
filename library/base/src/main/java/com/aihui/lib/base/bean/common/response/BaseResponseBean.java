@@ -12,40 +12,18 @@ public class BaseResponseBean<T> {
      * Result : T
      */
 
-    private int MessageType;
-    private Object ErrorMessage;
-    private String LogMessage;
-    private T Result;
+    public int MessageType;
+    public Object ErrorMessage;
+    public String LogMessage;
+    public T Result;
 
-    public int getMessageType() {
-        return MessageType;
-    }
-
-    public void setMessageType(int messageType) {
-        MessageType = messageType;
-    }
-
-    public Object getErrorMessage() {
-        return ErrorMessage;
-    }
-
-    public void setErrorMessage(Object errorMessage) {
-        ErrorMessage = errorMessage;
-    }
-
-    public String getLogMessage() {
-        return LogMessage;
-    }
-
-    public void setLogMessage(String logMessage) {
-        LogMessage = logMessage;
-    }
-
-    public T getResult() {
-        return Result;
-    }
-
-    public void setResult(T result) {
-        Result = result;
+    @Override
+    public String toString() {
+        return "BaseResponseBean{" +
+                "MessageType=" + MessageType +
+                ", ErrorMessage=" + ErrorMessage +
+                ", LogMessage='" + LogMessage + '\'' +
+                ", Result=" + Result +
+                '}';
     }
 }

@@ -1,0 +1,137 @@
+xmlns:app="http://schemas.android.com/apk/res-auto"
+【color transparent】
+100% — FF
+95% — F2
+90% — E6
+85% — D9
+80% — CC
+75% — BF
+70% — B3
+65% — A6
+60% — 99
+55% — 8C
+50% — 80
+45% — 73
+40% — 66
+35% — 59
+30% — 4D
+25% — 40
+20% — 33
+15% — 26
+10% — 1A
+5% — 0D
+0% — 00
+
+【time format】
+字母	日期或时间元素			表示	示例
+G		Era 标志符				Text	AD
+y		年								Year	1996; 96
+M		年中的月份				Month	July; Jul; 07
+w		年中的周数				Number	27
+W		月份中的周数			Number	2
+D		年中的天数				Number	189
+d		月份中的天数			Number	10
+F		月份中的星期			Number	2
+E		星期中的天数			Text	Tuesday; Tue
+a		Am/pm 标记			Text	PM
+H		一天中的小时数（0-23）		Number	0
+k		一天中的小时数（1-24）		Number	24
+K		am/pm 中的小时数（0-11）Number	0
+h		am/pm 中的小时数（1-12）Number	12
+m		小时中的分钟数			Number	30
+s		分钟中的秒数			Number	55
+S		毫秒数						Number	978
+z		时区							General time zone	Pacific Standard Time; PST; GMT-08:00
+Z		时区							RFC 822 time zone	-0800
+
+time=14:22:30
+date=2013-9-19
+datetime=2013-9-19 14:22:30
+
+HH:mm							14:22
+h:mm a							2:22 下午
+HH:mm z							14:22 CST
+HH:mm Z							14:22 +0800
+HH:mm zzzz					14:22 中国标准时间
+HH:mm:ss						14:22:30
+yyyy-MM-dd					2013-09-19
+yyyy-MM-dd HH:mm							2013-09-19 14:22
+yyyy-MM-dd HH:mm:ss						2013-09-19 14:22:30
+yyyy-MM-dd HH:mm:ss zzzz				2013-09-19 14:22:30 中国标准时间
+EEEE yyyy-MM-dd HH:mm:ss zzzz		星期四 2013-09-19 14:22:30 中国标准时间
+yyyy-MM-dd HH:mm:ss.SSSZ				2013-09-19 14:22:30.000+0800
+yyyy-MM-dd'T'HH:mm:ss.SSSZ			2013-09-19T14:22:30.000+0800
+yyyy.MM.dd G 'at' HH:mm:ss z			2013.09.19 公元 at 14:22:30 CST
+K:mm a							2:22 下午
+EEE, MMM d, ''yy			星期四, 九月 19, '13
+hh 'o''clock' a, zzzz			02 o'clock 下午, 中国标准时间
+yyyyy.MMMMM.dd GGG hh:mm aaa		02013.九月.19 公元 02:22 下午
+EEE, d MMM yyyy HH:mm:ss Z				星期四, 19 九月 2013 14:22:30 +0800
+yyMMddHHmmssZ									130919142230+0800
+yyyy-MM-dd'T'HH:mm:ss.SSSZ				2013-09-19T14:22:30.000+0800
+EEEE 'DATE('yyyy-MM-dd')' 'TIME('HH:mm:ss')' zzzz
+										星期四 DATE(2013-09-19) TIME(14:22:30) 中国标准时间
+
+【adb/gradle】
+gradlew -q app:dependencies
+adb shell
+top命令 top -m 3 -d 5
+adb shell logcat -v time > c:\logcat.txt
+adb shell dumpsys activity activities | sed -En -e '/Running activities/,/Run #0/p'
+Usage: top [ -m max_procs ] [ -n iterations ] [ -d delay ] [ -s sort_column ] [
+-t ] [ -h ]
+    -m num  Maximum number of processes to display.
+    -n num  Updates to show before exiting.
+    -d num  Seconds to wait between updates.
+    -s col  Column to sort by (cpu,vss,rss,thr).
+    -t      Show threads instead of processes.
+    -h      Display this help screen.
+
+$adb shell getprop dalvik.vm.heapgrowthlimit
+192m
+$adb shell getprop dalvik.vm.heapsize
+512m
+$adb shell getprop dalvik.vm.heapstartsize
+16m
+
+【path】
+CPLUS_INCLUDE_PATH
+
+C_INCLUDEDE_PATH
+%MINGW_HOME%\include;%MINGW_HOME%\lib\gcc\mingw32\4.8.1\include
+
+CPLUS_INCLUDE_PATH
+%MINGW_HOME%\lib\gcc\mingw32\4.8.1\include\c++
+
+MINGW_HOME
+D:\MinGW
+
+LIBRARY_PATH
+%MINGW_HOME%/lib;%MINGW_HOME%/lib/gcc/mingw32/4.8.1
+
+PATH
+;%MINGW_HOME%\bin;%MINGW_HOME%/libexec/gcc/mingw32/4.8.1
+
+NDK_ROOT
+D:\Android\android-ndk-r10b
+
+E:\GitRepositories\cocos2d-x;E:\GitRepositories\cocos2d-x\platform\third_party\android\prebuilt
+
+\Android\sdk\extras\android\m2repository\com\android\support
+C:\Users\Administrator\.gradle\caches\modules-2\files-2.1
+
+【postman】	
+var Nonce = Math.floor(Math.random() * 1000000);
+pm.environment.set("NONCE", Nonce);
+
+var Timestamp = parseInt(Date.now() / 1000);
+pm.environment.set("TIMESTAMP", Timestamp);
+
+const APP_KEY = 'pgyu6atqpn50u';
+const COMMON_KEY = 'Ihcex47z92otgC5cFxZKDKaDeB!IO44Z';
+
+pm.environment.set("key", COMMON_KEY);
+pm.environment.set("SECRET_KEY", SECRET_KEY);
+
+pm.environment.set("SIGNSTR", CryptoJS.MD5("collect" + Nonce + Timestamp).toString());
+CryptoJS.SHA1

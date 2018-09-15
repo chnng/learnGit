@@ -1,0 +1,57 @@
+【keymap】
+Main menu | Refactor | Extract | Field...							Ctrl+1
+Main menu | Refactor | Extract | Variable...					Ctrl+2
+Main menu | Refactor | Extract | Method...					Alt+Shift+M
+Main menu | Navigate | File Structure							Ctrl+O
+Main menu | Navigate | Class...										Ctrl+Shift+T
+Main menu | Navigate | File...										Ctrl+Shift+R
+Main menu | Navigate | Line/Column...							Ctrl+L
+Main menu | Edit | Find | Find Usages							Ctrl+G
+Main menu | Edit | Find | Find in Path...							Ctrl+H
+Main menu | Edit | Find | Add Selection for Next Occurrence		Alt+Y
+Main menu | Code | Move Statement Up						Alt+Up
+Main menu | Code | Move Statement Down					Alt+Down
+Main menu | Code | Comment with Line Comment		Ctrl+/
+Main menu | Code | Completion | Basic						Alt+/
+Main menu | Code | Surround With...							Alt+Shift+Z/Ctrl+Alt+T
+Main menu | Code | Generate...									Alt+Insert
+Main menu | Code | Reformat Code								Ctrl+Shift+F
+Main menu | Code | Optimize Imports							Ctrl+Shift+O
+Main menu | Run | View Breakpoints...							Ctrl+Shift+F8
+Editor Actions | Duplicate Entire Lines							Ctrl+Alt+Down
+Editor Actions | Delete Line											Ctrl+D
+Editor Actions | Toggle Case											Ctrl+Shift+X
+Editor Actions | Start New Line										Shift+Enter
+Other | Show Intention Actions										Alt+Enter
+
+Main menu | Edit | Delete												Delete
+Main menu | Navigate | Type Hierarchy						F4
+Main menu | Refactor | Rename...									Alt+Shift+R
+
+【software】
+http://www.oracle.com/technetwork/java/javase/downloads/index.html
+https://tortoisesvn.net/downloads.html
+https://notepad-plus-plus.org
+http://jiagu.360.cn/qcmshtml/details.html#helper
+https://github.com/shadowsocks/shadowsocks-windows/releases
+http://www.sqliteexpert.com/download.html
+https://git-scm.com/download/win
+https://www.sourcetreeapp.com/
+https://www.getpostman.com/apps
+https://www.charlesproxy.com/download/
+https://www.wireshark.org/#download
+
+https://office.qq.com/download.html
+http://weixin.qq.com/cgi-bin/readtemplate?t=win_weixin&platform=wx&lang=zh_CN
+http://www.ispeak.cn/portal.php
+http://www.foxmail.com/win/download
+http://pan.baidu.com/download
+https://www.teamviewer.us/teamviewer-automatic-download/
+http://player.qq.com
+http://www.videolan.org
+
+http://www.lingoes.cn/zh/translator/download.htm
+https://www.sumatrapdfreader.org/download-free-pdf-viewer.html
+http://markdownpad.com/download.html
+https://www.xmind.cn/zen/
+https://www.advancedrenamer.com/download
