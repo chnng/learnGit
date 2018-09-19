@@ -30,6 +30,9 @@ allprojects {
         jcenter()
         maven { url 'https://jitpack.io' }
         maven { url butterknife_url }
+        maven {
+            url 'http://mvn.gt.igexin.com/nexus/content/repositories/releases/'
+        }
     }
     configurations.all {
         resolutionStrategy {

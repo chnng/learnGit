@@ -78,4 +78,15 @@ ext {
             versionName         : '1.2.3',
             appCode             : 'null',
     ]
+    push = [
+            appName             : '天护推送服务',
+            applicationId       : 'com.aihui.th.push',
+            versionCode         : 1,
+            versionName         : '1.0.0',
+
+            getuiAppId          : 'lJIA9Tfvwv8WEpa1kKYgf9',
+            getuiAppSecret      : 'vAf6ghhXM79FhuLEkQM2X9',
+            getuiAppKey         : 'iOtlP70DwKA2ZWjWVAGvj6',
+            getuiMasterSecret   : 's3ffPzkS6h8KGxzYbexHkA',
+    ]
 }

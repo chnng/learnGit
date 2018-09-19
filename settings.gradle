@@ -1,4 +1,4 @@
-include ':app', ':java', ':okhttp',
+include ':app', ':test', ':java', ':okhttp',
         ':library:base',
         ':library:signalA:parallel-basic-http-client',
         ':library:signalA:SignalA',

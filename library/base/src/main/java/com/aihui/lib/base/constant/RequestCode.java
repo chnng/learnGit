@@ -42,4 +42,5 @@ public class RequestCode {
     public static final int PERMISSION_MEETING = 2005;
     public static final int PERMISSION_PDF = 2006;
     public static final int PERMISSION_PUSH_VIDEO = 2007;
+    public static final int PERMISSION_GETUI = 2008;
 }

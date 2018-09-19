@@ -11,7 +11,7 @@ import retrofit2.http.Query;
  * Created by 路传涛 on 2017/6/1.
  */
 
-public interface HttpServer {
+public interface HttpBaseServer {
 
     /**
      * 上传文件

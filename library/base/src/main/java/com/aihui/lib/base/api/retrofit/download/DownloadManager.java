@@ -4,6 +4,7 @@ import android.accounts.NetworkErrorException;
 import android.support.annotation.NonNull;
 
 import com.aihui.lib.base.api.retrofit.RetrofitManager;
+import com.aihui.lib.base.api.retrofit.server.HttpBaseServer;
 import com.aihui.lib.base.util.FileUtils;
 import com.aihui.lib.base.util.LogUtils;
 
@@ -115,7 +116,7 @@ public class DownloadManager {
 
     /**
      * 通过URL上传文件
-     * {@link com.aihui.lib.base.api.retrofit.server.HttpServer#upload(MultipartBody.Part, String)}
+     * {@link HttpBaseServer#upload(MultipartBody.Part, String)}
      *
      * @param file     下载的文件
      * @param listener 下载结果监听器
@@ -128,7 +129,7 @@ public class DownloadManager {
         RequestBody requestBody = new ProgressRequestBody(delegateBody, listener);
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("file", file.getName(), requestBody);
-        return RetrofitManager.newHttpServer().upload(body, uploadType);
+        return RetrofitManager.newHttpBaseServer().upload(body, uploadType);
     }
 
     private static void safeProgress(OnProgressListener listener, int progress) {

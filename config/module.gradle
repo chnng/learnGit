@@ -26,6 +26,15 @@ android {
             jniLibs.srcDirs 'libs'
         }
     }
+    //移除lint检测的error
+    lintOptions {
+        abortOnError false
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 repositories {

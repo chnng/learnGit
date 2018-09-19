@@ -3,39 +3,18 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //apply plugin: "androidx.navigation.safeargs"
 
-apply from: '../config/module.gradle'
+apply from: '../config/module_app.gradle'
 
 android {
     defaultConfig {
         applicationId 'com.learn.git'
         versionCode 1
         versionName '1.0'
-        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         multiDexEnabled true
     }
 //    dexOptions {
 //        javaMaxHeapSize '4g'
 //    }
-    signingConfigs {
-        config {
-            keyAlias 'chnng'
-            keyPassword '123456'
-            storeFile file('chnng_key_store.jks')
-            storePassword '123456'
-            v1SigningEnabled true
-            v2SigningEnabled true
-        }
-    }
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
-        }
-        debug {
-            signingConfig signingConfigs.config
-        }
-    }
 
     flavorDimensions "default"
     productFlavors {
@@ -56,10 +35,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 //    // https://github.com/yshrsmz/KeyboardVisibilityEvent
 //    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'

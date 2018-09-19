@@ -3,6 +3,7 @@ package com.aihui.lib.base.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.net.NetworkInterface;
@@ -17,57 +18,51 @@ public final class NetworkUtils {
     /**
      * 判断是否有网络连接
      *
-     * @param context
+     * @param context context
      * @return
      */
-    public static boolean isNetworkConnected(Context context) {
-        if (context != null) {
-            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-            if (mNetworkInfo != null) {
-                return mNetworkInfo.isAvailable();
-            }
+    public static boolean isNetworkConnected(@NonNull Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null) {
+            return true;
         }
-        return false;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo == null || networkInfo.isAvailable();
     }
 
     /**
      * 判断WIFI网络是否可用
      *
-     * @param context
+     * @param context context
      * @return
      */
-    public static boolean isWifiConnected(Context context) {
-        if (context != null) {
-            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mWiFiNetworkInfo = mConnectivityManager
-                    .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if (mWiFiNetworkInfo != null) {
-                return mWiFiNetworkInfo.isAvailable();
-            }
+    public static boolean isWifiConnected(@NonNull Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null) {
+            return true;
         }
-        return false;
+        NetworkInfo networkInfo = connectivityManager
+                .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        return networkInfo == null || networkInfo.isAvailable();
     }
 
     /**
      * 判断MOBILE网络是否可用
      *
-     * @param context
+     * @param context context
      * @return
      */
-    public boolean isMobileConnected(Context context) {
-        if (context != null) {
-            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mMobileNetworkInfo = mConnectivityManager
-                    .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            if (mMobileNetworkInfo != null) {
-                return mMobileNetworkInfo.isAvailable();
-            }
+    public boolean isMobileConnected(@NonNull Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null) {
+            return true;
         }
-        return false;
+        NetworkInfo mMobileNetworkInfo = connectivityManager
+                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        return mMobileNetworkInfo == null || mMobileNetworkInfo.isAvailable();
     }
 
     public static String macAddress() {
@@ -91,10 +86,10 @@ public final class NetworkUtils {
                     builder.deleteCharAt(builder.length() - 1);
                 }
                 String mac = builder.toString();
-                Log.d("mac", "interfaceName="+netWork.getName()+", mac="+mac);
+                Log.d("mac", "interfaceName=" + netWork.getName() + ", mac=" + mac);
                 // 从路由器上在线设备的MAC地址列表，可以印证设备Wifi的 name 是 wlan0
                 if (netWork.getName().equals("wlan0")) {
-                    Log.d("mac", " interfaceName ="+netWork.getName()+", mac="+mac);
+                    Log.d("mac", " interfaceName =" + netWork.getName() + ", mac=" + mac);
                     address = mac;
                 }
             }

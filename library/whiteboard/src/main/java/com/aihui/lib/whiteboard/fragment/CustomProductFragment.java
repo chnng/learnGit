@@ -84,7 +84,7 @@ public class CustomProductFragment extends WhiteBoardFragment implements WhiteBo
         }
         ArrayList<CustomProductBody> list = new ArrayList<>();
         list.add(body);
-        RetrofitManager.newHttpServer().updateCustomProduct(list)
+        RetrofitManager.newHttpBaseServer().updateCustomProduct(list)
                 .compose(RetrofitManager.parseResponseWith(this))
                 .subscribe(new BaseObserver<Boolean>() {
                     @Override

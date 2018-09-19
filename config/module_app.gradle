@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+apply from: '../config/module.gradle'
+
+// 加载 local.properties 资源
+Properties properties = new Properties()
+InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
+properties.load(inputStream)
+
+android {
+    defaultConfig {
+        versionCode 1
+        versionName '1.0'
+        resValue "string", "agora_app_id", rootProject.ext.global.agoraAppId
+    }
+    signingConfigs {
+        config {
+            keyAlias 'chnng'
+            keyPassword '123456'
+            storeFile file('../config/chnng_key_store.jks')
+            storePassword '123456'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        if (variant.buildType.name == "debug") { //防止AS无法安装debug包(apk)
+            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + '/apk')
+        }
+    }
+}

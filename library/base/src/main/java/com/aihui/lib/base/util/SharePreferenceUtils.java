@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.widget.ImageView;
 
@@ -22,7 +23,7 @@ public final class SharePreferenceUtils {
     /**
      * 保存在手机里面的文件名
      */
-    public static final String FILE_NAME = "share_data";
+    private static final String FILE_NAME = "share_data";
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
@@ -115,10 +116,10 @@ public final class SharePreferenceUtils {
     /**
      * 保存图片到SharedPreferences
      *
-     * @param mContext
-     * @param imageView
+     * @param context   context
+     * @param imageView imageView
      */
-    public static void putImage(Context mContext, String key, ImageView imageView) {
+    public static void putImage(Context context, String key, ImageView imageView) {
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
         // 将Bitmap压缩成字节数组输出流
@@ -126,19 +127,19 @@ public final class SharePreferenceUtils {
         bitmap.compress(Bitmap.CompressFormat.PNG, 80, byStream);
         // 利用Base64将我们的字节数组输出流转换成String
         byte[] byteArray = byStream.toByteArray();
-        String imgString = new String(Base64.encodeToString(byteArray, Base64.DEFAULT));
+        String imgString = Base64.encodeToString(byteArray, Base64.DEFAULT);
         // 将String保存shareUtils
-        SharePreferenceUtils.put(mContext, key, imgString);
+        SharePreferenceUtils.put(context, key, imgString);
     }
 
     /**
      * 从SharedPreferences读取图片
      *
-     * @param mContext
+     * @param context context
      */
-    public static Bitmap getImage(Context mContext, String key) {
-        String imgString = (String) SharePreferenceUtils.get(mContext, key, "");
-        if (!imgString.equals("")) {
+    public static Bitmap getImage(Context context, String key) {
+        String imgString = (String) SharePreferenceUtils.get(context, key, "");
+        if (!TextUtils.isEmpty(imgString)) {
             // 利用Base64将我们string转换
             byte[] byteArray = Base64.decode(imgString, Base64.DEFAULT);
             ByteArrayInputStream byStream = new ByteArrayInputStream(byteArray);
@@ -176,6 +177,7 @@ public final class SharePreferenceUtils {
                 Class clz = SharedPreferences.Editor.class;
                 return clz.getMethod("apply");
             } catch (NoSuchMethodException e) {
+                e.printStackTrace();
             }
 
             return null;
@@ -191,8 +193,11 @@ public final class SharePreferenceUtils {
                     return;
                 }
             } catch (IllegalArgumentException e) {
+                e.printStackTrace();
             } catch (IllegalAccessException e) {
+                e.printStackTrace();
             } catch (InvocationTargetException e) {
+                e.printStackTrace();
             }
             editor.commit();
         }

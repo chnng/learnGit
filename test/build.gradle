@@ -1,0 +1,35 @@
+apply from: '../config/module_app.gradle'
+
+android {
+    defaultConfig {
+        applicationId 'com.aihui.test'
+        versionCode 1
+        versionName '1.0.0'
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                GETUI_APP_ID    : rootProject.ext.push.getuiAppId,
+                GETUI_APP_KEY   : rootProject.ext.push.getuiAppKey,
+                GETUI_APP_SECRET: rootProject.ext.push.getuiAppSecret
+        ]
+
+        resValue "string", "getui_app_id", rootProject.ext.push.getuiAppId
+        resValue "string", "getui_app_key", rootProject.ext.push.getuiAppKey
+        resValue "string", "getui_app_secret", rootProject.ext.push.getuiAppSecret
+        resValue "string", "getui_master_secret", rootProject.ext.push.getuiMasterSecret
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(':library:base')
+}

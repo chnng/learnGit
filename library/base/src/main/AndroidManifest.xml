@@ -25,5 +25,10 @@
             android:theme="@style/AppTheme.Transparent" />
 
         <service android:name=".ui.update.UpdateService" />
+
+        <activity
+            android:name=".ui.patch.PermissionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/AppTheme.Transparent" />
     </application>
 </manifest>

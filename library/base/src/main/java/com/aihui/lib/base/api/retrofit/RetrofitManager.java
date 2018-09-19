@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
-import com.aihui.lib.base.api.retrofit.server.HttpServer;
+import com.aihui.lib.base.api.retrofit.server.HttpBaseServer;
 import com.aihui.lib.base.app.IBaseCreateTime;
 import com.aihui.lib.base.app.IBaseSort;
 import com.aihui.lib.base.util.LogUtils;
@@ -91,8 +91,8 @@ public class RetrofitManager {
         return getInstance().mRetrofit;
     }
 
-    public static HttpServer newHttpServer() {
-        return getRetrofit().create(HttpServer.class);
+    public static HttpBaseServer newHttpBaseServer() {
+        return getRetrofit().create(HttpBaseServer.class);
     }
 
 //    @NonNull
