@@ -28,9 +28,7 @@ public abstract class BaseApplication extends Application {
             return;
         }
         initData();
-//        if (App.AUTH) {
-            installCockroach();
-//        }
+        installCockroach();
     }
 
     protected abstract void initData();

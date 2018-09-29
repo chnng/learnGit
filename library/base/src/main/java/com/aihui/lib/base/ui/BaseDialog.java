@@ -2,6 +2,7 @@ package com.aihui.lib.base.ui;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -41,5 +42,8 @@ public abstract class BaseDialog extends Dialog implements IBaseComponent {
 
     public Context getBaseContext() {
         return mContext;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 }

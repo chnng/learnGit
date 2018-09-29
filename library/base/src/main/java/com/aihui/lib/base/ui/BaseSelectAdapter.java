@@ -1,5 +1,7 @@
 package com.aihui.lib.base.ui;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.aihui.lib.base.bean.common.response.BaseSelectBean;
 
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.List;
 /**
  * Created by 胡一鸣 on 2018/9/13.
  */
-public abstract class BaseSelectAdapter<T extends BaseSelectBean, VH extends BaseViewHolder> extends BaseAdapter<T, VH> {
+public abstract class BaseSelectAdapter<T extends BaseSelectBean, VH extends RecyclerView.ViewHolder> extends BaseAdapter<T, VH> {
 
     public boolean isAllSelected() {
         if (mList == null) {

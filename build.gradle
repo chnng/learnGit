@@ -36,12 +36,20 @@ allprojects {
     }
     configurations.all {
         resolutionStrategy {
-            force 'com.android.support:appcompat-v7:' + rootProject.ext.android.supportVsersion
-            force 'com.android.support:support-v4:' + rootProject.ext.android.supportVsersion
-            force 'com.android.support:recyclerview-v7:' + rootProject.ext.android.supportVsersion
-            force 'com.android.support:transition:' + rootProject.ext.android.supportVsersion
+            force 'com.android.support:appcompat-v7:' + rootProject.ext.android.supportVersion
+            force 'com.android.support:design:' + rootProject.ext.android.supportVersion
+            force 'com.android.support:recyclerview-v7:' + rootProject.ext.android.supportVersion
+            force 'com.android.support:support-annotations:' + rootProject.ext.android.supportVersion
+            force 'com.android.support:support-compat:' + rootProject.ext.android.supportVersion
+            force 'com.android.support:support-v4:' + rootProject.ext.android.supportVersion
+            force 'com.android.support:transition:' + rootProject.ext.android.supportVersion
+            force 'com.android.support:versionedparcelable:' + rootProject.ext.android.supportVersion
         }
     }
+}
+
+static def releaseTime() {
+    return new Date().format("yyyy-MM-dd"/*_HH:mm:ss*/, TimeZone.getTimeZone("GMT+8"))
 }
 
 task clean(type: Delete) {

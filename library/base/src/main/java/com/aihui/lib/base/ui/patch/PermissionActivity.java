@@ -24,18 +24,23 @@ public class PermissionActivity extends BaseActivity implements EasyPermissions.
     private String mRationaleTitle;
     private String mRationaleContent;
 
-    public static void startPermissionActivity(Context context,
+    public static boolean startPermissionActivity(Context context,
                                                int requestCode,
-                                               String[] requestPermissions,
                                                String rationaleTitle,
-                                               String rationaleContent) {
-        Intent intent = new Intent(context, PermissionActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("requestCode", requestCode);
-        intent.putExtra("requestPermissions", requestPermissions);
-        intent.putExtra("rationaleTitle", rationaleTitle);
-        intent.putExtra("rationaleContent", rationaleContent);
-        context.startActivity(intent);
+                                               String rationaleContent,
+                                               String... requestPermissions) {
+        if (!EasyPermissions.hasPermissions(context, requestPermissions)) {
+            Intent intent = new Intent(context, PermissionActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("requestCode", requestCode);
+            intent.putExtra("rationaleTitle", rationaleTitle);
+            intent.putExtra("rationaleContent", rationaleContent);
+            intent.putExtra("requestPermissions", requestPermissions);
+            context.startActivity(intent);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
@@ -90,10 +95,9 @@ public class PermissionActivity extends BaseActivity implements EasyPermissions.
     }
 
     private void requestPermissions() {
-        if (EasyPermissions.hasPermissions(this, mRequestPermissions)) {
-            onPermissions();
+        if (mRequestPermissions == null || EasyPermissions.hasPermissions(this, mRequestPermissions)) {
             setResult(Activity.RESULT_OK);
-            finish();
+            onPermissions();
         } else {
             EasyPermissions.requestPermissions(this, mRationaleTitle, mRequestCode, mRequestPermissions);
         }

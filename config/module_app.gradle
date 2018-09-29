@@ -10,6 +10,7 @@ android {
     defaultConfig {
         versionCode 1
         versionName '1.0'
+        multiDexEnabled true
         resValue "string", "agora_app_id", rootProject.ext.global.agoraAppId
     }
     signingConfigs {
@@ -24,18 +25,12 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
         debug {
             signingConfig signingConfigs.config
-        }
-    }
-
-    android.applicationVariants.all { variant ->
-        if (variant.buildType.name == "debug") { //防止AS无法安装debug包(apk)
-            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + '/apk')
         }
     }
 }

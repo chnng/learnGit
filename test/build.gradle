@@ -3,9 +3,10 @@ apply from: '../config/module_app.gradle'
 android {
     defaultConfig {
         applicationId 'com.aihui.test'
-        versionCode 1
-        versionName '1.0.0'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'armeabi-v7a', 'x86'
+        }
         manifestPlaceholders = [
                 GETUI_APP_ID    : rootProject.ext.push.getuiAppId,
                 GETUI_APP_KEY   : rootProject.ext.push.getuiAppKey,

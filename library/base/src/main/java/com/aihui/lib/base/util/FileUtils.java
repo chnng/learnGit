@@ -295,9 +295,15 @@ public final class FileUtils {
      * @param fileName 文件路径
      * @return 文件的格式
      */
+    @NonNull
     public static String getFileType(String fileName) {
+        return getFileType(fileName, true);
+    }
+
+    @NonNull
+    public static String getFileType(String fileName, boolean hasPoint) {
         if (TextUtils.isEmpty(fileName)) {
-            return null;
+            return "";
         }
         int indexSeparator = fileName.lastIndexOf('/');
         if (indexSeparator >= 0) {
@@ -305,15 +311,15 @@ public final class FileUtils {
         }
         int indexQuery = fileName.indexOf('?');
         if (indexQuery == 0) {
-            return null;
+            return "";
         } else if (indexQuery > 0) {
             fileName = fileName.substring(0, indexQuery);
         }
         int indexExtension = fileName.lastIndexOf('.');
         if (indexExtension < 0) {
-            return null;
+            return "";
         }
-        return fileName.substring(indexExtension + 1);
+        return fileName.substring(hasPoint ? indexExtension : indexExtension + 1);
     }
 
     public static void writeData2File(String filePath, byte[] data) {

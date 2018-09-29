@@ -1,7 +1,6 @@
 package com.aihui.lib.base.api.retrofit;
 
 import android.content.ComponentCallbacks;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -65,7 +64,7 @@ public class RetrofitManager {
     private RetrofitManager() {
         mGson = new Gson();
         mOkHttpClient = RetrofitUrlManager.getInstance().with(ProgressManager.getInstance().with(new OkHttpClient.Builder()))
-                .connectTimeout(5, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(new HttpLoggingInterceptor(LogUtils::http)
                         .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
@@ -95,14 +94,14 @@ public class RetrofitManager {
         return getRetrofit().create(HttpBaseServer.class);
     }
 
+
 //    @NonNull
 //    public static <T> Function<BaseResponseBean<T>, T> parseResponse() {
 //        return bean -> {
-//            if (bean.getMessageType() != 0) {
-//                Object errorMessage = bean.getErrorMessage();
-//                ToastUtils.toast(bean.getMessageType() + (errorMessage != null ? errorMessage.toString() : ""));
+//            if (bean.MessageType != 0) {
+//                ToastUtils.toast(bean.MessageType + (bean.ErrorMessage != null ? bean.ErrorMessage.toString() : ""));
 //            }
-//            return bean.getResult();
+//            return bean.Result;
 //        };
 //    }
 
@@ -144,7 +143,6 @@ public class RetrofitManager {
     public abstract static class Transformer<Upstream, Downstream> implements
             ObservableTransformer<Upstream, Downstream>,
             FlowableTransformer<Upstream, Downstream> {
-
     }
 
     @Nullable

@@ -120,23 +120,23 @@ public class UpdateActivity extends BaseActivity {
 //    /**
 //     * 更新提示框
 //     *
-//     * @param checkUpdateBean
+//     * @param bean bean
 //     */
-//    private void showUpdateDialog(CheckUpdateBean checkUpdateBean) {
-//        View dialogView = LayoutInflater.from(this).inflate(R.layout.layout_update_dialog, null, false);
+//    private void showUpdateDialog(CheckUpdateBean bean) {
+//        View dialogView = LayoutInflater.from(this).inflate(R.layout.layout_update_dialog, null);
 //        TextView tvUpdateDes = dialogView.findViewById(R.id.tv_update_des);
-//        String fileUrl = checkUpdateBean.down_url;
-//        String versionName = checkUpdateBean.v_name;
-//        String content = checkUpdateBean.remark;
+//        String fileUrl = bean.down_url;
+//        String versionName = bean.v_name;
+//        String content = bean.remark;
 //        content = StringUtils.escapedHtmlString(content);
 //        //格式化content, | 需要转义
 //        String[] contents = content.split("\\|");
-//        StringBuffer des = new StringBuffer();
+//        StringBuilder des = new StringBuilder();
 //        for (int i = 0; i < contents.length; i++) {
 //            if (i == contents.length - 1)
-//                des.append((i + 1) + ". " + contents[i]);
+//                des.append(i + 1).append(". ").append(contents[i]);
 //            else
-//                des.append((i + 1) + ". " + contents[i] + "\n");
+//                des.append(i + 1).append(". ").append(contents[i]).append("\n");
 //        }
 //        tvUpdateDes.setText(Html.fromHtml(des.toString()));
 //        mUpdateDialog = new MaterialDialog.Builder(this)
@@ -170,7 +170,7 @@ public class UpdateActivity extends BaseActivity {
     /**
      * 更新进度提示框
      *
-     * @param url
+     * @param url url
      */
     private void showUpdateProgressDialog(String url) {
         mServiceConnection = new ServiceConnection() {

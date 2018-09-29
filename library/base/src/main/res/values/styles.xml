@@ -16,6 +16,10 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="AppTheme.Fullscreen">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="AppTheme.Transparent.Fullscreen">
         <item name="android:windowFullscreen">true</item>
     </style>

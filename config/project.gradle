@@ -1,17 +1,25 @@
 ext {
     domain = [
             formal              : '"https://hl.smartsky-tech.com',
-            prepare             : '"http://10.65.200.11',
+            prepare             : '"http://10.65.200.12',
             local               : '"http://192.168.10.198',
-            ziboFormal          : '"http://222.134.153.254',
-            ziboLocal           : '"http://10.65.200.2',
-            taixingFormal       : '"http://58.222.194.146',
-            taixingLocal        : '"http://192.169.100.132',
-            nanyangFormal       : '"http://219.154.133.29',
-            nanyangLocal        : '"http://192.169.100.132',
 //          localWebUrl         : '"http://192.168.10.190:8001"', // XJF
 //          localWebUrl         : '"http://192.168.10.198:8023"', // XXW
-            beidaszLocal        : '"http://100.100.100.60'
+            // 山东淄博中西医结合医院
+            淄博中西医formal     : '"http://222.134.153.254',
+            淄博中西医local      : '"http://10.65.200.2',
+            // 泰兴市人民医院
+            泰兴人民formal       : '"http://58.222.194.146',
+            泰兴人民local        : '"http://192.169.100.132',
+            // 南阳市骨科医院(工业路)
+            南阳骨科formal       : '"http://219.154.133.29',
+            南阳骨科local        : '"http://192.169.100.132',
+            // 北京大学深圳医院
+            北大深圳local        : '"http://100.100.100.60',
+            // 广西中医药大学第一附属医院(仙湖院区)
+            广西中医药local       : '"http://192.168.223.26',
+            // 上海市中西医结合医院
+            上海中西医local       : '"http://192.10.6.76',
     ]
     port = [
             base                : ':8094/"',    // 接口端口
@@ -35,8 +43,8 @@ ext {
             appNameNati         : '智能天护',
             applicationId       : 'com.aihui.th',
             applicationIdNati   : 'com.aihui.th',
-            versionCode         : 16,
-            versionName         : '1.1.6',
+            versionCode         : 18,
+            versionName         : '1.1.8',
             urlPort             : 8098,
             appCode             : '"m_client_th"',
             amapKey             : '676530ea235be60032e21f23901a2d3c',
@@ -68,15 +76,17 @@ ext {
             applicationId       : 'com.aihui.er',
             versionCode         : 1,
             versionName         : '1.0.0',
-            appCode             : 'null',
-            amapKey             : 'null',
     ]
     call = [
             appName             : 'VideoCall',
             applicationId       : 'com.aihui.videochat',
-            versionCode         : 7,
-            versionName         : '1.2.3',
-            appCode             : 'null',
+            versionCode         : 9,
+            versionName         : '1.2.5',
+
+            getuiAppId          : 'wxpqDLx55O673xwLJfCH9A',
+            getuiAppSecret      : 'FUqVkwvGUE6DKSQ6uFsqQ6',
+            getuiAppKey         : 'vZLz2RSm5QA9ozFugqexb6',
+            getuiMasterSecret   : 'VDyRevv0jl7bsKpoP6PGz1',
     ]
     push = [
             appName             : '天护推送服务',
@@ -84,9 +94,15 @@ ext {
             versionCode         : 1,
             versionName         : '1.0.0',
 
-            getuiAppId          : 'lJIA9Tfvwv8WEpa1kKYgf9',
-            getuiAppSecret      : 'vAf6ghhXM79FhuLEkQM2X9',
-            getuiAppKey         : 'iOtlP70DwKA2ZWjWVAGvj6',
-            getuiMasterSecret   : 's3ffPzkS6h8KGxzYbexHkA',
+            getuiAppId          : 'XVsr8d2TmZ5Oj33ufkzEs3',
+            getuiAppSecret      : 'RfYmHQ5eKB7vwLED8lHIX5',
+            getuiAppKey         : 'z2GpmvrZtm8EcXvFnx1GP6',
+            getuiMasterSecret   : 'wPYLHaoVY5ALxkxetNmts',
+    ]
+    ydcf = [
+            appName             : '移动查房',
+            applicationId       : 'com.aihui.ydcf',
+            versionCode         : 1,
+            versionName         : '1.0.0',
     ]
 }

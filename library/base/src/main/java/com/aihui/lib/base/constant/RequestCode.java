@@ -3,7 +3,7 @@ package com.aihui.lib.base.constant;
 /**
  * 请求码
  */
-public class RequestCode {
+public final class RequestCode {
 
     /**
      * 1000-1999
@@ -28,6 +28,8 @@ public class RequestCode {
     public static final int RESULT_DRUG_DIC_EDIT = 1008;
     // 安装应用权限页回调
     public static final int RESULT_INSTALL_APK = 1009;
+    // 选择文档文件
+    public static final int RESULT_DOCUMENT_SELECT = 1010;
 
 
     /**

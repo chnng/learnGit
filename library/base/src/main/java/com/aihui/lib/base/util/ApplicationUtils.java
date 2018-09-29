@@ -2,6 +2,7 @@ package com.aihui.lib.base.util;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -38,6 +39,15 @@ public final class ApplicationUtils {
      */
     public static boolean isOreo() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
+    }
+
+    /**
+     * 获取应用程序名称
+     */
+    public static synchronized String getAppName(Context context) {
+        ApplicationInfo applicationInfo = context.getApplicationInfo();
+        int labelRes = applicationInfo.labelRes;
+        return labelRes == 0 ? applicationInfo.nonLocalizedLabel.toString() : context.getString(labelRes);
     }
 
     /**

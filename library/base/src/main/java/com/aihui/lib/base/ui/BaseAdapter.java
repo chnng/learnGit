@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by 胡一鸣 on 2018/8/13.
  */
-public abstract class BaseAdapter<T, VH extends BaseViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
     protected List<T> mList;
 

@@ -699,7 +699,8 @@ public class SketchView extends View implements OnTouchListener {
         if (addBitmap != null) {
             canvas.drawBitmap(addBitmap, 0, 0, null);
         }
-        canvas.save(Canvas.ALL_SAVE_FLAG);
+//        canvas.save(Canvas.ALL_SAVE_FLAG);
+        canvas.save();
         canvas.restore();
 //        return newBM;
         Bitmap bitmap = BitmapUtils.createBitmapThumbnail(newBM, true, 640, 960/*800, 1280*/);

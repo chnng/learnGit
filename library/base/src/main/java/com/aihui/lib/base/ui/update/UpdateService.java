@@ -32,8 +32,8 @@ import java.io.File;
  */
 public class UpdateService extends Service {
 
-    private NotificationCompat.Builder builder;
-    private NotificationManager manager;
+    private NotificationCompat.Builder mNotificationBuilder;
+    private NotificationManager mNotificationManager;
 
     @Nullable
     @Override
@@ -59,10 +59,9 @@ public class UpdateService extends Service {
         }
 
         public void showNotification() {
-            LogUtils.e("showNotification");
-            manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            builder = NotificationUtils.getUpdateBuilder(UpdateService.this);
-            manager.notify(NotificationUtils.ID_UPDATE, builder.build());
+            mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationBuilder = NotificationUtils.getUpdateBuilder(UpdateService.this);
+            mNotificationManager.notify(NotificationUtils.ID_UPDATE, mNotificationBuilder.build());
 
         }
     }
@@ -70,8 +69,7 @@ public class UpdateService extends Service {
     /**
      * 下载apk文件
      *
-     * @param url
-     * @param url
+     * @param url url
      */
     private void downloadApk(String url) {
         if (TextUtils.isEmpty(url)) {
@@ -83,10 +81,10 @@ public class UpdateService extends Service {
         DownloadManager.downloadFile(url, fileDir, fileName, new OnProgressListener() {
             @Override
             public void onProgress(int progress) {
-                if (builder != null) {
-                    builder.setContentText(progress + "%");
-                    builder.setProgress(100, progress, false);
-                    manager.notify(NotificationUtils.ID_UPDATE, builder.build());
+                if (mNotificationBuilder != null) {
+                    mNotificationBuilder.setContentText(progress + "%");
+                    mNotificationBuilder.setProgress(100, progress, false);
+                    mNotificationManager.notify(NotificationUtils.ID_UPDATE, mNotificationBuilder.build());
                 } else {
                     EventBus.getDefault().post(new EventMessage<>(EventTag.EVENT_UPDATE_DOWNLOAD_PROGRESS, progress));
                 }
@@ -96,18 +94,18 @@ public class UpdateService extends Service {
             public void onSuccess(@NonNull File file) {
                 String apkPath = file.getAbsolutePath();
 //                SharePreferenceUtils.put(UpdateService.this, App.APK_PATH, apkPath);
-                if (builder != null) {
-                    builder.setContentTitle(getString(R.string.click_install));
+                if (mNotificationBuilder != null) {
+                    mNotificationBuilder.setContentTitle(getString(R.string.click_install));
                     //设置点击事件
                     PendingIntent pendingIntent = PendingIntent.getActivity(
                             UpdateService.this, 0, UpdateUtils.getApkInstallIntent(apkPath), PendingIntent.FLAG_ONE_SHOT);
-                    builder.setContentIntent(pendingIntent);
+                    mNotificationBuilder.setContentIntent(pendingIntent);
                     //设置点击取消通知栏显示
-                    Notification notification = builder.build();
+                    Notification notification = mNotificationBuilder.build();
                     notification.flags = Notification.FLAG_AUTO_CANCEL;
                     //更新通知栏
-                    manager.notify(NotificationUtils.ID_UPDATE, notification);
-                    builder = null;
+                    mNotificationManager.notify(NotificationUtils.ID_UPDATE, notification);
+                    mNotificationBuilder = null;
                 } else {
                     EventBus.getDefault().post(new EventMessage<>(EventTag.EVENT_UPDATE_DOWNLOAD_RESULT, apkPath));
                 }
@@ -117,11 +115,11 @@ public class UpdateService extends Service {
             @Override
             public void onFailure(@NonNull Exception e, @NonNull File file) {
 //                SharePreferenceUtils.remove(UpdateService.this, App.APK_PATH);
-                if (builder != null) {
-                    builder.setContentTitle(getString(R.string.update_fail));
-                    builder.setContentText(e.getMessage());
-                    manager.notify(NotificationUtils.ID_UPDATE, builder.build());
-                    builder = null;
+                if (mNotificationBuilder != null) {
+                    mNotificationBuilder.setContentTitle(getString(R.string.update_fail));
+                    mNotificationBuilder.setContentText(e.getMessage());
+                    mNotificationManager.notify(NotificationUtils.ID_UPDATE, mNotificationBuilder.build());
+                    mNotificationBuilder = null;
                 } else {
                     EventBus.getDefault().post(new EventMessage<>(EventTag.EVENT_UPDATE_DOWNLOAD_RESULT, null));
                 }

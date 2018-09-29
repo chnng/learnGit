@@ -6,5 +6,6 @@ include ':app', ':test', ':java', ':okhttp',
         ':library:agentweb',
         ':library:javamail',
         ':library:mp3recorder',
-        ':library:whiteboard'
+        ':library:whiteboard',
+        ':speechDemo'
 //        ':library:ffmpeg'
