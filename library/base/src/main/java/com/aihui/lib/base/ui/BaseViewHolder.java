@@ -18,7 +18,7 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
         this(LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false));
     }
 
-    private BaseViewHolder(View itemView) {
+    public BaseViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }

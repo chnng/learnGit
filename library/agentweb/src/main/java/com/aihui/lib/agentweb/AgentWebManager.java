@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
@@ -54,8 +55,9 @@ public class AgentWebManager {
         }
         mAgentWeb = preAgentWeb.go(webUrl);
         mAgentWeb.getJsInterfaceHolder().addJavaObject(mark, object);
-        mAgentWeb.getAgentWebSettings().getWebSettings().setUseWideViewPort(false);
-        mAgentWeb.getAgentWebSettings().getWebSettings().setLoadWithOverviewMode(false);
+        WebSettings settings = mAgentWeb.getAgentWebSettings().getWebSettings();
+        settings.setUseWideViewPort(false);
+        settings.setLoadWithOverviewMode(false);
         if (mIsWebTransparent) {
             WebView webView = mAgentWeb.getWebCreator().get();
             webView.setBackgroundColor(Color.TRANSPARENT);
@@ -71,10 +73,7 @@ public class AgentWebManager {
     }
 
     public boolean handleKeyEvent(int keyCode, KeyEvent event) {
-        if (mAgentWeb != null) {
-            return mAgentWeb.handleKeyEvent(keyCode, event);
-        }
-        return false;
+        return mAgentWeb != null && mAgentWeb.handleKeyEvent(keyCode, event);
     }
 
     public void callJsMethod(String methodName, String... params) {

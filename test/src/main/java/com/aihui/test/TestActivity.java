@@ -1,13 +1,18 @@
 package com.aihui.test;
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.widget.TextView;
 
+import com.aihui.lib.base.util.DensityUtils;
 import com.aihui.lib.base.util.DiskUtils;
 import com.aihui.lib.base.util.ExtFileUtils;
 import com.aihui.lib.base.util.LogUtils;
+import com.aihui.lib.base.util.SystemUIUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +26,19 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTvContent = findViewById(R.id.text_view);
+
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        mTvContent.setText("screen w:" + displayMetrics.widthPixels + " h:" + displayMetrics.heightPixels + " density:" + displayMetrics.scaledDensity);
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        mTvContent.append("\nscreen w:" + dm.widthPixels + " h:" + dm.heightPixels + " density:" + dm.scaledDensity);
+        Display display = getWindowManager().getDefaultDisplay();
+        mTvContent.append("\nscreen w:" + display.getWidth() + " h:" + display.getHeight());
+        Point point = new Point();
+        display.getRealSize(point);
+        mTvContent.append("\nscreen w:" + point.x + " h:" + point.y);
+        mTvContent.append("\nscreen w:" + DensityUtils.getScreenWidth(this) + " h:" + DensityUtils.getScreenHeight(this));
+        mTvContent.append("\nscreen status bar:" + SystemUIUtils.getStatusBarHeight(this));
     }
 
     public void onClick(View view) {
