@@ -16,6 +16,7 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.learn.git.R;
 import com.learn.git.app.MessageCons;
+import com.learn.git.ui.fragment.DocFragment;
 import com.learn.git.ui.fragment.EmailFragment;
 import com.learn.git.ui.fragment.EventBusFragment;
 import com.learn.git.ui.fragment.FFmpegFragment;
@@ -58,6 +59,7 @@ public class MainActivity extends BaseActivity {
                 EmailFragment.class,
                 FFmpegFragment.class,
                 WebFragment.class,
+                DocFragment.class,
         };
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
         layoutManager.setJustifyContent(JustifyContent.SPACE_AROUND);

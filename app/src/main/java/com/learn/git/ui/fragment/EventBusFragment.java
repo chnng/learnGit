@@ -16,14 +16,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class EventBusFragment extends MyFragment {
-    @BindView(R.id.textView_response)
-    TextView tvResponse;
-
-
-    @Override
-    public int getContentViewId() {
-        return R.layout.fragment_test;
-    }
 
     @OnClick({R.id.button_request, R.id.button_cancel})
     public void onClick(View v) {
@@ -35,9 +27,8 @@ public class EventBusFragment extends MyFragment {
                 });
                 break;
             case R.id.button_cancel:
-                new Thread(() -> EventBus.getDefault()
-                        .post(new EventMessage<>(MessageCons.TEST_1, "fragment create")))
-                        .start();
+                new Thread(() -> EventBus.getDefault().post(new EventMessage<>(MessageCons
+                        .TEST_1, "fragment create"))).start();
                 break;
         }
     }

@@ -2,7 +2,6 @@ package com.learn.git.ui.fragment;
 
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.widget.TextView;
 
 import com.aihui.lib.base.util.LogUtils;
 import com.learn.git.R;
@@ -17,7 +16,6 @@ import com.learn.git.ui.common.MyFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -26,15 +24,8 @@ import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 
 public class RetrofitFragment extends MyFragment {
-    @BindView(R.id.textView_response)
-    TextView tvResponse;
 
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
-
-    @Override
-    public int getContentViewId() {
-        return R.layout.fragment_test;
-    }
 
     @Override
     public void initData() {

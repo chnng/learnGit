@@ -8,6 +8,5 @@ import com.aihui.lib.base.app.BaseApplication;
 public class MyApplication extends BaseApplication {
     @Override
     protected void initData() {
-
     }
 }

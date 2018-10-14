@@ -15,13 +15,6 @@ import butterknife.OnClick;
  * Created by 胡一鸣 on 2018/8/23.
  */
 public class EmailFragment extends MyFragment {
-    @BindView(R.id.textView_response)
-    TextView tvResponse;
-
-    @Override
-    public int getContentViewId() {
-        return R.layout.fragment_test;
-    }
 
     @OnClick({R.id.button_request, R.id.button_cancel})
     public void onClick(View v) {

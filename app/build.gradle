@@ -63,7 +63,8 @@ dependencies {
     implementation rootProject.ext.dependencies.carousellayoutmanager
     implementation project(path: ':library:base')
     implementation project(path: ':library:javamail')
+    implementation project(path: ':library:poi')
 //    implementation project(path: ':library:ffmpeg')
-    implementation name: 'ffmpeg', ext: 'aar'
+//    implementation name: 'ffmpeg', ext: 'aar'
     implementation project(path: ':library:agentweb')
 }

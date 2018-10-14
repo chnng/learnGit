@@ -19,34 +19,25 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class OkHttpFragment extends MyFragment {
-    @BindView(R.id.textView_response)
-    TextView tvResponse;
-
-    @Override
-    public int getContentViewId() {
-        return R.layout.fragment_test;
-    }
 
     @OnClick({R.id.button_request, R.id.button_cancel})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_request:
-                final Request request =
-                        new Request.Builder().url("http://httpbin.org/delay/5").build();
+                final Request request = new Request.Builder().url("http://httpbin.org/delay/5")
+                        .build();
                 OkHttpClientHelper.get().newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NonNull Call call, @NonNull final IOException e) {
-                        Log.d("MainActivity",
-                                "onFailure:" + Thread.currentThread().getName());
-                        tvResponse.post(() -> tvResponse.setText("onFailure:" + e.toString() + '\n' +
-                                request.headers().toString()));
+                        Log.d("MainActivity", "onFailure:" + Thread.currentThread().getName());
+                        tvResponse.post(() -> tvResponse.setText("onFailure:" + e.toString() +
+                                '\n' + request.headers().toString()));
                     }
 
                     @Override
-                    public void onResponse(@NonNull Call call, @NonNull Response response)
-                            throws IOException {
-                        Log.d("MainActivity",
-                                "onResponse:" + Thread.currentThread().getName());
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws
+                            IOException {
+                        Log.d("MainActivity", "onResponse:" + Thread.currentThread().getName());
                         final String result = response.body().string();
                         tvResponse.post(() -> tvResponse.setText("onResponse:" + result));
                     }

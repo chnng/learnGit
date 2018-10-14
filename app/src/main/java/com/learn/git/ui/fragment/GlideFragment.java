@@ -13,20 +13,16 @@ import butterknife.OnClick;
 public class GlideFragment extends MyFragment {
     @BindView(R.id.imageView_response)
     ImageView imageView;
-    @Override
-    public int getContentViewId() {
-        return R.layout.fragment_test;
-    }
 
     @OnClick({R.id.button_request, R.id.button_cancel})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_request:
-                GlideApp.with(this)
-                        .load("https://m.360buyimg.com/babel/jfs/t24064/296/860700114/93455/937aca0c/5b46c2a6N2bfcef4b.jpg")
-                        .customOption()
-//                        .apply(RequestOptions.circleCropTransform())
-//                        .transform(new CropCircleTransformation())
+                GlideApp.with(this).load("https://m.360buyimg" + "" + "" +
+                        ".com/babel/jfs/t24064/296/860700114/93455/937aca0c/5b46c2a6N2bfcef4b" +
+                        ".jpg").customOption()
+                        //                        .apply(RequestOptions.circleCropTransform())
+                        //                        .transform(new CropCircleTransformation())
                         .into(imageView);
                 break;
             case R.id.button_cancel:
