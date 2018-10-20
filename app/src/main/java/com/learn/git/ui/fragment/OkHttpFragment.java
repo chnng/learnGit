@@ -3,7 +3,6 @@ package com.learn.git.ui.fragment;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.learn.git.R;
 import com.learn.git.api.okhttp.OkHttpClientHelper;
@@ -11,7 +10,6 @@ import com.learn.git.ui.common.MyFragment;
 
 import java.io.IOException;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;

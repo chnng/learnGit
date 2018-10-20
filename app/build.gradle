@@ -18,13 +18,13 @@ android {
 
     flavorDimensions "default"
     productFlavors {
-        product {
+        Formal {
             resValue "string", "appName", 'learnGit'
             buildConfigField 'String', 'HOST', '"https://www.baidu.com/"'
             manifestPlaceholders = ["APP_KEY": "123456789"]
         }
 
-        temp {
+        Demo {
             applicationId 'com.learn.git_t'
             resValue "string", "appName", 'learnTemp'
             buildConfigField 'String', 'HOST', '"http://192.168.0.1/"'
@@ -36,8 +36,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-//    // https://github.com/yshrsmz/KeyboardVisibilityEvent
-//    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
 //    // https://github.com/search?l=Java&o=desc&q=Keyboard&s=stars&type=Repositories
 //    implementation 'com.github.w446108264:XhsEmoticonsKeyboard:2.0.4'
 //    // https://github.com/wasabeef/glide-transformations
@@ -45,6 +43,11 @@ dependencies {
 //    // If you want to use the GPU Filters
 //    implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
 
+    implementation project(path: ':library:base')
+    implementation project(path: ':library:javamail')
+//    implementation project(path: ':library:ffmpeg')
+//    implementation name: 'ffmpeg', ext: 'aar'
+    implementation project(path: ':library:agentweb')
     annotationProcessor rootProject.ext.dependencies.glideCompiler
     implementation(rootProject.ext.dependencies.glide) {
         exclude group: "com.android.support"
@@ -52,19 +55,13 @@ dependencies {
     implementation(rootProject.ext.dependencies.glideOkhttp) {
         exclude group: 'com.squareup.okhttp3'
     }
-//    implementation rootProject.ext.dependencies.buglyJava
-//    implementation rootProject.ext.dependencies.buglyNative
     implementation rootProject.ext.dependencies.flexbox
-    implementation rootProject.ext.dependencies.smartRefreshLayout
-    implementation rootProject.ext.dependencies.pickerView
-    implementation rootProject.ext.dependencies.mpAndroidChart
-    debugImplementation rootProject.ext.dependencies.youthBanner
-    implementation rootProject.ext.dependencies.mzBannerView
-    implementation rootProject.ext.dependencies.carousellayoutmanager
-    implementation project(path: ':library:base')
-    implementation project(path: ':library:javamail')
-    implementation project(path: ':library:poi')
-//    implementation project(path: ':library:ffmpeg')
-//    implementation name: 'ffmpeg', ext: 'aar'
-    implementation project(path: ':library:agentweb')
+//    implementation rootProject.ext.dependencies.smartRefreshLayout
+//    implementation rootProject.ext.dependencies.pickerView
+//    implementation rootProject.ext.dependencies.mpAndroidChart
+//    debugImplementation rootProject.ext.dependencies.youthBanner
+//    implementation rootProject.ext.dependencies.mzBannerView
+//    implementation rootProject.ext.dependencies.carousellayoutmanager
+    implementation rootProject.ext.dependencies.poiScratchpad
+    implementation rootProject.ext.dependencies.poiOoxml
 }

@@ -10,7 +10,6 @@ import static android.media.AudioManager.AUDIOFOCUS_LOSS_TRANSIENT;
 
 /**
  * Created by hss01248 on 12/29/2015.
- * https://github.com/hss01248/AndroidMP3Recorder
  */
 public class Mp3Recorder {
     private int mMaxDuration = (int) TimeUnit.MINUTES.toMillis(5);// 最长录音时间，单位：毫秒

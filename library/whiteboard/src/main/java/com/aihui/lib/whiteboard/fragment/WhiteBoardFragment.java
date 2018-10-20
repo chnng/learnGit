@@ -56,7 +56,6 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-// https://github.com/dsbGenius/WhiteBoard
 public class WhiteBoardFragment extends RxFragment implements SketchView.OnDrawChangedListener, View.OnClickListener, IBaseComponent {
 
     final String TAG = getClass().getSimpleName();

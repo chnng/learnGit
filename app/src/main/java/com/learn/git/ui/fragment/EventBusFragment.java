@@ -1,18 +1,16 @@
 package com.learn.git.ui.fragment;
 
 import android.view.View;
-import android.widget.TextView;
 
 import com.aihui.lib.base.api.eventbus.EventMessage;
 import com.aihui.lib.base.util.HandlerUtils;
 import com.aihui.lib.base.util.ToastUtils;
 import com.learn.git.R;
-import com.learn.git.app.MessageCons;
+import com.learn.git.cons.EventTag;
 import com.learn.git.ui.common.MyFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 public class EventBusFragment extends MyFragment {
@@ -27,7 +25,7 @@ public class EventBusFragment extends MyFragment {
                 });
                 break;
             case R.id.button_cancel:
-                new Thread(() -> EventBus.getDefault().post(new EventMessage<>(MessageCons
+                new Thread(() -> EventBus.getDefault().post(new EventMessage<>(EventTag
                         .TEST_1, "fragment create"))).start();
                 break;
         }
@@ -37,7 +35,7 @@ public class EventBusFragment extends MyFragment {
     public void onMessage(EventMessage event) {
         super.onMessage(event);
         switch (event.getKey()) {
-            case MessageCons.TEST_0:
+            case EventTag.TEST_0:
                 new Thread(() -> ToastUtils.toast(event.getValue().toString())).start();
                 break;
         }

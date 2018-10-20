@@ -1,6 +1,7 @@
 package com.aihui.lib.base.api.retrofit;
 
 import android.content.ComponentCallbacks;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -8,8 +9,10 @@ import android.text.TextUtils;
 import com.aihui.lib.base.api.retrofit.server.HttpBaseServer;
 import com.aihui.lib.base.app.IBaseCreateTime;
 import com.aihui.lib.base.app.IBaseSort;
+import com.aihui.lib.base.bean.common.response.BaseResponseBean;
 import com.aihui.lib.base.util.LogUtils;
 import com.aihui.lib.base.util.TimeUtils;
+import com.aihui.lib.base.util.ToastUtils;
 import com.google.gson.Gson;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.LifecycleTransformer;
@@ -30,6 +33,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.progressmanager.ProgressManager;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
@@ -95,15 +99,16 @@ public class RetrofitManager {
     }
 
 
-//    @NonNull
-//    public static <T> Function<BaseResponseBean<T>, T> parseResponse() {
-//        return bean -> {
-//            if (bean.MessageType != 0) {
-//                ToastUtils.toast(bean.MessageType + (bean.ErrorMessage != null ? bean.ErrorMessage.toString() : ""));
-//            }
-//            return bean.Result;
-//        };
-//    }
+
+    @NonNull
+    public static <T> Function<BaseResponseBean<T>, T> parseResponse() {
+        return bean -> {
+            if (bean.MessageType != 0) {
+                ToastUtils.toast(bean.MessageType + (bean.ErrorMessage != null ? bean.ErrorMessage.toString() : ""));
+            }
+            return bean.Result;
+        };
+    }
 
     public static <T extends IBaseSort> List<T> sort(List<T> list) {
         return sort(list, true);
@@ -214,19 +219,20 @@ public class RetrofitManager {
             }
         };
     }
-//    public static <T> Transformer<BaseResponseBean<T>, T> parseResponseWith(ComponentCallbacks callbacks) {
-//        return new Transformer<BaseResponseBean<T>, T>() {
-//            @Override
-//            public Publisher<T> apply(Flowable<BaseResponseBean<T>> upstream) {
-//                return upstream.map(parseResponse())
-//                        .compose(switchSchedulerWith(callbacks));
-//            }
-//
-//            @Override
-//            public ObservableSource<T> apply(Observable<BaseResponseBean<T>> upstream) {
-//                return upstream.map(parseResponse())
-//                        .compose(switchSchedulerWith(callbacks));
-//            }
-//        };
-//    }
+
+    public static <T> Transformer<BaseResponseBean<T>, T> parseResponseWith(ComponentCallbacks callbacks) {
+        return new Transformer<BaseResponseBean<T>, T>() {
+            @Override
+            public Publisher<T> apply(Flowable<BaseResponseBean<T>> upstream) {
+                return upstream.map(parseResponse())
+                        .compose(switchSchedulerWith(callbacks));
+            }
+
+            @Override
+            public ObservableSource<T> apply(Observable<BaseResponseBean<T>> upstream) {
+                return upstream.map(parseResponse())
+                        .compose(switchSchedulerWith(callbacks));
+            }
+        };
+    }
 }

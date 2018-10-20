@@ -135,8 +135,8 @@ public class MailSender {
      * @param info
      * @param listener
      */
-    public static void sendFileMail(MailInfo info, File file, OnSendListener listener) {
-        Message attachmentMail = createAttachmentMail(info, file);
+    public static void sendFileMail(MailInfo info, File[] files, OnSendListener listener) {
+        Message attachmentMail = createAttachmentMail(info, files);
         try {
             Transport.send(attachmentMail);
         } catch (MessagingException e) {
@@ -153,7 +153,7 @@ public class MailSender {
      *
      * @return
      */
-    private static Message createAttachmentMail(final MailInfo info, File file) {
+    private static Message createAttachmentMail(final MailInfo info, File[] files) {
         //创建邮件
         MimeMessage message = null;
         Properties pro = info.getProperties();
@@ -186,18 +186,21 @@ public class MailSender {
             // 创建容器描述数据关系
             MimeMultipart mp = new MimeMultipart();
             mp.addBodyPart(text);
-            // 创建邮件附件
-            MimeBodyPart attach = new MimeBodyPart();
-
-            FileDataSource ds = new FileDataSource(file);
-            DataHandler dh = new DataHandler(ds);
-            attach.setDataHandler(dh);
-            attach.setFileName(MimeUtility.encodeText(dh.getName()));
-            mp.addBodyPart(attach);
+            for (File file : files) {
+                if (file == null || !file.exists()) {
+                    continue;
+                }
+                // 创建邮件附件
+                MimeBodyPart attach = new MimeBodyPart();
+                FileDataSource ds = new FileDataSource(file);
+                DataHandler dh = new DataHandler(ds);
+                attach.setDataHandler(dh);
+                attach.setFileName(MimeUtility.encodeText(dh.getName()));
+                mp.addBodyPart(attach);
+            }
             mp.setSubType("mixed");
             message.setContent(mp);
             message.saveChanges();
-
         } catch (Exception e) {
             Log.e("TAG", "创建带附件的邮件失败");
             e.printStackTrace();
@@ -208,6 +211,7 @@ public class MailSender {
 
     public interface OnSendListener {
         void onSuccess();
+
         void onFailure(Exception e);
     }
 }

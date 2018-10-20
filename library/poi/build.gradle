@@ -1,8 +1,0 @@
-apply plugin: 'com.android.library'
-apply from: '../../config/module.gradle'
-
-dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
-    api fileTree(dir: 'libs/lib', include: ['*.jar'])
-    api fileTree(dir: 'libs/ooxml-lib', include: ['*.jar'])
-}

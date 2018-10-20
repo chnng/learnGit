@@ -105,9 +105,9 @@ ext {
             // http://docs.getui.com/getui/mobile/android/androidstudio/
             getuiSdk               : 'com.getui:sdk:2.12.5.0',
             // https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad
-            poiScratchpad          : 'org.apache.poi:poi-scratchpad:3.13', // doc
+            poiScratchpad          : 'org.apache.poi:poi-scratchpad:3.9', // doc
             // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
-            poiOoxml               : 'org.apache.poi:poi-ooxml:3.13', // docx
+            poiOoxml               : 'org.apache.poi:poi-ooxml:3.9', // docx
             // https://github.com/yshrsmz/KeyboardVisibilityEvent
             keyboardvisibilityevent: 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0',
     ]

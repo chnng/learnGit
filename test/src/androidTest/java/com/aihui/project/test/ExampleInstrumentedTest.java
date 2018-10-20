@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.aihui.lib.base.util.FileUtils;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -21,6 +23,14 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.aihui.project.test.test", appContext.getPackageName());
+        assertEquals("com.aihui.test", appContext.getPackageName());
+    }
+
+    @Test
+    public void fileName() {
+        String filePath = "dsadsa/dsadasd/fasfsaf/dddd.xxx?dsdsd=#3&sdka";
+        System.out.println(FileUtils.getName(filePath));
+        System.out.println(FileUtils.getExtension(filePath));
+        System.out.println(FileUtils.getSimpleName(filePath));
     }
 }

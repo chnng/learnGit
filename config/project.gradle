@@ -1,6 +1,8 @@
 ext {
     domain = [
             formal              : '"https://hl.smartsky-tech.com',
+            demo                : '"http://10.65.200.11',
+            demoWeb             : '"https://10.65.200.11',
             prepare             : '"http://10.65.200.12',
             local               : '"http://192.168.10.198',
 //          localWebUrl         : '"http://192.168.10.190:8001"', // XJF
@@ -18,11 +20,16 @@ ext {
             北大深圳local        : '"http://100.100.100.60',
             // 广西中医药大学第一附属医院(仙湖院区)
             广西中医药local       : '"http://192.168.223.26',
+            // 广西中医药大学第一附属医院(仙湖院区)
+            广西中医药formal       : '"http://113.16.166.141',
             // 上海市中西医结合医院
             上海中西医local       : '"http://192.10.6.76',
+            // 无锡市第三人民医院
+            无锡三院local        : '"http://192.168.161.165',
     ]
     port = [
             base                : ':8094/"',    // 接口端口
+            ydcfApi             : ':8194/"',    // 移动查房接口端口
 
             rcLocal             : ':8190/"',    // RC本地端口
             rcFormal            : ':8891/"',    // RC正式端口
@@ -43,8 +50,8 @@ ext {
             appNameNati         : '智能天护',
             applicationId       : 'com.aihui.th',
             applicationIdNati   : 'com.aihui.th',
-            versionCode         : 18,
-            versionName         : '1.1.8',
+            versionCode         : 19,
+            versionName         : '1.1.9',
             urlPort             : 8098,
             appCode             : '"m_client_th"',
             amapKey             : '676530ea235be60032e21f23901a2d3c',
@@ -55,16 +62,16 @@ ext {
     mn = [
             appName             : '智能护士',
             applicationId       : 'com.aihui.mn',
-            versionCode         : 35,
-            versionName         : '1.0.35',
+            versionCode         : 34,
+            versionName         : '1.0.34',
             appCode             : '"m_client_n"',
             amapKey             : '886d84f24ed9d0cd9c54450879ebcc73',
     ]
     m = [
-            appName             : '智能护理',
+            appName             : 'chuangpang',
             applicationId       : 'com.aihui.m',
-            versionCode         : 43,
-            versionName         : '1.43.0',
+            versionCode         : 39,
+            versionName         : '1.39.0',
             appCode             : '"m_client_a"',
             amapKey             : '04ff2f38dd537c04dc465b4b8d2496b4',
 
@@ -76,6 +83,7 @@ ext {
             applicationId       : 'com.aihui.er',
             versionCode         : 1,
             versionName         : '1.0.0',
+            appCode             : '"m_client_er"',
     ]
     call = [
             appName             : 'VideoCall',

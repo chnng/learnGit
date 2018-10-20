@@ -18,9 +18,11 @@ import com.aihui.lib.base.api.eventbus.EventMessage;
 import com.aihui.lib.base.api.eventbus.EventTag;
 import com.aihui.lib.base.api.retrofit.download.DownloadManager;
 import com.aihui.lib.base.api.retrofit.download.OnProgressListener;
+import com.aihui.lib.base.constant.App;
 import com.aihui.lib.base.util.FileUtils;
 import com.aihui.lib.base.util.LogUtils;
 import com.aihui.lib.base.util.NotificationUtils;
+import com.aihui.lib.base.util.SharePreferenceUtils;
 import com.aihui.lib.base.util.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -43,12 +45,11 @@ public class UpdateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // TODO
-//        if (UpdateUtils.checkLocalFile()) {
-//            return super.onStartCommand(intent, flags, startId);
-//        } else {
-//            UpdateUtils.queryUpdateInfo();
-//        }
+        if (UpdateUtils.checkLocalFile()) {
+            return super.onStartCommand(intent, flags, startId);
+        } else {
+            UpdateUtils.queryUpdateInfo();
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -93,7 +94,7 @@ public class UpdateService extends Service {
             @Override
             public void onSuccess(@NonNull File file) {
                 String apkPath = file.getAbsolutePath();
-//                SharePreferenceUtils.put(UpdateService.this, App.APK_PATH, apkPath);
+                SharePreferenceUtils.put(UpdateService.this, App.APK_PATH, apkPath);
                 if (mNotificationBuilder != null) {
                     mNotificationBuilder.setContentTitle(getString(R.string.click_install));
                     //设置点击事件
@@ -114,7 +115,8 @@ public class UpdateService extends Service {
 
             @Override
             public void onFailure(@NonNull Exception e, @NonNull File file) {
-//                SharePreferenceUtils.remove(UpdateService.this, App.APK_PATH);
+                ToastUtils.toast(R.string.update_fail);
+                SharePreferenceUtils.remove(UpdateService.this, App.APK_PATH);
                 if (mNotificationBuilder != null) {
                     mNotificationBuilder.setContentTitle(getString(R.string.update_fail));
                     mNotificationBuilder.setContentText(e.getMessage());
@@ -125,8 +127,7 @@ public class UpdateService extends Service {
                 }
                 //更新失败，删除已下载的文件
                 //暂不处理断点续传
-                FileUtils.delFile(file, false);
-                ToastUtils.toast(R.string.update_fail);
+                file.delete();
             }
         });
     }

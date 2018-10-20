@@ -1,9 +1,9 @@
 package com.aihui.lib.base.util;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.os.StatFs;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
@@ -29,9 +29,6 @@ public final class FileUtils {
     public static final String DIR_PROFILE = "profile";
     public static final String DIR_RECORD = "record";
 
-    public static final String TYPE_AUDIO = "audio/mp3";
-    public static final String TYPE_VIDEO = "video/mpeg4";
-
 //    public static File createTmpFile(Context context) throws IOException{
 //        File dir = null;
 //        if(TextUtils.equals(Environment.getExternalStorageState(), Environment.MEDIA_MOUNTED)) {
@@ -47,9 +44,6 @@ public final class FileUtils {
 //        }
 //        return File.createTempFile(JPEG_FILE_PREFIX, JPEG_FILE_SUFFIX, dir);
 //    }
-
-
-    private static final String EXTERNAL_STORAGE_PERMISSION = "android.permission.WRITE_EXTERNAL_STORAGE";
 
     /**
      * Returns application cache directory. Cache directory will be created on SD card
@@ -76,7 +70,7 @@ public final class FileUtils {
      * <b>NOTE:</b> Can be null in some unpredictable cases (if SD card is unmounted and
      * {@link Context#getCacheDir() Context.getCacheDir()} returns null).
      */
-    public static File getCacheDirectory(Context context, boolean preferExternal) {
+    private static File getCacheDirectory(Context context, boolean preferExternal) {
         File appCacheDir = null;
         String externalStorageState;
         try {
@@ -131,62 +125,13 @@ public final class FileUtils {
     }
 
     private static boolean hasExternalStoragePermission(Context context) {
-        int perm = context.checkCallingOrSelfPermission(EXTERNAL_STORAGE_PERMISSION);
+        int perm = context.checkCallingOrSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         return perm == PackageManager.PERMISSION_GRANTED;
-    }
-
-
-    /**
-     * 检查是否已挂载SD卡镜像（是否存在SD卡）
-     *
-     * @return
-     */
-    public static boolean isMountedSDCard() {
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            return true;
-        } else {
-            LogUtils.e("SD卡不存在");
-            return false;
-        }
-    }
-
-    /**
-     * 创建目录
-     *
-     * @param context
-     * @param dirName 文件夹名称
-     * @return
-     */
-    public static File createFileDir(Context context, String dirName) {
-        String filePath;
-        // 如SD卡已存在，则存储；反之存在data目录下
-        if (isMountedSDCard()) {
-            // SD卡路径
-            filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/mobileNursing/" + dirName;
-        } else {
-            filePath = context.getCacheDir().getPath() + "/mobileNursing/" + dirName;
-        }
-        File destDir = new File(filePath);
-        if (!destDir.exists()) {
-            boolean isCreate = destDir.mkdirs();
-            LogUtils.i(filePath + " has created. " + isCreate);
-        }
-        return destDir;
-    }
-
-    /**
-     * 检查文件是否存在
-     *
-     * @param filepath
-     * @return
-     */
-    public static boolean isCheckFile(String filepath) {
-        File file = new File(filepath);
-        return file.exists();
     }
 
     /**
      * 创建文件
+     *
      * @param filePath
      * @return
      * @throws IOException
@@ -197,6 +142,7 @@ public final class FileUtils {
 
     /**
      * 创建文件
+     *
      * @param file
      * @return
      * @throws IOException
@@ -212,10 +158,20 @@ public final class FileUtils {
                 ret = file.createNewFile();
             }
             if (!ret) {
-                throw new IOException("createFile " + file.getAbsolutePath()  + " failed!");
+                throw new IOException("createFile " + file.getAbsolutePath() + " failed!");
             }
         }
         return file;
+    }
+
+    /**
+     * 1.删除单文件
+     * 2.删除目录但保留根目录
+     *
+     * @param file
+     */
+    public static void deleteFile(@NonNull File file) {
+        deleteFile(file, !file.isDirectory());
     }
 
     /**
@@ -224,7 +180,7 @@ public final class FileUtils {
      * @param file
      * @param delThisPath true代表删除指定参数file，false代表保留指定参数file
      */
-    public static void delFile(File file, boolean delThisPath) {
+    public static void deleteFile(@NonNull File file, boolean delThisPath) {
         if (!file.exists()) {
             return;
         }
@@ -233,7 +189,7 @@ public final class FileUtils {
             if (subFiles != null) {
                 // 删除子目录和文件
                 for (File subFile : subFiles) {
-                    delFile(subFile, true);
+                    deleteFile(subFile, true);
                 }
             }
         }
@@ -266,60 +222,89 @@ public final class FileUtils {
         return size;
     }
 
-    /**
-     * 获取SD卡剩余容量（单位Byte）
-     * 下载文件时，先判断SD卡的容量是否够用
-     *
-     * @return
-     */
-    @SuppressWarnings("deprecation")
-    public static long gainSDFreeSize() {
-        if (isMountedSDCard()) {
-            // 取得SD卡文件路径
-            File path = Environment.getExternalStorageDirectory();
-            StatFs sf = new StatFs(path.getPath());
-            // 获取单个数据块的大小(Byte)
-            long blockSize = sf.getBlockSize();
-            // 空闲的数据块的数量
-            long freeBlocks = sf.getAvailableBlocks();
-
-            // 返回SD卡空闲大小
-            return freeBlocks * blockSize; // 单位Byte
-        } else {
-            return 0;
-        }
-    }
+//    /**
+//     * 检查是否已挂载SD卡镜像（是否存在SD卡）
+//     *
+//     * @return
+//     */
+//    public static boolean isMountedSDCard() {
+//        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+//            return true;
+//        } else {
+//            LogUtils.e("SD卡不存在");
+//            return false;
+//        }
+//    }
+//
+//    /**
+//     * 获取SD卡剩余容量（单位Byte）
+//     * 下载文件时，先判断SD卡的容量是否够用
+//     *
+//     * @return
+//     */
+//    public static long gainSDFreeSize() {
+//        if (isMountedSDCard()) {
+//            // 取得SD卡文件路径
+//            File path = Environment.getExternalStorageDirectory();
+//            StatFs sf = new StatFs(path.getPath());
+//            // 获取单个数据块的大小(Byte)
+//            long blockSize = sf.getBlockSize();
+//            // 空闲的数据块的数量
+//            long freeBlocks = sf.getAvailableBlocks();
+//
+//            // 返回SD卡空闲大小
+//            return freeBlocks * blockSize; // 单位Byte
+//        } else {
+//            return 0;
+//        }
+//    }
 
     /***
      * 获取文件类型
-     * @param fileName 文件路径
+     * @param filePath 文件路径
      * @return 文件的格式
      */
     @NonNull
-    public static String getFileType(String fileName) {
-        return getFileType(fileName, true);
+    public static String getExtension(String filePath) {
+        return getExtension(filePath, true);
     }
 
     @NonNull
-    public static String getFileType(String fileName, boolean hasPoint) {
-        if (TextUtils.isEmpty(fileName)) {
+    public static String getName(String filePath) {
+        if (TextUtils.isEmpty(filePath)) {
             return "";
         }
-        int indexSeparator = fileName.lastIndexOf('/');
-        if (indexSeparator >= 0) {
-            fileName = fileName.substring(indexSeparator + 1);
-        }
-        int indexQuery = fileName.indexOf('?');
+        int indexQuery = filePath.indexOf('?');
         if (indexQuery == 0) {
             return "";
         } else if (indexQuery > 0) {
-            fileName = fileName.substring(0, indexQuery);
+            filePath = filePath.substring(0, indexQuery);
         }
-        int indexExtension = fileName.lastIndexOf('.');
+        int indexSeparator = filePath.lastIndexOf('/');
+        if (indexSeparator >= 0) {
+            filePath = filePath.substring(indexSeparator + 1);
+        }
+        return filePath;
+    }
+
+    @NonNull
+    public static String getSimpleName(String filePath) {
+        filePath = getName(filePath);
+        int indexExtension = filePath.lastIndexOf('.');
+        if (indexExtension < 0) {
+            return filePath;
+        }
+        return filePath.substring(0, indexExtension);
+    }
+
+    @NonNull
+    public static String getExtension(String filePath, boolean hasPoint) {
+        filePath = getName(filePath);
+        int indexExtension = filePath.lastIndexOf('.');
         if (indexExtension < 0) {
             return "";
         }
-        return fileName.substring(hasPoint ? indexExtension : indexExtension + 1);
+        return filePath.substring(hasPoint ? indexExtension : indexExtension + 1);
     }
 
     public static void writeData2File(String filePath, byte[] data) {

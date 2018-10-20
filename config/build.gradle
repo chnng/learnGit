@@ -12,76 +12,108 @@ android {
     flavorDimensions 'app', 'url'
     productFlavors {
         // 生产
-        formal {
+        Formal {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
             buildConfigField 'boolean', 'AUTH', 'true'
         }
+        // 演示
+        Demo {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.demo + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.demo + rootProject.ext.port.mn
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.demo + rootProject.ext.port.rcLocal
+        }
         // 预生产
-        prepare {
+        Prepare {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.prepare + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.prepare + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.prepare + rootProject.ext.port.rcLocal
             applicationIdSuffix 'pre'
         }
         // 预生产(不替换包名)
-        prepareNoSuffix {
+        PreNoSuffix {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.prepare + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.prepare + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.prepare + rootProject.ext.port.rcLocal
         }
         // 内网
-        local {
+        Local {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.prepare + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.local + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.local + rootProject.ext.port.rcLocal
             applicationIdSuffix 'local'
         }
         淄博中西医formal {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.rcZibo
         }
         淄博中西医local {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.淄博中西医local + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.淄博中西医local + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.淄博中西医local + rootProject.ext.port.rcLocal
         }
         泰兴人民formal {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.泰兴人民formal + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.泰兴人民formal + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.泰兴人民formal + rootProject.ext.port.rcFormal
         }
         泰兴人民local {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.泰兴人民local + rootProject.ext.port.base
-            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.taixingboLocal + rootProject.ext.port.rcLocal
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.泰兴人民local + rootProject.ext.port.mn
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.泰兴人民local + rootProject.ext.port.rcLocal
         }
         南阳骨科formal {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.南阳骨科formal + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.南阳骨科formal + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.南阳骨科formal + rootProject.ext.port.rcFormal
         }
         南阳骨科local {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.南阳骨科local + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.南阳骨科local + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.南阳骨科local + rootProject.ext.port.rcLocal
         }
         北大深圳local {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.北大深圳local + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.北大深圳local + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.北大深圳local + rootProject.ext.port.rcLocal
+        }
+        广西中医药formal {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.广西中医药formal + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.广西中医药formal + rootProject.ext.port.mn
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.广西中医药formal + rootProject.ext.port.rcLocal
         }
         广西中医药local {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.广西中医药local + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.广西中医药local + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.广西中医药local + rootProject.ext.port.rcLocal
         }
         上海中西医local {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.上海中西医local + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.上海中西医local + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.上海中西医local + rootProject.ext.port.rcLocal
+        }
+        无锡三院local {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.无锡三院local + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.无锡三院local + rootProject.ext.port.mn
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.无锡三院local + rootProject.ext.port.rcLocal
         }
 //        thH5 {
 //            dimension 'app'
@@ -148,6 +180,7 @@ android {
             applicationId rootProject.ext.er.applicationId
             versionCode rootProject.ext.er.versionCode
             versionName rootProject.ext.er.versionName
+            buildConfigField 'String', 'APP_CODE', rootProject.ext.er.appCode
         }
         ydcf {
             dimension 'app'
@@ -160,25 +193,28 @@ android {
     android.variantFilter { variant ->
         def names = variant.flavors*.name
         // To check for a certain build type, use variant.buildType.name == "<buildType>"
-        if (!names.contains('formal') && !names.contains('prepare')) {
+        if (!names.contains('Formal') && !names.contains('Demo') && !names.contains('Prepare')) {
             variant.setIgnore(true)
         }
         def nuanpingApp = names.contains('mH5') || names.contains('mNati')
-        if (names.contains('prepare')) {
+        if (names.contains('Prepare')) {
             // Gradle ignores any variants that satisfy the conditions above.
             setIgnore(nuanpingApp)
-        } else if (names.contains('prepareNoSuffix')) {
+        } else if (names.contains('PreNoSuffix')) {
             setIgnore(!nuanpingApp)
         } else if (names.contains('mnH5')) {
-            if (names.contains('local')
+            if (names.contains('Local')
                     || names.contains('北大深圳local')
                     || names.contains('广西中医药local')
-                    || names.contains('上海中西医local')) {
+                    || names.contains('上海中西医local')
+                    || names.contains('无锡三院local')
+            ) {
                 variant.setIgnore(false)
             }
         } else if (names.contains('mH5')) {
-            if (names.contains('local')
+            if (names.contains('Local')
                     || names.contains('淄博中西医local')
+                    || names.contains('广西中医药formal')
                     || names.contains('泰兴人民formal')
                     || names.contains('南阳骨科formal')) {
                 variant.setIgnore(false)
@@ -197,95 +233,92 @@ android {
     }
 
     android.applicationVariants.all { variant ->
-        if (variant.buildType.name == "debug") { //防止AS无法安装debug包(apk)
-            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + '/apk')
-        }
+//        if (variant.buildType.name == "debug") { //防止AS无法安装debug包(apk)
+//            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + '/apk')
+//        }
         variant.outputs.all {
             def baseName = variant.baseName, flavorName = ''
             def index = baseName.indexOf('-')
             def flavor = baseName.substring(index, baseName.indexOf('-', index + 1))
-            def webUrl = 'null'
+            def webUrl = null
             if (baseName.contains('thNati')) {
                 flavorName = rootProject.ext.th.appNameNati
-                if (baseName.contains('prepare')) {
+                if (baseName.contains('Demo')) {
+                    flavorName += flavor
+                    webUrl = rootProject.ext.domain.demo + rootProject.ext.port.th
+                } else if (baseName.contains('Prepare')) {
                     flavorName += flavor
                     webUrl = rootProject.ext.domain.prepare + rootProject.ext.port.th
-                } else {
-                    webUrl = rootProject.ext.domain.formal + rootProject.ext.port.th
-                }
-                variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.th.amapKey]
-            } else if (baseName.contains('thH5')) {
-                flavorName = rootProject.ext.th.appName
-                if (baseName.contains('prepare')) {
-                    flavorName += flavor
-                    webUrl = rootProject.ext.domain.prepare + rootProject.ext.port.th
-                } else if (baseName.contains('local')) {
-                    flavorName += flavor
-                    webUrl = rootProject.ext.domain.local + rootProject.ext.port.th
                 } else {
                     webUrl = rootProject.ext.domain.formal + rootProject.ext.port.th
                 }
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.th.amapKey]
             } else if (baseName.contains('mnH5') || baseName.contains('mnNati')) {
                 flavorName = rootProject.ext.mn.appName
-                if (baseName.contains('prepare')) {
+                if (baseName.contains('Demo')) {
                     flavorName += flavor
-                    webUrl = rootProject.ext.domain.prepare + rootProject.ext.port.mn
-                } else if (baseName.contains('local')) {
+                    webUrl = rootProject.ext.domain.demoWeb + rootProject.ext.port.mn
+                } else if (baseName.contains('Prepare')) {
                     flavorName += flavor
-                    webUrl = rootProject.ext.domain.local + rootProject.ext.port.mn
-                } else if (baseName.contains('北大深圳local')) {
-                    webUrl = rootProject.ext.domain.北大深圳local + rootProject.ext.port.mn
-                } else if (baseName.contains('广西中医药local')) {
-                    webUrl = rootProject.ext.domain.广西中医药local + rootProject.ext.port.mn
-                } else if (baseName.contains('上海中西医local')) {
-                    webUrl = rootProject.ext.domain.上海中西医local + rootProject.ext.port.mn
-                } else {
-                    webUrl = rootProject.ext.domain.formal + rootProject.ext.port.mn
+                } else if (baseName.contains('Local')) {
+                    flavorName += flavor
                 }
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.mn.amapKey]
             } else if (baseName.contains('mH5') || baseName.contains('mNati')) {
                 flavorName = rootProject.ext.m.appName
-                if (baseName.contains('prepare')) {
-                    flavorName += flavor
-                    webUrl = rootProject.ext.domain.prepare + rootProject.ext.port.mn
-                } else if (baseName.contains('local')) {
-                    flavorName += flavor
-                    webUrl = rootProject.ext.domain.local + rootProject.ext.port.mLocal
-                } else if (baseName.contains('淄博中西医local')) {
+                if (baseName.contains('淄博中西医local')) {
                     // 淄博网页接口为生产域名
                     variant.buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
                     webUrl = rootProject.ext.domain.formal + rootProject.ext.port.mn
-                } else if (baseName.contains('泰兴人民formal')) {
-                    webUrl = rootProject.ext.domain.泰兴人民formal + rootProject.ext.port.mn
-                } else if (baseName.contains('南阳骨科formal')) {
-                    webUrl = rootProject.ext.domain.南阳骨科formal + rootProject.ext.port.mn
-                } else {
-                    webUrl = rootProject.ext.domain.formal + rootProject.ext.port.mn
+                } else if (baseName.contains('Demo')) {
+                    flavorName += flavor
+                    webUrl = rootProject.ext.domain.demoWeb + rootProject.ext.port.mn
+                } else if (baseName.contains('Prepare')) {
+                    flavorName += flavor
+                } else if (baseName.contains('Local')) {
+                    flavorName += flavor
                 }
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.m.amapKey]
             } else if (baseName.contains('expertRemote')) {
                 flavorName = rootProject.ext.er.appName
-                if (baseName.contains('prepare')) {
-                    flavorName += flavor
-                    webUrl = rootProject.ext.domain.prepare + rootProject.ext.port.erLocal
-                } else if (baseName.contains('local')) {
-                    flavorName += flavor
-                    webUrl = rootProject.ext.domain.local + rootProject.ext.port.erLocal
-                } else if (baseName.contains('淄博中西医formal')) {
+                if (baseName.contains('淄博中西医formal')) {
                     webUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZibo
                 } else if (baseName.contains('淄博中西医local')) {
                     webUrl = rootProject.ext.domain.淄博中西医local + rootProject.ext.port.erLocal
                     variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.淄博中西医local + rootProject.ext.port.erLocal
+                } else if (baseName.contains('Demo')) {
+                    flavorName += flavor
+                    webUrl = rootProject.ext.domain.demo + rootProject.ext.port.erLocal
+                } else if (baseName.contains('Prepare')) {
+                    flavorName += flavor
+                    webUrl = rootProject.ext.domain.prepare + rootProject.ext.port.erLocal
+                } else if (baseName.contains('Local')) {
+                    flavorName += flavor
+                    webUrl = rootProject.ext.domain.local + rootProject.ext.port.erLocal
                 } else {
                     webUrl = rootProject.ext.domain.formal + rootProject.ext.port.erFormal
                 }
             } else if (baseName.contains('ydcf')) {
                 flavorName = rootProject.ext.ydcf.appName
+                if (baseName.contains('Demo')) {
+                    flavorName += flavor
+                    variant.buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.demo + rootProject.ext.port.ydcfApi
+                } else if (baseName.contains('Prepare')) {
+                    flavorName += flavor
+                    variant.buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.prepare + rootProject.ext.port.ydcfApi
+                } else if (baseName.contains('Local')) {
+                    flavorName += flavor
+                    variant.buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.local + rootProject.ext.port.ydcfApi
+                } else {
+                    variant.buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.ydcfApi
+                }
             }
             variant.resValue 'string', 'app_name', flavorName
-            variant.buildConfigField 'String', 'WEB_URL', webUrl
-            def domain = webUrl.replaceAll('"', '')
+            def domain = ''
+            if (webUrl != null) {
+                variant.buildConfigField 'String', 'WEB_URL', webUrl
+                domain = webUrl.replaceAll('"', '')
+            }
             if (domain.contains('/')) {
                 domain = domain.substring(domain.lastIndexOf('/') + 1)
             }
@@ -294,12 +327,12 @@ android {
             }
             outputFileName = "${flavorName}-v${variant.versionName}_${domain}_${rootProject.releaseTime()}.apk"
             print '====>> variant:' + variant.baseName \
-                                 + ' flavor:' + variant.flavorName \
-                                 + ' to ' + flavorName \
-                                 + ' version:' + variant.versionName \
-                                 + ' webUrl:' + webUrl \
-                                 + ' domain:' + domain \
-                                 + '\n'
+                                   + ' flavor:' + variant.flavorName \
+                                   + ' to ' + flavorName \
+                                   + ' version:' + variant.versionName \
+                                   + ' webUrl:' + webUrl \
+                                   + ' domain:' + domain \
+                                   + '\n'
         }
     }
 }

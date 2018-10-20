@@ -1,3 +1,5 @@
+// https://www.jianshu.com/p/ceaa286d8aff
+
 apply plugin: 'com.android.library'
 apply from: '../../config/module.gradle'
 

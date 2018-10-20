@@ -1,6 +1,7 @@
 package com.aihui.lib.base.util;
 
 import android.app.ActivityManager;
+import android.app.Instrumentation;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -8,10 +9,12 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.concurrent.Executors;
 
 /**
  * 主要功能:获取App应用版本信息
@@ -151,5 +154,19 @@ public final class ApplicationUtils {
     public static boolean isLandScreen(Context context) {
         int ori = context.getResources().getConfiguration().orientation; // 获取屏幕方向
         return ori == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    /**
+     * 模拟返回键
+     */
+    public static void simulationBackKey() {
+        Executors.newCachedThreadPool().execute(() -> {
+            try {
+                Instrumentation instrumentation = new Instrumentation();
+                instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

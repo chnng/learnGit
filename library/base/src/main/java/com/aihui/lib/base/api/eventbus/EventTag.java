@@ -77,4 +77,9 @@ public class EventTag {
      * 下载apk结果
      */
     public static final int EVENT_UPDATE_DOWNLOAD_RESULT = 0x19;
+
+    /**
+     * 跳转首页模块
+     */
+    public static final int EVENT_START_FUNCTION = 0x20;
 }

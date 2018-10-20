@@ -7,16 +7,23 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.aihui.lib.base.R;
 import com.aihui.lib.base.api.eventbus.EventMessage;
 import com.aihui.lib.base.api.eventbus.EventTag;
+import com.aihui.lib.base.bean.common.response.CheckUpdateBean;
 import com.aihui.lib.base.constant.RequestCode;
 import com.aihui.lib.base.ui.BaseActivity;
 import com.aihui.lib.base.util.ApplicationUtils;
 import com.aihui.lib.base.util.CheckUtils;
+import com.aihui.lib.base.util.StringUtils;
 import com.zhy.base.fileprovider.FileProvider7;
 
 import java.io.File;
@@ -42,14 +49,13 @@ public class UpdateActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        // TODO
-//        CheckUpdateBean updateBean = getIntent().getParcelableExtra("checkUpdate");
-//        if (updateBean != null) {
-//            showUpdateDialog(updateBean);
-//        } else {
-//            mApkPath = getIntent().getStringExtra("apkPath");
-//            installApk(true);
-//        }
+        CheckUpdateBean updateBean = getIntent().getParcelableExtra("checkUpdate");
+        if (updateBean != null) {
+            showUpdateDialog(updateBean);
+        } else {
+            mApkPath = getIntent().getStringExtra("apkPath");
+            installApk(true);
+        }
     }
 
     @Override
@@ -117,55 +123,55 @@ public class UpdateActivity extends BaseActivity {
         }
     }
 
-//    /**
-//     * 更新提示框
-//     *
-//     * @param bean bean
-//     */
-//    private void showUpdateDialog(CheckUpdateBean bean) {
-//        View dialogView = LayoutInflater.from(this).inflate(R.layout.layout_update_dialog, null);
-//        TextView tvUpdateDes = dialogView.findViewById(R.id.tv_update_des);
-//        String fileUrl = bean.down_url;
-//        String versionName = bean.v_name;
-//        String content = bean.remark;
-//        content = StringUtils.escapedHtmlString(content);
-//        //格式化content, | 需要转义
-//        String[] contents = content.split("\\|");
-//        StringBuilder des = new StringBuilder();
-//        for (int i = 0; i < contents.length; i++) {
-//            if (i == contents.length - 1)
-//                des.append(i + 1).append(". ").append(contents[i]);
-//            else
-//                des.append(i + 1).append(". ").append(contents[i]).append("\n");
-//        }
-//        tvUpdateDes.setText(Html.fromHtml(des.toString()));
-//        mUpdateDialog = new MaterialDialog.Builder(this)
-//                .title(getString(R.string.update_dialog_title, versionName))
-//                .customView(dialogView, false)
-//                .positiveText(getString(R.string.update_now))
-//                .negativeText(getString(R.string.update_later))
-//                .onAny((dialog, which) -> {
-//                    switch (which) {
-//                        case POSITIVE:
-//                            showUpdateProgressDialog(fileUrl);
-//                            break;
-//                        case NEGATIVE:
-//                            stopService(new Intent(this, UpdateService.class));
-//                            finish();
-//                            break;
-//                    }
-//                })
-//                .cancelListener(dialog -> finish())
-//                .keyListener((dialog, keyCode, event) -> {
-//                    switch (keyCode) {
-//                        case KeyEvent.KEYCODE_BACK:
-//                            finish();
-//                            break;
-//                    }
-//                    return false;
-//                })
-//                .show();
-//    }
+    /**
+     * 更新提示框
+     *
+     * @param bean bean
+     */
+    private void showUpdateDialog(CheckUpdateBean bean) {
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.layout_update_dialog, null);
+        TextView tvUpdateDes = dialogView.findViewById(R.id.tv_update_des);
+        String fileUrl = bean.down_url;
+        String versionName = bean.v_name;
+        String content = bean.remark;
+        content = StringUtils.escapedHtmlString(content);
+        //格式化content, | 需要转义
+        String[] contents = content.split("\\|");
+        StringBuilder des = new StringBuilder();
+        for (int i = 0; i < contents.length; i++) {
+            if (i == contents.length - 1)
+                des.append(i + 1).append(". ").append(contents[i]);
+            else
+                des.append(i + 1).append(". ").append(contents[i]).append("\n");
+        }
+        tvUpdateDes.setText(Html.fromHtml(des.toString()));
+        mUpdateDialog = new MaterialDialog.Builder(this)
+                .title(getString(R.string.update_dialog_title, versionName))
+                .customView(dialogView, false)
+                .positiveText(getString(R.string.update_now))
+                .negativeText(getString(R.string.update_later))
+                .onAny((dialog, which) -> {
+                    switch (which) {
+                        case POSITIVE:
+                            showUpdateProgressDialog(fileUrl);
+                            break;
+                        case NEGATIVE:
+                            stopService(new Intent(this, UpdateService.class));
+                            finish();
+                            break;
+                    }
+                })
+                .cancelListener(dialog -> finish())
+                .keyListener((dialog, keyCode, event) -> {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_BACK:
+                            finish();
+                            break;
+                    }
+                    return false;
+                })
+                .show();
+    }
 
     /**
      * 更新进度提示框

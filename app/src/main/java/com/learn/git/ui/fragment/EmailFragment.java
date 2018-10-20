@@ -1,14 +1,12 @@
 package com.learn.git.ui.fragment;
 
 import android.view.View;
-import android.widget.TextView;
 
 import com.learn.git.R;
 import com.learn.git.ui.common.MyFragment;
 import com.shidian.mail.JavaMailUtils;
 import com.shidian.mail.MailSender;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -28,7 +26,7 @@ public class EmailFragment extends MyFragment {
     }
 
     private void sendEmail() {
-        JavaMailUtils.send("269823446@qq.com", "Hello from JavaMail", "</>",
+        JavaMailUtils.send("269823446@qq.com", "Hello from JavaMail", "</>", null,
                 new MailSender.OnSendListener() {
                     @Override
                     public void onSuccess() {
@@ -37,7 +35,6 @@ public class EmailFragment extends MyFragment {
 
                     @Override
                     public void onFailure(Exception e) {
-
                     }
                 });
     }

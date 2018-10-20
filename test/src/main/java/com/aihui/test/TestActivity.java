@@ -1,23 +1,13 @@
 package com.aihui.test;
 
+import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Display;
-import android.view.View;
 import android.widget.TextView;
 
-import com.aihui.lib.base.util.DensityUtils;
-import com.aihui.lib.base.util.DiskUtils;
-import com.aihui.lib.base.util.ExtFileUtils;
-import com.aihui.lib.base.util.LogUtils;
-import com.aihui.lib.base.util.SystemUIUtils;
-
-import java.io.File;
-import java.io.IOException;
-
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends Activity {
 
     private TextView mTvContent;
 
@@ -37,21 +27,21 @@ public class TestActivity extends AppCompatActivity {
         Point point = new Point();
         display.getRealSize(point);
         mTvContent.append("\nscreen w:" + point.x + " h:" + point.y);
-        mTvContent.append("\nscreen w:" + DensityUtils.getScreenWidth(this) + " h:" + DensityUtils.getScreenHeight(this));
-        mTvContent.append("\nscreen status bar:" + SystemUIUtils.getStatusBarHeight(this));
+//        mTvContent.append("\nscreen w:" + DensityUtils.getScreenWidth(this) + " h:" + DensityUtils.getScreenHeight(this));
+//        mTvContent.append("\nscreen status bar:" + SystemUIUtils.getStatusBarHeight(this));
     }
 
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button0:
-//                Intent intent = new Intent();
-                //hospitalCode:118 patientCode:730 bedCode:1815 deviceId:53777
-//                intent.setData(Uri.parse("aihui://th_push/info?hospitalCode=118&patientCode=730&bedCode=1815&deviceId=53777"));
-//                intent.setAction(Intent.ACTION_VIEW);
-//                startActivity(intent);
-//                startService(intent);
-                break;
-            case R.id.button1:
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.button0:
+////                Intent intent = new Intent();
+//                //hospitalCode:118 patientCode:730 bedCode:1815 deviceId:53777
+////                intent.setData(Uri.parse("aihui://th_push/info?hospitalCode=118&patientCode=730&bedCode=1815&deviceId=53777"));
+////                intent.setAction(Intent.ACTION_VIEW);
+////                startActivity(intent);
+////                startService(intent);
+//                break;
+//            case R.id.button1:
 //                GetuiManager.getPushTransmissionObservable(this, "1000000010208001807", "hello")
 //                        .subscribe(new BaseObserver<QueryGetuiPushBean>() {
 //                            @Override
@@ -59,18 +49,18 @@ public class TestActivity extends AppCompatActivity {
 //
 //                            }
 //                        });
-                break;
-            case R.id.button2:
-                ExtFileUtils.openDocument(this, 110);
-                try {
-                    LogUtils.e(DiskUtils.getFileSize(new File("/storage/emulated/0/Download")));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.button3:
-                ExtFileUtils.openImage(this, 110);
-                break;
-        }
-    }
+//                break;
+//            case R.id.button2:
+//                ExtFileUtils.openDocument(this, 110);
+//                try {
+//                    LogUtils.e(DiskUtils.getFileSize(new File("/storage/emulated/0/Download")));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                break;
+//            case R.id.button3:
+//                ExtFileUtils.openImage(this, 110);
+//                break;
+//        }
+//    }
 }

@@ -39,11 +39,7 @@ public class JavaMailUtils {
 
     private static final Executor EXECUTOR = Executors.newSingleThreadExecutor(r -> new Thread(r, "Javamail"));
 
-    public static void send(String address, String subject, String content, MailSender.OnSendListener listener) {
-        send(address, subject, content, null, listener);
-    }
-
-    public static void send(String address, String subject, String content, File attachment, MailSender.OnSendListener listener) {
+    public static void send(String address, String subject, String content, File[] files, MailSender.OnSendListener listener) {
         String exceptionMessage = null;
         if (TextUtils.isEmpty(address)) {
             exceptionMessage = "未设置邮箱地址!";
@@ -59,21 +55,19 @@ public class JavaMailUtils {
             return;
         }
         boolean hasAttachment = false;
-        if (attachment != null) {
-            if (attachment.exists()) {
-                hasAttachment = true;
-            } else {
-                if (listener != null) {
-                    listener.onFailure(new MessagingException("attachment file not exist!"));
+        if (files != null) {
+            for (File file : files) {
+                if (file.exists()) {
+                    hasAttachment = true;
+                    break;
                 }
-                return;
             }
         }
         boolean finalHasAttachment = hasAttachment;
         EXECUTOR.execute(() -> {
             MailInfo mailInfo = createMail(address, subject, content);
             if (finalHasAttachment) {
-                MailSender.sendFileMail(mailInfo, attachment, listener);
+                MailSender.sendFileMail(mailInfo, files, listener);
             } else {
                 MailSender.sendHtmlMail(mailInfo, listener);
             }

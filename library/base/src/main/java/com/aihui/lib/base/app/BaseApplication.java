@@ -67,7 +67,7 @@ public abstract class BaseApplication extends Application {
                     //扫码出现异常时关闭扫码页面
                     EventBus.getDefault().post(new EventMessage<>(EventTag.CLOSE_SCAN_ACTIVITY, null));
                 } catch (Throwable e) {
-
+                    e.printStackTrace();
                 }
             });
         });

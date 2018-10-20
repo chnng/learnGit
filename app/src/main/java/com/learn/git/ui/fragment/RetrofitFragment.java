@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.aihui.lib.base.util.LogUtils;
 import com.learn.git.R;
-import com.learn.git.api.retrofit.RetrofitHelper;
+import com.learn.git.api.retrofit.RetrofitManager;
 import com.learn.git.bean.base.BaseResponse;
 import com.learn.git.bean.request.QueryMissionListBody;
 import com.learn.git.bean.request.QueryMissionListItemBody;
@@ -41,11 +41,11 @@ public class RetrofitFragment extends MyFragment {
 //                Observable<BaseResponse<String>>[] observables = new Observable[5];
 //                List<Observable<BaseResponse<String>>> observableList = new ArrayList<>();
 //                for (int i = 0; i < observables.length; i++) {
-//                    observables[i] = RetrofitHelper.getServer().getToken(new TokenRequest());
+//                    observables[i] = RetrofitManager.getHttpServer().getToken(new TokenRequest());
 //                    observableList.add(observables[i]);
 //                }
 //                DisposableObserver<String> disposableObserver = Observable.mergeDelayError(observableList)
-//                        .compose(RetrofitHelper.resultTransformer())
+//                        .compose(RetrofitManager.resultTransformer())
 //                        .subscribeWith(new DisposableObserver<String>() {
 //                            @Override
 //                            public void onNext(String s) {
@@ -63,10 +63,10 @@ public class RetrofitFragment extends MyFragment {
 //                            }
 //                        });
 
-//                Observable<BaseResponse<String>> token = RetrofitHelper.getServer()
+//                Observable<BaseResponse<String>> token = RetrofitManager.getHttpServer()
 //                        .getToken(new TokenRequest());
 //                DisposableObserver<String> disposableObserver = token
-//                        .compose(RetrofitHelper.resultTransformer())
+//                        .compose(RetrofitManager.resultTransformer())
 //                        .subscribeWith(new DisposableObserver<String>() {
 //                            @Override
 //                            public void onNext(String s) {
@@ -95,8 +95,8 @@ public class RetrofitFragment extends MyFragment {
     private long duration;
     private void request() {
         duration = System.currentTimeMillis();
-        mCompositeDisposable.add(RetrofitHelper.getServer().queryMissionList(new QueryMissionListBody())
-                .compose(RetrofitHelper.resultTransFragment(this))
+        mCompositeDisposable.add(RetrofitManager.getHttpServer().queryMissionList(new QueryMissionListBody())
+                .compose(RetrofitManager.resultTransFragment(this))
                 .flatMap((Function<List<QueryMissionListBean>, ObservableSource<List<QueryMissionListItemBean>>>) queryMissionListBeans -> {
 //                    LogUtil.d("queryMissionListBeans" + queryMissionListBeans.toString());
                     missionList = queryMissionListBeans;
@@ -104,9 +104,9 @@ public class RetrofitFragment extends MyFragment {
                     for (QueryMissionListBean queryMissionListBean : queryMissionListBeans) {
                         QueryMissionListItemBody itemBody = new QueryMissionListItemBody();
                         itemBody.BedNumber = queryMissionListBean.identify_code;
-                        list.add(RetrofitHelper.getServer().queryMissionListItem(itemBody));
+                        list.add(RetrofitManager.getHttpServer().queryMissionListItem(itemBody));
                     }
-                    return Observable.concatDelayError(list).compose(RetrofitHelper.resultTransFragment(this));
+                    return Observable.concatDelayError(list).compose(RetrofitManager.resultTransFragment(this));
                 })
                 .subscribeWith(new DisposableObserver<List<QueryMissionListItemBean>>() {
                     @Override

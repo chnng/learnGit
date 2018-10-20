@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aihui.lib.base.api.eventbus.EventMessage;
+import com.aihui.lib.base.app.BaseApplication;
 import com.aihui.lib.base.app.IBaseComponent;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
@@ -77,9 +78,10 @@ public abstract class BaseFragment extends RxFragment implements IBaseComponent 
     public void onMessage(EventMessage event) {
     }
 
+    @NonNull
     @Override
     public Context getContext() {
-        return mContext;
+        return mContext == null ? BaseApplication.getContext() : mContext;
     }
 
 //    @StyleRes

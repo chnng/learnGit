@@ -15,7 +15,7 @@ import com.aihui.lib.base.util.ToastUtils;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.learn.git.R;
-import com.learn.git.app.MessageCons;
+import com.learn.git.cons.EventTag;
 import com.learn.git.ui.fragment.DocFragment;
 import com.learn.git.ui.fragment.EmailFragment;
 import com.learn.git.ui.fragment.EventBusFragment;
@@ -117,7 +117,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        EventBus.getDefault().post(new EventMessage<>(MessageCons.TEST_0, "activity pause"));
+        EventBus.getDefault().post(new EventMessage<>(EventTag.TEST_0, "activity pause"));
     }
 
     @Override
@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity {
         super.onMessage(event);
         LogUtils.e("onMessage:" + event);
         switch (event.getKey()) {
-            case MessageCons.TEST_1:
+            case EventTag.TEST_1:
                 new Thread(() -> ToastUtils.toast(event.getValue().toString())).start();
                 break;
         }

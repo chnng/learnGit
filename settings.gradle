@@ -7,6 +7,5 @@ include ':app', ':test', ':java', ':okhttp',
         ':library:javamail',
         ':library:mp3recorder',
         ':library:whiteboard',
-        ':library:poi',
         ':speechDemo'
 //        ':library:ffmpeg'
