@@ -17,7 +17,7 @@ import pub.devrel.easypermissions.helper.BaseSupportPermissionsHelper;
 /**
  * Created by 胡一鸣 on 2018/9/17.
  */
-public class PermissionActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
+public class PermissionActivity extends BaseActivity {
 
     private int mRequestCode;
     private String[] mRequestPermissions;
@@ -139,11 +139,5 @@ public class PermissionActivity extends BaseActivity implements EasyPermissions.
                 requestPermissions();
                 break;
         }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 }

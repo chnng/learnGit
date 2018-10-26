@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,14 +22,18 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * Created by 路传涛 on 2017/5/24.
  */
 
-public abstract class BaseActivity extends RxAppCompatActivity implements IBaseComponent {
+public abstract class BaseActivity extends RxAppCompatActivity
+        implements IBaseComponent, EasyPermissions.PermissionCallbacks {
 
     private Unbinder mUnbinder;
 
@@ -186,5 +191,20 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseC
             Window window = getWindow();
             window.setStatusBarColor(getResources().getColor(colorId));
         }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 }

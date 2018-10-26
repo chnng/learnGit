@@ -17,13 +17,17 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * Created by 胡一鸣 on 2018/6/22.
  */
-public abstract class BaseFragment extends RxFragment implements IBaseComponent {
+public abstract class BaseFragment extends RxFragment
+        implements IBaseComponent, EasyPermissions.PermissionCallbacks {
 
     private Context mContext;
     private Unbinder mViewBinder;
@@ -88,4 +92,19 @@ public abstract class BaseFragment extends RxFragment implements IBaseComponent 
 //    protected int getThemeId() {
 //        return 0;
 //    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
 }
