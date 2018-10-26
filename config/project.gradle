@@ -21,7 +21,7 @@ ext {
             // 广西中医药大学第一附属医院(仙湖院区)
             广西中医药local       : '"http://192.168.223.26',
             // 广西中医药大学第一附属医院(仙湖院区)
-            广西中医药formal       : '"http://113.16.166.141',
+            广西中医药formal      : '"http://113.16.166.141',
             // 上海市中西医结合医院
             上海中西医local       : '"http://192.10.6.76',
             // 无锡市第三人民医院
@@ -41,6 +41,7 @@ ext {
             erLocal             : ':8192"',     // 会诊本地端口
             erFormal            : ':8892"',     // 会诊正式端口
             erZibo              : ':48192"',    // 淄博外网专家端网页端口
+            erZiboApi           : ':48194"',    // 淄博外网专家端网页端口
     ]
     global = [
             agoraAppId          : 'dade2ef7fa374e9f9f9a10aff02ae270',
@@ -50,8 +51,8 @@ ext {
             appNameNati         : '智能天护',
             applicationId       : 'com.aihui.th',
             applicationIdNati   : 'com.aihui.th',
-            versionCode         : 19,
-            versionName         : '1.1.9',
+            versionCode         : 20,
+            versionName         : '1.2.0',
             urlPort             : 8098,
             appCode             : '"m_client_th"',
             amapKey             : '676530ea235be60032e21f23901a2d3c',
@@ -88,8 +89,8 @@ ext {
     call = [
             appName             : 'VideoCall',
             applicationId       : 'com.aihui.videochat',
-            versionCode         : 9,
-            versionName         : '1.2.5',
+            versionCode         : 10,
+            versionName         : '1.2.6',
 
             getuiAppId          : 'wxpqDLx55O673xwLJfCH9A',
             getuiAppSecret      : 'FUqVkwvGUE6DKSQ6uFsqQ6',

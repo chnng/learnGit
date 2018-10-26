@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">app_name</string>
     <string name="company_name"></string>
-    <string name="agora_app_id"/><!-- replace by gradle config -->
-    <string name="bugly_app_id"/><!-- replace by gradle config -->
-    <string name="getui_app_id"/>
-    <string name="getui_app_key"/>
-    <string name="getui_app_secret"/>
-    <string name="getui_master_secret"/>
+    <string name="agora_app_id" /><!-- replace by gradle config -->
+    <string name="bugly_app_id" /><!-- replace by gradle config -->
+    <string name="getui_app_id" />
+    <string name="getui_app_key" />
+    <string name="getui_app_secret" />
+    <string name="getui_master_secret" />
+
+    <string name="empty" />
+    <string name="space">&#8195;</string>
+
     <string name="app_prompt">系统提示</string>
     <string name="back">返回</string>
     <string name="navigation_top_center">扫描二维码/条形码</string>

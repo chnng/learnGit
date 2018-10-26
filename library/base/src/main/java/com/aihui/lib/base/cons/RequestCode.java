@@ -1,4 +1,4 @@
-package com.aihui.lib.base.constant;
+package com.aihui.lib.base.cons;
 
 /**
  * 请求码

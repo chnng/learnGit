@@ -11,7 +11,10 @@ android {
         versionCode 1
         versionName '1.0'
         multiDexEnabled true
-        resValue "string", "agora_app_id", rootProject.ext.global.agoraAppId
+
+//        buildConfigField 'boolean', 'AUTH', 'false'
+//        buildConfigField 'String', 'APP_CODE', 'null'
+//        resValue "string", "agora_app_id", rootProject.ext.global.agoraAppId
     }
     signingConfigs {
         config {

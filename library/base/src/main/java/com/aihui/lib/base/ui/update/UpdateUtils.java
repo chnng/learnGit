@@ -10,7 +10,7 @@ import com.aihui.lib.base.api.retrofit.RetrofitManager;
 import com.aihui.lib.base.app.BaseApplication;
 import com.aihui.lib.base.bean.common.request.CheckUpdateBody;
 import com.aihui.lib.base.bean.common.response.CheckUpdateBean;
-import com.aihui.lib.base.constant.App;
+import com.aihui.lib.base.cons.App;
 import com.aihui.lib.base.util.ApplicationUtils;
 import com.aihui.lib.base.util.SharePreferenceUtils;
 

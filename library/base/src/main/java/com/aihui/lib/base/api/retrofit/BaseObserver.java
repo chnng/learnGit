@@ -2,6 +2,10 @@ package com.aihui.lib.base.api.retrofit;
 
 import io.reactivex.observers.DisposableObserver;
 
+/**
+ * Created by 胡一鸣 on 2018/10/25.
+ * 只关心数据
+ */
 public abstract class BaseObserver<T> extends DisposableObserver<T> {
 
     @Override

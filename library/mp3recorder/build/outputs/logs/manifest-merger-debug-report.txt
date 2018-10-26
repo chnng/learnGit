@@ -1,33 +1,33 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml:1:1-6:12
-INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml:1:1-6:12
-INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml:1:1-6:12
+ADDED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml:1:1-6:12
 	package
-		ADDED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml:2:5-32
-		INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml
-		INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml
+		ADDED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml:2:5-32
+		INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml
+		INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml:1:11-69
+		ADDED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml:1:11-69
 uses-permission#android.permission.RECORD_AUDIO
-ADDED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml:4:5-71
+ADDED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml:4:5-71
 	android:name
-		ADDED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml:4:22-68
+		ADDED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml:4:22-68
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml:5:5-81
+ADDED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml:5:5-81
 	android:name
-		ADDED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml:5:22-78
+		ADDED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml:5:22-78
 uses-sdk
-INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml
-INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml
-INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml
-INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml
+INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml
+INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml
+INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml
+INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml
-		ADDED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml
-		INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml
+		INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml
+		ADDED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml
+		INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml
-		ADDED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml
-		INJECTED from D:\Android\Projects\learnGit\library\mp3recorder\src\main\AndroidManifest.xml
+		INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml
+		ADDED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml
+		INJECTED from /Users/chnng/AndroidStudioProjects/learnGit/library/mp3recorder/src/main/AndroidManifest.xml

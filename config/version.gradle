@@ -110,5 +110,7 @@ ext {
             poiOoxml               : 'org.apache.poi:poi-ooxml:3.9', // docx
             // https://github.com/yshrsmz/KeyboardVisibilityEvent
             keyboardvisibilityevent: 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0',
+            // https://github.com/chrisbanes/PhotoView
+            photoView              : 'com.github.chrisbanes:PhotoView:2.0.0',
     ]
 }

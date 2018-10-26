@@ -10,6 +10,7 @@ import android.widget.PopupWindow;
 
 import com.aihui.lib.base.R;
 import com.aihui.lib.base.app.IBaseComponent;
+import com.aihui.lib.base.app.IBaseWindow;
 
 import butterknife.ButterKnife;
 
@@ -17,7 +18,7 @@ import butterknife.ButterKnife;
  * Created by huyiming on 2017/10/30.
  */
 
-public abstract class BasePopupWindow extends PopupWindow implements IBaseComponent {
+public abstract class BasePopupWindow extends PopupWindow implements IBaseComponent, IBaseWindow {
     private Activity mActivity;
 
     public BasePopupWindow(Activity activity) {
@@ -59,6 +60,7 @@ public abstract class BasePopupWindow extends PopupWindow implements IBaseCompon
         return mActivity.getResources().getString(resId, formatArgs);
     }
 
+    @Override
     public void show() {
         showAtLocation(mActivity.getWindow().getDecorView(), 0, 0, Gravity.NO_GRAVITY);
     }

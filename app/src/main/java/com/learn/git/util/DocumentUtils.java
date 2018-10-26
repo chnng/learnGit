@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.aihui.lib.base.app.BaseApplication;
-import com.aihui.lib.base.constant.FileType;
+import com.aihui.lib.base.cons.FileType;
 import com.aihui.lib.base.util.FileUtils;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;

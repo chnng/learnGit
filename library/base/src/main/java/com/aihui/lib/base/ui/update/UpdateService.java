@@ -18,7 +18,7 @@ import com.aihui.lib.base.api.eventbus.EventMessage;
 import com.aihui.lib.base.api.eventbus.EventTag;
 import com.aihui.lib.base.api.retrofit.download.DownloadManager;
 import com.aihui.lib.base.api.retrofit.download.OnProgressListener;
-import com.aihui.lib.base.constant.App;
+import com.aihui.lib.base.cons.App;
 import com.aihui.lib.base.util.FileUtils;
 import com.aihui.lib.base.util.LogUtils;
 import com.aihui.lib.base.util.NotificationUtils;

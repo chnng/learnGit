@@ -1,4 +1,4 @@
-package com.aihui.lib.base.constant;
+package com.aihui.lib.base.cons;
 
 /**
  * Created by 胡一鸣 on 2018/9/21.

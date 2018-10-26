@@ -38,6 +38,13 @@ public final class ApplicationUtils {
     }
 
     /**
+     * @return 7.0
+     */
+    public static boolean isNougat() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
+    }
+
+    /**
      * @return 8.0
      */
     public static boolean isOreo() {

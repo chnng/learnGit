@@ -19,7 +19,7 @@ import com.aihui.lib.base.R;
 import com.aihui.lib.base.api.eventbus.EventMessage;
 import com.aihui.lib.base.api.eventbus.EventTag;
 import com.aihui.lib.base.bean.common.response.CheckUpdateBean;
-import com.aihui.lib.base.constant.RequestCode;
+import com.aihui.lib.base.cons.RequestCode;
 import com.aihui.lib.base.ui.BaseActivity;
 import com.aihui.lib.base.util.ApplicationUtils;
 import com.aihui.lib.base.util.CheckUtils;

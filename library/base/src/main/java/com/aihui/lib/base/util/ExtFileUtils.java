@@ -11,7 +11,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
-import com.aihui.lib.base.constant.FileType;
+import com.aihui.lib.base.cons.FileType;
 
 /**
  * Created by 胡一鸣 on 2018/9/21.

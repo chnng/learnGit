@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.aihui.lib.base.api.eventbus.EventMessage;
 import com.aihui.lib.base.api.eventbus.EventTag;
+import com.aihui.lib.base.cons.App;
 import com.aihui.lib.base.util.ApplicationUtils;
 import com.aihui.lib.base.util.HandlerUtils;
 import com.wanjian.cockroach.Cockroach;
@@ -28,7 +29,9 @@ public abstract class BaseApplication extends Application {
             return;
         }
         initData();
-        installCockroach();
+        if (!App.DEBUG) {
+            installCockroach();
+        }
     }
 
     protected abstract void initData();
