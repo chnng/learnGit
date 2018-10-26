@@ -112,5 +112,7 @@ ext {
             keyboardvisibilityevent: 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0',
             // https://github.com/chrisbanes/PhotoView
             photoView              : 'com.github.chrisbanes:PhotoView:2.0.0',
+            // https://github.com/r0adkll/Slidr
+            slidr                  : 'com.r0adkll:slidableactivity:2.0.6',
     ]
 }

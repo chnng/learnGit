@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import okio.BufferedSink;
 import okio.BufferedSource;
@@ -220,6 +221,40 @@ public final class FileUtils {
             }
         }
         return size;
+    }
+
+    /**
+     * 转换文件大小
+     *
+     * @param file
+     * @return
+     */
+    public static String getFileSizeFormat(File file) {
+        return formatFileSize(getFileSize(file));
+    }
+
+    /**
+     * 转换文件大小
+     *
+     * @param size
+     * @return
+     */
+    public static String formatFileSize(long size) {
+        if (size == 0) {
+            return "0B";
+        }
+        DecimalFormat df = new DecimalFormat("#.00");
+        String formatSize;
+        if (size < 1024) {
+            formatSize = df.format((double) size) + "B";
+        } else if (size < 1048576) {
+            formatSize = df.format((double) size / 1024) + "KB";
+        } else if (size < 1073741824) {
+            formatSize = df.format((double) size / 1048576) + "MB";
+        } else {
+            formatSize = df.format((double) size / 1073741824) + "GB";
+        }
+        return formatSize;
     }
 
 //    /**

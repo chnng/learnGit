@@ -4,9 +4,10 @@
     <color name="colorPrimaryDark">@color/colorPrimary</color>
     <color name="colorPrimaryLight">#5BD0FF</color>
     <color name="colorAccent">@color/colorPrimary</color>
-    <!--<color name="colorNavigationTop">#048A8B</color>-->
-    <!--<color name="colorStatusBarBg">#125454</color>-->
-    <!--<color name="colorScanBg">#7f000000</color>-->
+
+    <!--background_material_light-->
+    <color name="background_light">#fffafa</color>
+
     <color name="webProgress">#2cc466</color>
     <color name="splashBtnSolid">#36C5C5</color>
     <color name="splashBtnStroke">#A2DFE3</color>

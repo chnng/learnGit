@@ -39,11 +39,11 @@ android {
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.local + rootProject.ext.port.rcLocal
             applicationIdSuffix '.local'
         }
-        淄博中西医local {
+        淄博中西医formal {
             dimension 'url'
-            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.淄博中西医local + rootProject.ext.port.base
-            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.淄博中西医local + rootProject.ext.port.mn
-            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.淄博中西医local + rootProject.ext.port.rcLocal
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.mn
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.rcZibo
         }
         泰兴人民local {
             dimension 'url'

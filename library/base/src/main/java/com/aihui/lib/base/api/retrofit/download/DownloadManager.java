@@ -30,7 +30,6 @@ import okio.Okio;
  */
 
 public class DownloadManager {
-    private static int temp = 0;
 
 
     /**
@@ -60,6 +59,8 @@ public class DownloadManager {
                                     OnProgressListener listener) {
         //注册下载进度 监听器
         ProgressManager.getInstance().addResponseListener(url, new me.jessyan.progressmanager.ProgressListener() {
+            int temp = 0;
+
             @Override
             public void onProgress(ProgressInfo progressInfo) {
                 double currentLength = progressInfo.getCurrentbytes();
