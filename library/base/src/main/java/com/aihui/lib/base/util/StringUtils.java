@@ -14,13 +14,14 @@ import java.util.Locale;
  */
 
 public final class StringUtils {
-    public static String escapedHtmlString(String str) {
+    public static String unescapeHtml(String str) {
         if (!TextUtils.isEmpty(str)) {
             str = str.replace("&quot;", "\"")
                     .replace("&amp;", "&")
                     .replace("&lt;", "<")
                     .replace("&gt;", ">")
-                    .replace("&nbsp;", " ");
+                    .replace("&nbsp;", " ")
+                    .replace("&apos;", "'");
         }
         return str;
     }

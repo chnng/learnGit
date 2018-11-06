@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">app_name</string>
-    <string name="company_name"></string>
-    <string name="agora_app_id" /><!-- replace by gradle config -->
-    <string name="bugly_app_id" /><!-- replace by gradle config -->
+    <!-- replace by gradle config -->
+    <string name="amap_location" />
+    <string name="agora_app_id" />
+    <string name="bugly_app_id" />
     <string name="getui_app_id" />
     <string name="getui_app_key" />
     <string name="getui_app_secret" />

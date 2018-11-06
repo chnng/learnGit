@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="paddingEdge">5dp</dimen>
+    <dimen name="textSizeSmall">11sp</dimen>
+    <dimen name="textSizeNormal">13sp</dimen>
+    <dimen name="textSizeMiddle">15sp</dimen>
+    <dimen name="textSizeBig">18sp</dimen>
+
     <dimen name="distanceEdge">16dp</dimen>
     <dimen name="navigationTopHeight">160px</dimen>
-    <dimen name="textSizeSmall">12sp</dimen>
-    <dimen name="textSizeNormal">15sp</dimen>
-    <dimen name="textSizeBig">20sp</dimen>
     <dimen name="radius">10dp</dimen>
 </resources>

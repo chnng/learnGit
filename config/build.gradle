@@ -39,6 +39,30 @@ android {
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.local + rootProject.ext.port.rcLocal
             applicationIdSuffix '.local'
         }
+        常州武进人民location {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
+            applicationIdSuffix '.wjrm'
+            resValue 'string', 'amap_location', rootProject.ext.location.常州市武进人民医院
+        }
+        常州武进人民南院location {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
+            applicationIdSuffix '.wjrmny'
+            resValue 'string', 'amap_location', rootProject.ext.location.常州市武进人民医院南院
+        }
+        山东聊城人民location {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
+            applicationIdSuffix '.lcrm'
+            resValue 'string', 'amap_location', rootProject.ext.location.山东聊城市人民医院
+        }
         淄博中西医formal {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.base
@@ -81,16 +105,9 @@ android {
             buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.无锡三院local + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.无锡三院local + rootProject.ext.port.rcLocal
         }
-//        thH5 {
-//            dimension 'app'
-//            applicationId rootProject.ext.th.applicationId
-//            versionCode rootProject.ext.th.versionCode
-//            versionName rootProject.ext.th.versionName
-//            buildConfigField 'String', 'APP_CODE', rootProject.ext.th.appCode
-//        }
         thNati {
             dimension 'app'
-            applicationId rootProject.ext.th.applicationIdNati
+            applicationId rootProject.ext.th.applicationId
             versionCode rootProject.ext.th.versionCode
             versionName rootProject.ext.th.versionName
             buildConfigField 'String', 'APP_CODE', rootProject.ext.th.appCode
@@ -119,6 +136,7 @@ android {
             applicationId rootProject.ext.mn.applicationId
             versionCode rootProject.ext.mn.versionCode
             versionName rootProject.ext.mn.versionName
+            applicationIdSuffix '.nati'
             buildConfigField 'String', 'APP_CODE', rootProject.ext.mn.appCode
         }
         expertRemote {
@@ -148,7 +166,14 @@ android {
 //        } else if (names.contains('PreNoSuffix')) {
 //            setIgnore(!nuanpingApp)
 //        } else
-        if (names.contains('mnH5')) {
+        if (names.contains('thNati')) {
+            if (names.contains('常州武进人民location')
+                    || names.contains('常州武进人民南院location')
+                    || names.contains('山东聊城人民location')
+            ) {
+                variant.setIgnore(false)
+            }
+        } else if (names.contains('mnH5')) {
             if (names.contains('Local')
                     || names.contains('北大深圳local')
                     || names.contains('广西中医药local')
@@ -163,32 +188,57 @@ android {
             }
         }
         // To check for a certain build type, use variant.buildType.name == "<buildType>"
-        if (variant.buildType.name == 'release') {
+        if (variant.buildType.name == 'release' && !variant.ignore) {
 //            variant.getFlavors().each() { flavor ->
 //            }
             variant.setIgnore(gradle.ext.RELEASE_IGNORE)
         }
     }
 
+//    // map for the version code
+//    project.ext.versionCodes = ['armeabi': 1, 'armeabi-v7a': 2, 'arm64-v8a': 3, 'mips': 5, 'mips64': 6, 'x86': 8, 'x86_64': 9]
+//
+//    android.applicationVariants.all { variant ->
+//        // assign different version code for each output
+//        variant.outputs.each { output ->
+//            output.versionCodeOverride =
+//                    project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI), 0) * 1000000 + android.defaultConfig.versionCode
+//            println '=============<><><>' + output
+//        }
+//    }
+
+
     android.applicationVariants.all { variant ->
-        if (variant.buildType.name == "debug") { //防止AS无法安装debug包(apk)
+        if (variant.buildType.name == "debug") { // 防止AS无法安装debug包(apk)
             variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + '/apk')
         }
-        variant.outputs.all {
-            def baseName = variant.baseName, flavorName = ''
-            def index = baseName.indexOf('-')
-            def flavor = baseName.substring(index, baseName.indexOf('-', index + 1))
-            def baseUrl, webUrl
+        def baseName = variant.baseName, flavorName = 'app'
+        def index = baseName.indexOf('-')
+        def flavor = baseName.substring(index, baseName.indexOf('-', index + 1))
+        def baseUrl, webUrl
+        variant.outputs.each { output ->
+            if (baseName.contains('Demo')) {
+                output.versionNameOverride = variant.versionName + 'd'
+            } else if (baseName.contains('Prepare')) {
+                output.versionNameOverride = variant.versionName + 'p'
+            } else if (baseName.contains('Local')) {
+                output.versionNameOverride = variant.versionName + 'l'
+            }
             if (baseName.contains('thNati')) {
-                flavorName = rootProject.ext.th.appNameNati
+                flavorName = rootProject.ext.th.appName
+                webUrl = rootProject.ext.domain.formal + rootProject.ext.port.th
                 if (baseName.contains('Demo')) {
                     flavorName += flavor
                     webUrl = rootProject.ext.domain.demo + rootProject.ext.port.th
                 } else if (baseName.contains('Prepare')) {
                     flavorName += flavor
                     webUrl = rootProject.ext.domain.prepare + rootProject.ext.port.th
-                } else {
-                    webUrl = rootProject.ext.domain.formal + rootProject.ext.port.th
+                } else if (baseName.contains('常州武进人民location')) {
+                    flavorName = '天护武进'
+                } else if (baseName.contains('常州武进人民南院location')) {
+                    flavorName = '天护武进南'
+                } else if (baseName.contains('山东聊城人民location')) {
+                    flavorName = '天护聊城'
                 }
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.th.amapKey]
             } else if (baseName.contains('mnH5') || baseName.contains('mnNati')) {
@@ -204,6 +254,7 @@ android {
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.mn.amapKey]
             } else if (baseName.contains('expertRemote')) {
                 flavorName = rootProject.ext.er.appName
+                webUrl = rootProject.ext.domain.formal + rootProject.ext.port.erFormal
                 if (baseName.contains('淄博中西医formal')) {
                     baseUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZiboApi
                     webUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZibo
@@ -219,11 +270,10 @@ android {
                 } else if (baseName.contains('Local')) {
                     flavorName += flavor
                     webUrl = rootProject.ext.domain.local + rootProject.ext.port.erLocal
-                } else {
-                    webUrl = rootProject.ext.domain.formal + rootProject.ext.port.erFormal
                 }
             } else if (baseName.contains('ydcf')) {
                 flavorName = rootProject.ext.ydcf.appName
+                baseUrl = rootProject.ext.domain.formal + rootProject.ext.port.ydcfApi
                 if (baseName.contains('Demo')) {
                     flavorName += flavor
                     baseUrl = rootProject.ext.domain.demo + rootProject.ext.port.ydcfApi
@@ -233,35 +283,22 @@ android {
                 } else if (baseName.contains('Local')) {
                     flavorName += flavor
                     baseUrl = rootProject.ext.domain.local + rootProject.ext.port.ydcfApi
-                } else {
-                    baseUrl = rootProject.ext.domain.formal + rootProject.ext.port.ydcfApi
                 }
             }
             variant.resValue 'string', 'app_name', flavorName
             if (baseUrl != null) {
                 variant.buildConfigField 'String', 'BASE_URL', baseUrl
             }
-//            def domain = ''
             if (webUrl != null) {
                 variant.buildConfigField 'String', 'WEB_URL', webUrl
-//                domain = webUrl.replaceAll('"', '')
             }
-//            if (domain.contains('/')) {
-//                domain = domain.substring(domain.lastIndexOf('/') + 1)
-//            }
-//            if (domain.contains(':')) {
-//                domain = domain.substring(0, domain.lastIndexOf(':'))
-//            }
-            outputFileName = "${variant.flavorName}_v${variant.versionName}_${rootProject.releaseTime()}.apk"
+            output.outputFileName = "${variant.flavorName}_v${variant.versionName}_${rootProject.releaseTime()}.apk"
             println '====>> variant:' + variant.baseName \
-                                      + ' flavor:' + variant.flavorName \
-                                      + ' to ' + flavorName \
-                                      + ' version:' + variant.versionName \
-                                      + ' output:' + outputFileName \
-                                      + ' appid:' + variant.mergedFlavor.applicationId \
-
-//                                    + ' webUrl:' + webUrl \
-//                                    + ' domain:' + domain \
+                                       + ' flavor:' + variant.flavorName \
+                                       + ' to ' + flavorName \
+                                       + ' version:' + variant.versionName \
+                                       + ' output:' + output.outputFileName \
+                                       + ' appid:' + variant.mergedFlavor.applicationId  \
         }
     }
 }
@@ -269,9 +306,6 @@ android {
 dependencies {
     implementation project(':library:base')
     def flag = gradle.ext.COMPILE_FLAG
-//    if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_TH_H5) != 0) {
-//        thH5Implementation project(':module:th:h5')
-//    }
     if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_TH_NATIVE) != 0) {
         thNatiImplementation project(':module:th:native')
     }

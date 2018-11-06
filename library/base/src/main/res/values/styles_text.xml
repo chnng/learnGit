@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/gray0</item>
+        <item name="android:textSize">@dimen/textSizeNormal</item>
+    </style>
+
+    <style name="AppText.Small">
+        <item name="android:textSize">@dimen/textSizeSmall</item>
+    </style>
+
+    <style name="AppText.Small.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppText.Small.Warning">
+        <item name="android:textColor">#ff4d4d</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="AppText.Small.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppText.Normal" />
+
+    <style name="AppText.Normal.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppText.Normal.SingleLine">
+        <item name="android:maxWidth">@dimen/dp240</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="AppText.Normal.Left">
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="AppText.Normal.Item">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="AppText.Normal.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppText.Normal.Bold.Gray1">
+        <item name="android:textColor">@color/gray1</item>
+    </style>
+
+    <style name="AppText.Normal.Bold.SingleLine">
+        <item name="android:maxWidth">@dimen/dp240</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="AppText.Middle">
+        <item name="android:textSize">@dimen/textSizeMiddle</item>
+    </style>
+
+    <style name="AppText.Middle.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppText.Middle.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppText.Big">
+        <item name="android:textSize">@dimen/textSizeBig</item>
+    </style>
+
+    <style name="AppText.Big.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

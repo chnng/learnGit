@@ -1,7 +1,5 @@
 package com.chnng.java;
 
-import android.support.annotation.NonNull;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -32,12 +30,12 @@ class TestA {
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+            public void onFailure(Call call, IOException e) {
                 System.out.println("onFailure:" + e.getMessage());
             }
 
             @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+            public void onResponse(Call call, Response response) throws IOException {
                 System.out.println("onResponse:" + response.code());
                 //        InputStream is = null;
                 //        byte[] buf = new byte[2048];

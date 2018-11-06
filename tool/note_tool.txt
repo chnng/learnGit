@@ -78,6 +78,7 @@ adb shell
 top命令 top -m 3 -d 5
 adb shell logcat -v time > c:\logcat.txt
 adb shell dumpsys activity activities | sed -En -e '/Running activities/,/Run #0/p'
+adb -s 0123456789ABCDEF shell am start com.android.settings/com.android.settings.Settings
 Usage: top [ -m max_procs ] [ -n iterations ] [ -d delay ] [ -s sort_column ] [
 -t ] [ -h ]
     -m num  Maximum number of processes to display.

@@ -134,7 +134,7 @@ public class UpdateActivity extends BaseActivity {
         String fileUrl = bean.down_url;
         String versionName = bean.v_name;
         String content = bean.remark;
-        content = StringUtils.escapedHtmlString(content);
+        content = StringUtils.unescapeHtml(content);
         //格式化content, | 需要转义
         String[] contents = content.split("\\|");
         StringBuilder des = new StringBuilder();

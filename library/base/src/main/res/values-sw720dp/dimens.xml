@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textSizeSmall">22sp</dimen>
+    <dimen name="textSizeNormal">26sp</dimen>
+    <dimen name="textSizeMiddle">30sp</dimen>
+    <dimen name="textSizeBig">36sp</dimen>
+
+    <dimen name="radius">20dp</dimen>
+</resources>
