@@ -8,9 +8,9 @@ import android.text.TextUtils;
 import com.aihui.lib.base.api.retrofit.BaseObserver;
 import com.aihui.lib.base.api.retrofit.RetrofitManager;
 import com.aihui.lib.base.app.BaseApplication;
-import com.aihui.lib.base.bean.common.request.CheckUpdateBody;
-import com.aihui.lib.base.bean.common.response.CheckUpdateBean;
 import com.aihui.lib.base.cons.App;
+import com.aihui.lib.base.model.common.request.CheckUpdateBody;
+import com.aihui.lib.base.model.common.response.CheckUpdateBean;
 import com.aihui.lib.base.util.ApplicationUtils;
 import com.aihui.lib.base.util.SharePreferenceUtils;
 

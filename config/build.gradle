@@ -1,6 +1,11 @@
 apply from: '../config/module_app.gradle'
 
 android {
+    defaultConfig {
+        buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
+        buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
+        buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
+    }
 //    dexOptions {
 //        javaMaxHeapSize '4g'
 //    }
@@ -10,9 +15,6 @@ android {
         // 生产
         Formal {
             dimension 'url'
-            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
-            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
-            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
             buildConfigField 'boolean', 'AUTH', 'true'
         }
         // 预生产
@@ -41,27 +43,28 @@ android {
         }
         常州武进人民location {
             dimension 'url'
-            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
-            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
-            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
             applicationIdSuffix '.wjrm'
             resValue 'string', 'amap_location', rootProject.ext.location.常州市武进人民医院
         }
         常州武进人民南院location {
             dimension 'url'
-            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
-            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
-            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
             applicationIdSuffix '.wjrmny'
             resValue 'string', 'amap_location', rootProject.ext.location.常州市武进人民医院南院
         }
         山东聊城人民location {
             dimension 'url'
-            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
-            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
-            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
             applicationIdSuffix '.lcrm'
             resValue 'string', 'amap_location', rootProject.ext.location.山东聊城市人民医院
+        }
+        苏大一医院广慈分院location {
+            dimension 'url'
+            applicationIdSuffix '.szgc'
+            resValue 'string', 'amap_location', rootProject.ext.location.苏州大学附属第一医院广慈分院
+        }
+        威海妇幼保健院location {
+            dimension 'url'
+            applicationIdSuffix '.whfy'
+            resValue 'string', 'amap_location', rootProject.ext.location.威海妇幼保健院
         }
         淄博中西医formal {
             dimension 'url'
@@ -123,7 +126,11 @@ android {
             applicationId rootProject.ext.mn.applicationId
             versionCode rootProject.ext.mn.versionCode
             versionName rootProject.ext.mn.versionName
+            ndk {
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
             buildConfigField 'String', 'APP_CODE', rootProject.ext.mn.appCode
+            buildConfigField 'boolean', 'AUTH', 'false'
 
             resValue 'string', 'bugly_app_id', rootProject.ext.th.buglyAppId
             resValue 'string', 'getui_app_id', rootProject.ext.call.getuiAppId
@@ -137,7 +144,13 @@ android {
             versionCode rootProject.ext.mn.versionCode
             versionName rootProject.ext.mn.versionName
             applicationIdSuffix '.nati'
+            ndk {
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
             buildConfigField 'String', 'APP_CODE', rootProject.ext.mn.appCode
+            buildConfigField 'boolean', 'AUTH', 'false'
+
+            resValue 'string', 'bugly_app_id', rootProject.ext.mn.buglyAppId
         }
         expertRemote {
             dimension 'app'
@@ -170,6 +183,8 @@ android {
             if (names.contains('常州武进人民location')
                     || names.contains('常州武进人民南院location')
                     || names.contains('山东聊城人民location')
+                    || names.contains('苏大一医院广慈分院location')
+                    || names.contains('威海妇幼保健院location')
             ) {
                 variant.setIgnore(false)
             }
@@ -239,10 +254,17 @@ android {
                     flavorName = '天护武进南'
                 } else if (baseName.contains('山东聊城人民location')) {
                     flavorName = '天护聊城'
+                } else if (baseName.contains('苏大一医院广慈分院location')) {
+                    flavorName = '天护广慈'
+                } else if (baseName.contains('威海妇幼保健院location')) {
+                    flavorName = '天护威海'
                 }
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.th.amapKey]
             } else if (baseName.contains('mnH5') || baseName.contains('mnNati')) {
                 flavorName = rootProject.ext.mn.appName
+                if (baseName.contains('mnNati')) {
+                    flavorName = '看板'
+                }
                 if (baseName.contains('Demo')) {
                     flavorName += flavor
                     webUrl = rootProject.ext.domain.demoWeb + rootProject.ext.port.mn
@@ -294,11 +316,11 @@ android {
             }
             output.outputFileName = "${variant.flavorName}_v${variant.versionName}_${rootProject.releaseTime()}.apk"
             println '====>> variant:' + variant.baseName \
-                                       + ' flavor:' + variant.flavorName \
-                                       + ' to ' + flavorName \
-                                       + ' version:' + variant.versionName \
-                                       + ' output:' + output.outputFileName \
-                                       + ' appid:' + variant.mergedFlavor.applicationId  \
+                                      + ' flavor:' + variant.flavorName \
+                                      + ' to ' + flavorName \
+                                      + ' version:' + variant.versionName \
+                                      + ' output:' + output.outputFileName \
+                                      + ' appid:' + variant.mergedFlavor.applicationId  \
         }
     }
 }

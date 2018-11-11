@@ -2,7 +2,7 @@ package com.aihui.lib.base.ui;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.aihui.lib.base.bean.common.response.BaseSelectBean;
+import com.aihui.lib.base.model.common.response.BaseSelectBean;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.aihui.lib.base.api.retrofit.server;
 
-import com.aihui.lib.base.bean.common.request.CheckUpdateBody;
-import com.aihui.lib.base.bean.common.response.BaseResponseBean;
-import com.aihui.lib.base.bean.common.response.CheckUpdateBean;
+import com.aihui.lib.base.model.common.request.CheckUpdateBody;
+import com.aihui.lib.base.model.common.response.BaseResponseBean;
+import com.aihui.lib.base.model.common.response.CheckUpdateBean;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;

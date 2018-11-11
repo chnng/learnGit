@@ -1,8 +1,0 @@
-apply plugin: 'com.android.library'
-apply from: "../../../config/module.gradle"
-
-dependencies {
-    implementation rootProject.ext.dependencies.appcompatV7
-    api project(':library:signalA:SignalA')
-    implementation project(':library:signalA:parallel-basic-http-client')
-}

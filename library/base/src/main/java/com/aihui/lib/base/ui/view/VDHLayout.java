@@ -1,20 +1,25 @@
 package com.aihui.lib.base.ui.view;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.aihui.lib.base.R;
-import com.zhy.autolayout.AutoRelativeLayout;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by zhy on 15/6/3.
  */
-public class VDHLayout extends AutoRelativeLayout {
+public class VDHLayout extends RelativeLayout {
     private ViewDragHelper mDragHelper;
+    private Map<View, Rect> paramsMap = new HashMap<>();
 
     public VDHLayout(Context context) {
         this(context, null);
@@ -68,7 +73,13 @@ public class VDHLayout extends AutoRelativeLayout {
             //手指释放的时候回调
             @Override
             public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
-
+                super.onViewReleased(releasedChild, xvel, yvel);
+                Rect params = new Rect();
+                params.left = releasedChild.getLeft();
+                params.top = releasedChild.getTop();
+                params.right = releasedChild.getRight();
+                params.bottom = releasedChild.getBottom();
+                paramsMap.put(releasedChild, params);
             }
 
             //在边界拖动时回调
@@ -106,6 +117,20 @@ public class VDHLayout extends AutoRelativeLayout {
     public void computeScroll() {
         if (mDragHelper.continueSettling(true)) {
             invalidate();
+        }
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        for (int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            if (child.getVisibility() != GONE) {
+                Rect params = paramsMap.get(child);
+                if (params != null) {
+                    child.layout(params.left, params.top, params.right, params.bottom);
+                }
+            }
         }
     }
 }

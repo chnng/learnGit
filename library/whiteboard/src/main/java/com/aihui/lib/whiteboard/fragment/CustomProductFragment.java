@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.aihui.lib.base.api.retrofit.BaseObserver;
 import com.aihui.lib.base.api.retrofit.RetrofitManager;
-import com.aihui.lib.base.bean.module.mn.request.CustomProductBody;
+import com.aihui.lib.base.model.module.mn.main.request.CustomProductBody;
 import com.aihui.lib.base.util.BitmapUtils;
 import com.aihui.lib.base.util.HandlerUtils;
 import com.aihui.lib.base.util.LogUtils;

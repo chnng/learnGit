@@ -28,8 +28,8 @@ dependencies {
     }
     api rootProject.ext.dependencies.progressmanager
     api rootProject.ext.dependencies.retrofitUrlManager
-    api rootProject.ext.dependencies.spinKit
-    api rootProject.ext.dependencies.autolayout
+//    api rootProject.ext.dependencies.spinKit
+//    api rootProject.ext.dependencies.autolayout
     api rootProject.ext.dependencies.materialDialogs
     api rootProject.ext.dependencies.fileprovider
 }

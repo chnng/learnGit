@@ -1,11 +1,8 @@
 include ':app', ':test', ':java', ':okhttp',
         ':library:base',
-        ':library:signalA:parallel-basic-http-client',
-        ':library:signalA:SignalA',
-        ':library:signalA:SignalA.LongPolling',
         ':library:agentweb',
         ':library:javamail',
         ':library:mp3recorder',
-        ':library:whiteboard',
-        ':speechDemo'
+        ':library:whiteboard'
+//        ':speechDemo'
 //        ':library:ffmpeg'
