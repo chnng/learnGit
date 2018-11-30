@@ -1,6 +1,7 @@
 package com.aihui.lib.nurse.manager;
 
-import android.app.Activity;
+import android.content.ComponentCallbacks;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
@@ -10,13 +11,16 @@ import com.aihui.lib.base.app.BaseApplication;
 import com.aihui.lib.base.cons.App;
 import com.aihui.lib.base.cons.CacheTag;
 import com.aihui.lib.base.cons.HttpConstant;
+import com.aihui.lib.base.model.common.request.QueryOneHospitalBody;
 import com.aihui.lib.base.model.common.response.QueryHospitalBean;
 import com.aihui.lib.base.model.module.nurse.request.QueryLoginBody;
 import com.aihui.lib.base.model.module.nurse.response.HospitalUserBean;
+import com.aihui.lib.base.model.module.th.main.request.HospitalIdentifyBody;
 import com.aihui.lib.base.model.module.th.main.request.QueryAccessBody;
 import com.aihui.lib.base.model.module.th.main.request.QueryDepartmentBody;
 import com.aihui.lib.base.model.module.th.main.request.QueryDoctorInfoBody;
 import com.aihui.lib.base.model.module.th.main.request.QueryHospitalUserBody;
+import com.aihui.lib.base.model.module.th.main.request.QueryTokenBody;
 import com.aihui.lib.base.model.module.th.main.response.QueryAccessBean;
 import com.aihui.lib.base.model.module.th.main.response.QueryDepartmentBean;
 import com.aihui.lib.base.model.module.th.main.response.QueryDoctorInfoBean;
@@ -28,15 +32,16 @@ import com.aihui.lib.nurse.db.userinfo.DBUserInfoBean;
 import com.aihui.lib.nurse.db.userinfo.DBUserInfoUtils;
 import com.aihui.lib.nurse.util.BuglyUtils;
 import com.aihui.lib.nurse.util.CacheUtils;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by 胡一鸣 on 2018/7/13.
@@ -56,7 +61,7 @@ public final class AccountManager {
     // 病区账号屏蔽护理部账号推送内容
     private String mDeptUserIds;
 
-    private static AccountManager get() {
+    private static AccountManager getInstance() {
         if (mInstance == null) {
             synchronized (AccountManager.class) {
                 if (mInstance == null) {
@@ -97,19 +102,19 @@ public final class AccountManager {
     }
 
     public static String getToken() {
-        return get().mToken;
+        return getInstance().mToken;
     }
 
     public static int getAccessId() {
-        return get().mAccessId;
+        return getInstance().mAccessId;
     }
 
     public static QueryHospitalBean getHospital() {
-        return get().mHospitalBean;
+        return getInstance().mHospitalBean;
     }
 
     public static HospitalUserBean getLoginAccount() {
-        return get().mHospitalUserBean;
+        return getInstance().mHospitalUserBean;
     }
 
     public static String getHospitalCode() {
@@ -126,7 +131,7 @@ public final class AccountManager {
     }
 
     public static String getDeptCode() {
-        AccountManager manager = get();
+        AccountManager manager = getInstance();
         HospitalUserBean hospitalUser = manager.mHospitalUserBean;
         if (hospitalUser != null) {
             switch (hospitalUser.account_type) {
@@ -148,7 +153,7 @@ public final class AccountManager {
     }
 
     public static String getDeptUserIds() {
-        AccountManager manager = get();
+        AccountManager manager = getInstance();
         if (manager.mHospitalUserBean.account_type != HttpConstant.ACCOUNT_TYPE_DEPT) {
             return manager.mDeptUserIds;
         } else {
@@ -157,7 +162,7 @@ public final class AccountManager {
     }
 
     public static void setToken(String token) {
-        get().mToken = TextUtils.isEmpty(token) ? "123456" : token;
+        getInstance().mToken = TextUtils.isEmpty(token) ? "123456" : token;
     }
 
     private void setDoctorInfoBean(QueryDoctorInfoBean doctorInfoBean) {
@@ -165,40 +170,95 @@ public final class AccountManager {
     }
 
     public static void setSelectWardCode(String wardCode) {
-        get().mSelectWardCode = wardCode;
+        getInstance().mSelectWardCode = wardCode;
+    }
+
+    public static Observable<QueryHospitalBean> getHospitalCodeObservable(ComponentCallbacks callbacks,
+                                                                          String latitude,
+                                                                          String longitude) {
+        AtomicReference<QueryHospitalBean> hospitalBeanReference = new AtomicReference<>();
+        return RetrofitManager.newHttpBaseServer()
+                // 0.根据经纬度获取医院id
+                .queryOneHospital(new QueryOneHospitalBody(latitude, longitude, App.LOCATION_DISTANCE))
+                .subscribeOn(Schedulers.io())
+                .map(RetrofitManager.parseResponse())
+                .map(bean -> {
+                    if (null == bean) {
+                        throw new IllegalStateException("hospital by location is null!");
+                    }
+                    hospitalBeanReference.set(bean);
+                    return bean;
+                })
+                // 1.根据医院id获取医院Identify信息
+                .flatMap(bean -> {
+                    HospitalIdentifyBody body = new HospitalIdentifyBody();
+                    body.hospital_code = bean.code;
+                    return RetrofitManager.newThServer().queryHospitalIdentify(body);
+                })
+                .map(RetrofitManager.parseResponse())
+                .map(RetrofitManager::sortByCreateTime)
+                .map(list -> {
+                    if (list == null || list.isEmpty()) {
+                        throw new IllegalStateException("hospital identify is null!");
+                    } else {
+                        String code = list.get(0).hospital_code;
+                        QueryHospitalBean bean = hospitalBeanReference.get();
+                        bean.code = code;
+                        return code;
+                    }
+                })
+                .flatMap(code -> RetrofitManager.newThServer().queryToken(new QueryTokenBody(code)))
+                .map(RetrofitManager.parseResponse())
+                // 2.根据医院code获取token
+                .map(token -> {
+                    SharePreferenceUtils.put(BaseApplication.getContext(), CacheTag.TOKEN, token);
+                    setToken(token);
+                    return token;
+                })
+                .flatMap(token -> Observable.just(hospitalBeanReference.get()))
+                .compose(RetrofitManager.bindLifecycle(callbacks));
     }
 
     /**
      * 登录
      *
-     * @param activity     activity
+     * @param callbacks    callbacks
      * @param hospitalBean hospitalBean
      * @param account      account
      * @param password     password
      */
-    public static Observable<HospitalUserBean> doLogin(RxAppCompatActivity activity,
+    public static Observable<HospitalUserBean> doLogin(ComponentCallbacks callbacks,
                                                        QueryHospitalBean hospitalBean,
                                                        String account,
                                                        String password) {
+        if (account == null && password == null) {
+            // 4.判断本地登录账号
+            DBUserInfoBean userInfo = DBUserInfoUtils.queryLoginUserInfo();
+            if (userInfo == null) {
+                throw new NullPointerException("db user is null!");
+            } else {
+                account = userInfo.account;
+                password = userInfo.pwd;
+            }
+        }
         QueryLoginBody body = new QueryLoginBody();
         body.account = account;
         body.pwd = password;
         body.hospital_code = body.hospital = hospitalBean.code;
         return getLoginObservable(body)
-                .compose(RetrofitManager.switchSchedulerWith(activity))
+                .compose(RetrofitManager.switchSchedulerWith(callbacks))
                 .map(bean -> {
-                    get().mHospitalBean = hospitalBean;
+                    getInstance().mHospitalBean = hospitalBean;
                     return bean;
                 });
     }
 
     /**
      * 根据缓存自动登录
-     *
-     * @param activity activity
      */
-    public static boolean doLoginByCache(Activity activity) {
-        long loginTimestamp = (long) SharePreferenceUtils.get(activity, CacheTag.LOGIN, 0L);
+    public static boolean doLoginByCache() {
+        Context context = BaseApplication.getContext();
+        long loginTimestamp = (long) SharePreferenceUtils.get(context, CacheTag.LOGIN, 0L);
         LogUtils.e("doLoginByCache time:" + loginTimestamp);
         if (loginTimestamp == 0
                 || System.currentTimeMillis() / 1000 - loginTimestamp > TimeUnit.HOURS.toSeconds(1)) {
@@ -214,7 +274,7 @@ public final class AccountManager {
         if (hospitalBean == null) {
             return false;
         }
-        String token = (String) SharePreferenceUtils.get(activity, CacheTag.TOKEN, "");
+        String token = (String) SharePreferenceUtils.get(context, CacheTag.TOKEN, "");
         LogUtils.e("doLoginByCache token:" + token);
         if (TextUtils.isEmpty(token)) {
             return false;
@@ -230,8 +290,8 @@ public final class AccountManager {
     }
 
     private static void setHospitalInfo(HospitalUserBean hospitalUser, QueryHospitalBean hospitalBean, String token) {
-        get().mHospitalBean = hospitalBean;
-        get().mHospitalUserBean = hospitalUser;
+        getInstance().mHospitalBean = hospitalBean;
+        getInstance().mHospitalUserBean = hospitalUser;
         setToken(token);
     }
 
@@ -250,11 +310,14 @@ public final class AccountManager {
                 body.pwd = loginAccount.pwd;
                 body.hospital_code = body.hospital = loginAccount.hospital_code;
             } else {
-                return Observable.error(new IllegalStateException("login body is null!"));
+                throw new IllegalStateException("login body is null!");
             }
         }
+        String pwd = body.pwd;
         return getHospitalUserObservable(body)
                 .map(bean -> {
+                    // th:md5 mn:origin
+                    bean.pwd = pwd;
                     setLoginAccount(bean);
                     CacheUtils.saveCache(CacheTag.LOGIN, bean);
                     SharePreferenceUtils.put(BaseApplication.getContext(), CacheTag.LOGIN, System.currentTimeMillis() / 1000);
@@ -268,7 +331,19 @@ public final class AccountManager {
     }
 
     private static Observable<HospitalUserBean> getHospitalUserObservable(QueryLoginBody body) {
-        if ("m_client_th".equals(App.APP_CODE)) {
+        if (isMnAppCode()) {
+            return RetrofitManager.newMnServer().loginAccount(body)
+                    .map(RetrofitManager.parseResponse())
+                    .map(bean -> {
+                        if (bean == null) {
+                            throw new IllegalStateException("code:-3, login user is null!");
+                        }
+                        if (bean.account_type != HttpConstant.ACCOUNT_TYPE_WARD) {
+                            throw new IllegalStateException("code:-3, account_type is " + bean.account_type);
+                        }
+                        return bean;
+                    });
+        } else {
             return RetrofitManager.newThServer().loginAccount(body)
                     .map(RetrofitManager.parseResponse())
                     .map(userList -> {
@@ -285,25 +360,20 @@ public final class AccountManager {
                     .map(RetrofitManager::sortByCreateTime)
                     .map(list -> {
                         if (list == null || list.isEmpty()) {
-                            throw new IllegalStateException("code:-1,login user is null!");
+                            throw new IllegalStateException("code:-1, login user is empty!");
                         } else {
                             HospitalUserBean bean = list.get(0);
                             if (bean == null) {
-                                throw new IllegalStateException("code:-2,login user is null!");
+                                throw new IllegalStateException("code:-2, login user is null!");
                             }
                             return bean;
                         }
                     });
-        } else {
-            return RetrofitManager.newMnServer().loginAccount(body)
-                    .map(RetrofitManager.parseResponse())
-                    .map(bean -> {
-                        if (bean == null) {
-                            throw new IllegalStateException("code:-3,login user is null!");
-                        }
-                        return bean;
-                    });
         }
+    }
+
+    private static boolean isMnAppCode() {
+        return "m_client_n".equals(App.APP_CODE);
     }
 
     @NonNull
@@ -337,7 +407,7 @@ public final class AccountManager {
                     .subscribe(new BaseObserver<String>() {
                         @Override
                         public void onNext(String s) {
-                            get().mDeptUserIds = s;
+                            getInstance().mDeptUserIds = s;
                         }
                     });
         }
@@ -371,7 +441,7 @@ public final class AccountManager {
                             if (CheckUtils.notEmpty(list)) {
                                 QueryDoctorInfoBean bean = list.get(list.size() - 1);
                                 hospitalUser.name = bean.DoctorName;
-                                get().setDoctorInfoBean(bean);
+                                getInstance().setDoctorInfoBean(bean);
                             }
                             return Observable.just(hospitalUser);
                         });
@@ -386,7 +456,7 @@ public final class AccountManager {
      * @param hospitalUser hospitalUser
      */
     public static void setLoginAccount(HospitalUserBean hospitalUser) {
-        AccountManager manager = get();
+        AccountManager manager = getInstance();
         manager.mHospitalUserBean = hospitalUser;
         if (hospitalUser != null) {
             DBUserInfoBean userInfoBean = new DBUserInfoBean();
@@ -442,7 +512,7 @@ public final class AccountManager {
      */
     public static void doLogout() {
         DBUserInfoUtils.updateUserInfoLogout(getLoginUid());
-        AccountManager.get().clearLoginAccount();
+        AccountManager.getInstance().clearLoginAccount();
     }
 
     /**
@@ -451,7 +521,7 @@ public final class AccountManager {
     private void clearLoginAccount() {
         CacheUtils.clearCache();
         SharePreferenceUtils.put(BaseApplication.getContext(), CacheTag.LOGIN, 0L);
-        mHospitalBean = null;
+//        mHospitalBean = null;
         mHospitalUserBean = null;
         mDoctorInfoBean = null;
     }

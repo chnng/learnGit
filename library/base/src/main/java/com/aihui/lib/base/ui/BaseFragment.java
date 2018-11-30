@@ -42,15 +42,6 @@ public abstract class BaseFragment extends RxFragment
             view = inflater.inflate(contentViewId, container, false);
             mViewBinder = ButterKnife.bind(this, view);
         }
-//        int themeId = getThemeId();
-//        if (themeId != 0) {
-//            final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), themeId);
-//            LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
-//            view = localInflater.inflate(contentViewId, container, false);
-//        } else {
-//            view = inflater.inflate(contentViewId, container, false);
-//        }
-
         initData();
         initEvent();
         return view;
@@ -87,11 +78,6 @@ public abstract class BaseFragment extends RxFragment
     public Context getContext() {
         return mContext == null ? BaseApplication.getContext() : mContext;
     }
-
-//    @StyleRes
-//    protected int getThemeId() {
-//        return 0;
-//    }
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {

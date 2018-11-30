@@ -23,6 +23,10 @@ public final class BuglyUtils {
 //        strategy.setUploadProcess(processName == null || processName.equals(packageName));
         // 初始化Bugly
         CrashReport.initCrashReport(context, /*注册时申请的APPID*/context.getString(R.string.bugly_app_id), false);
+//        RxJavaPlugins.setErrorHandler(throwable -> {
+//            throwable.printStackTrace();
+//            CrashReport.postCatchedException(throwable);
+//        });
     }
 
     public static void setCrashReportInfo() {

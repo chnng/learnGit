@@ -34,7 +34,7 @@ public final class ToastUtils {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             showToast(text);
         } else {
-            HandlerUtils.getUIHandler().post(() -> showToast(text));
+            HandlerUtils.post(() -> showToast(text));
         }
     }
 

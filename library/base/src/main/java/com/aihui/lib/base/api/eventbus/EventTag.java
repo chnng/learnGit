@@ -1,11 +1,6 @@
 package com.aihui.lib.base.api.eventbus;
 
 public class EventTag {
-
-//    /**
-//     * eventBus发送消息时使用，代表一个对象，无实际作用
-//     */
-//    public static final int EVENT_BUS_FLAG = 0x0;
     /**
      * eventBus 通知关闭扫码页面
      */
@@ -56,7 +51,7 @@ public class EventTag {
     /**
      * 关闭巡房
      */
-    public static final int EVENT_CLOSE_PATROL_ROOM = 0x15;
+    public static final int EVENT_PATROL_CLOSE = 0x15;
 
     /**
      * 关闭远程会诊视频
@@ -82,4 +77,9 @@ public class EventTag {
      * 跳转首页模块
      */
     public static final int EVENT_START_FUNCTION = 0x20;
+
+    /**
+     * 看板首页定时器
+     */
+    public static final int EVENT_MN_HOMEPAGE_TIMER = 0x21;
 }

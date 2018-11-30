@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -100,5 +102,41 @@ public final class SystemUIUtils {
             }
         }
         return navigationBarFlag == 1;
+    }
+
+    /**
+     * 得到屏幕的宽度
+     */
+    public static int getScreenWidth(Context context) {
+        DisplayMetrics dm = context.getResources().getDisplayMetrics();
+        return dm.widthPixels;
+    }
+
+    /**
+     * 得到屏幕的高度
+     */
+    public static int getScreenHeight(Context context) {
+        DisplayMetrics dm = context.getResources().getDisplayMetrics();
+        return dm.heightPixels;
+    }
+
+    public static void setWindowBrightness(Window window, float brightness) {
+        // PowerManager pm = (PowerManager)CommonApp.getInstance()
+        // .getSystemService(Context.POWER_SERVICE);
+        // try {
+        //   Method method =
+        //       PowerManager.class.getDeclaredMethod(isDim ? "goToSleep" : "wakeUp", long.class);
+        //   method.setAccessible(true);
+        //   method.invoke(pm, SystemClock.uptimeMillis());
+        // } catch (NoSuchMethodException e) {
+        //   e.printStackTrace();
+        // } catch (IllegalAccessException e) {
+        //   e.printStackTrace();
+        // } catch (InvocationTargetException e) {
+        //   e.printStackTrace();
+        // }
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.screenBrightness = brightness;
+        window.setAttributes(lp);
     }
 }

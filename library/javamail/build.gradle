@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply from: '../../config/module.gradle'
+apply from: rootProject.ext.gradle_path_module
 
 dependencies {
     implementation rootProject.ext.dependencies.androidMail

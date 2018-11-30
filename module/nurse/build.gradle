@@ -1,9 +1,12 @@
 apply plugin: 'com.android.library'
-apply from: '../../config/module.gradle'
+apply from: rootProject.ext.gradle_path_module
 
 dependencies {
     api project(':library:base')
-    api project(':library:agora')
+    implementation name: 'aihui_agora', ext: 'aar'
+    api name: 'aihui_glide', ext: 'aar'
+    api rootProject.ext.dependencies.glide
+    implementation rootProject.ext.dependencies.glideOkhttp
     implementation rootProject.ext.dependencies.buglyJava
     implementation rootProject.ext.dependencies.buglyNative
 }

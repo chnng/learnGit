@@ -19,7 +19,7 @@ public class EventBusFragment extends MyFragment {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_request:
-                HandlerUtils.getUIHandler().post(() -> {
+                HandlerUtils.post(() -> {
                     ToastUtils.toast("button_request");
                     tvResponse.setText("" + Math.random());
                 });

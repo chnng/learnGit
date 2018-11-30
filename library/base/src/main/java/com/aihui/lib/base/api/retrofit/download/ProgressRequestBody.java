@@ -78,7 +78,7 @@ public class ProgressRequestBody extends RequestBody {
                         final long currentBytes = this.currentBytes;
                         final long contentLength = this.contentLength;
                         LogUtils.i("write current1:" + currentBytes + " content:" + contentLength);
-                        HandlerUtils.getUIHandler().post(() ->
+                        HandlerUtils.post(() ->
                                 onProgressListener.onProgress(currentBytes, contentLength));
                     }
                 }

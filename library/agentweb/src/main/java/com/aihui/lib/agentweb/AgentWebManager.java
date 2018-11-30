@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -41,10 +42,17 @@ public class AgentWebManager {
         this.mWebViewClient = webViewClient;
     }
 
+    public AgentWeb loadWeb(String webUrl) {
+        return loadWeb(webUrl, null, null);
+    }
+
     public AgentWeb loadWeb(String webUrl, String mark, Object object) {
         if (null == preAgentWeb) {
             preAgentWeb = AgentWeb.with(mContext)
-                    .setAgentWebParent(mRelativeLayout, new RelativeLayout.LayoutParams(-1, -1))
+                    .setAgentWebParent(mRelativeLayout,
+                            new ViewGroup.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.MATCH_PARENT))
                     .useDefaultIndicator()
                     .defaultProgressBarColor()
                     .setWebChromeClient(mWebChromeClient)
@@ -54,7 +62,9 @@ public class AgentWebManager {
                     .ready();
         }
         mAgentWeb = preAgentWeb.go(webUrl);
-        mAgentWeb.getJsInterfaceHolder().addJavaObject(mark, object);
+        if (mark != null && object != null) {
+            mAgentWeb.getJsInterfaceHolder().addJavaObject(mark, object);
+        }
         WebSettings settings = mAgentWeb.getAgentWebSettings().getWebSettings();
         settings.setUseWideViewPort(false);
         settings.setLoadWithOverviewMode(false);

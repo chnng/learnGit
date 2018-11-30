@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aihui.lib.base.util.DensityUtils;
+import com.aihui.lib.base.util.SystemUIUtils;
 import com.aihui.lib.whiteboard.R;
 import com.aihui.lib.whiteboard.bean.SketchData;
 
@@ -45,7 +45,7 @@ public class SketchDataGridAdapter extends BaseAdapter {
 
     public SketchDataGridAdapter(Context context, List<SketchData> sketchDataList, OnActionCallback onActionCallback) {
         this.mContext = context;
-        ratio = (float) DensityUtils.getScreenSize(context).x / DensityUtils.getScreenSize(context).y;
+        ratio = (float) SystemUIUtils.getScreenWidth(context) / SystemUIUtils.getScreenHeight(context);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.onActionCallback = onActionCallback;
         this.sketchDataList = sketchDataList;

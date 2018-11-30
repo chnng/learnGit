@@ -109,7 +109,7 @@ public class CustomProductFragment extends WhiteBoardFragment implements WhiteBo
         LogUtils.e("setTitleColor:" + color);
         if (!TextUtils.isEmpty(color) && !color.equals(mColor)) {
             mColor = color;
-            HandlerUtils.getUIHandler().post(() -> {
+            HandlerUtils.post(() -> {
                 String[] colors = color.split(",");
                 int r = Integer.parseInt(colors[0]);
                 int g = Integer.parseInt(colors[1]);

@@ -163,9 +163,9 @@ public abstract class BaseActivity extends RxAppCompatActivity
     }
 
     private boolean shouldHideNavigationBar() {
-        return (SystemUIUtils.navigationBarHide
-                && (getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0)
-                || getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        return SystemUIUtils.navigationBarHide
+                && (((getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0)
+                || getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
     }
 
     private long exitTime;

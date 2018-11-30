@@ -1,7 +1,10 @@
 package com.aihui.lib.base.util;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Instrumentation;
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -14,6 +17,7 @@ import android.view.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 /**
@@ -35,6 +39,13 @@ public final class ApplicationUtils {
      */
     public static boolean isLollipop() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
+
+    /**
+     * @return 6.0
+     */
+    public static boolean isMarshmallow() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
     /**
@@ -176,4 +187,86 @@ public final class ApplicationUtils {
             }
         });
     }
+
+    public static boolean isComponentRunning(Context context, Class<?> klass) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (activityManager == null) {
+            return false;
+        }
+        Class<?> componentClass = getComponentClass(klass);
+        if (componentClass == Activity.class) {
+            List<ActivityManager.RunningTaskInfo> taskList = activityManager.getRunningTasks(1);
+            if (taskList.size() == 0) {
+                return false;
+            }
+            ActivityManager.RunningTaskInfo taskInfo = taskList.get(0);
+//            LogUtils.e("isComponentRunningTask"
+//                    + " baseActivity:" + taskInfo.baseActivity
+//                    + " topActivity:" + taskInfo.topActivity
+//                    + " description:" + taskInfo.description
+//                    + " id:" + taskInfo.id
+//                    + " numActivities:" + taskInfo.numActivities
+//                    + " numRunning:" + taskInfo.numRunning
+//            );
+            ComponentName componentName = taskInfo.topActivity;
+            return componentName.getClassName().equals(klass.getName());
+        } else if (componentClass == Service.class) {
+            List<ActivityManager.RunningServiceInfo> serviceList = activityManager.getRunningServices(Integer.MAX_VALUE);
+            if (serviceList.size() == 0) {
+                return false;
+            }
+            for (ActivityManager.RunningServiceInfo serviceInfo : serviceList) {
+//                LogUtils.e("isComponentRunningService"
+//                        + " service:" + serviceInfo.service
+//                        + " clientPackage:" + serviceInfo.clientPackage
+//                );
+                ComponentName componentName = serviceInfo.service;
+                if (componentName.getClassName().equals(klass.getName())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static Class<?> getComponentClass(Class<?> klass) {
+        if (klass == null || klass == Activity.class || klass == Service.class) {
+            return klass;
+        }
+        return getComponentClass(klass.getSuperclass());
+    }
+
+//    /**
+//     * 唤醒手机屏幕并解锁
+//     * {@link Manifest.permission.DISABLE_KEYGUARD}
+//     * {@link Activity#onPause()KeyguardManager.KeyguardLock#reenableKeyguard()}
+//     * {@link Activity#onDestroy()PowerManager.WakeLock#release()}
+//     */
+//    @SuppressLint("InvalidWakeLockTag")
+//    public void wakeUpAndUnlock() {
+//        PowerManager.WakeLock mWakeLockIncoming;
+//        KeyguardManager.KeyguardLock keyguardLock;
+//        // 获取电源管理器对象
+//        PowerManager pm = (PowerManager) BaseApplication.getContext().getSystemService(Context.POWER_SERVICE);
+//        boolean screenOn = pm.isScreenOn();
+//        if (!screenOn) {
+//            // 获取PowerManager.WakeLock对象,后面的参数|表示同时传入两个值,最后的是LogCat里用的Tag
+//            mWakeLockIncoming = pm.newWakeLock(
+//                    PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");
+//            mWakeLockIncoming.acquire(60 * 1000);  // 点亮屏幕
+//            mWakeLockIncoming.setReferenceCounted(false);
+//        }
+//        // 屏幕解锁
+//        KeyguardManager keyguardManager =
+//                (KeyguardManager) BaseApplication.getContext().getSystemService(Context.KEYGUARD_SERVICE);
+//        boolean isShouldDisableKeyguard = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
+//                && keyguardManager.isKeyguardLocked()
+//                && !keyguardManager.isKeyguardSecure();
+//        //    LogcatUtils.d(TAG, "wakeUpAndUnlock isKeyguardLocked:" + keyguardManager.isKeyguardLocked()
+//        //            + " isKeyguardSecure:" + keyguardManager.isKeyguardSecure());
+//        if (isShouldDisableKeyguard) {
+//            keyguardLock = keyguardManager.newKeyguardLock("unLock");
+//            keyguardLock.disableKeyguard();  // 解锁
+//        }
+//    }
 }

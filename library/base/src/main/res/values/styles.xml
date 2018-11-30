@@ -54,4 +54,19 @@
     <style name="AppDialog.Picker" parent="AppDialog.Transparent" />
 
     <style name="AppPopAnimation" parent="Animation.AppCompat.Dialog" />
+
+    <style name="AppView" />
+
+    <style name="AppView.Line" />
+
+    <style name="AppView.Line.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+    </style>
+
+    <style name="AppView.Line.Vertical">
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
 </resources>

@@ -1,7 +1,7 @@
 // https://github.com/dsbGenius/WhiteBoard
 
 apply plugin: 'com.android.library'
-apply from: '../../config/module.gradle'
+apply from: rootProject.ext.gradle_path_module
 
 dependencies {
     implementation project(':library:base')

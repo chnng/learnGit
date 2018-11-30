@@ -28,7 +28,7 @@ public abstract class BaseLazyFragment extends BaseFragment {
     @Override
     public void initData() {
         if (getUserVisibleHint() && !mIsInit) {
-            HandlerUtils.getUIHandler().post(() -> {
+            HandlerUtils.post(() -> {
                 /*
                     post double check for ViewPager setCurrentItem position is not 0!
                     getUserVisibleHint() will change to false soon

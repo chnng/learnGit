@@ -7,6 +7,8 @@ buildscript {
         kotlin_version = '1.2.51'
         butterknife_version = '9.0.0-rc1'
         butterknife_url = 'https://oss.sonatype.org/content/repositories/snapshots/'
+        gradle_path_module = project.rootDir.path + '/config/module.gradle'
+        gradle_path_module_app = project.rootDir.path + '/config/module_app.gradle'
     }
 
     repositories {

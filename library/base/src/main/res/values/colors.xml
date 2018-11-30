@@ -23,6 +23,7 @@
     <color name="gray2">#666666</color>
     <color name="gray3">#999999</color>
     <color name="gray4">#CCCCCC</color>
+    <color name="gray5">#EEEEEE</color>
     <color name="grayLight">#4DDCDCDC</color>
     <color name="orange">#FFB444</color>
     <color name="blueLight">#A1CDF7</color>
@@ -36,4 +37,7 @@
 
     <color name="green1">#56bf9d</color>
     <color name="red1">#ff446f</color>
+
+    <color name="text_black">#333333</color>
+    <color name="text_white">@color/background_light</color>
 </resources>

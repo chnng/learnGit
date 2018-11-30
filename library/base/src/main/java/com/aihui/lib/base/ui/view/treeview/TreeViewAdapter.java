@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Created by tlh on 2016/10/1 :)
+ * https://github.com/TellH/RecyclerTreeView
  */
 public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String KEY_IS_EXPAND = "IS_EXPAND";

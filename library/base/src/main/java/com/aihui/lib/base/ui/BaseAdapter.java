@@ -1,7 +1,9 @@
 package com.aihui.lib.base.ui;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.List;
 
@@ -10,7 +12,8 @@ import java.util.List;
  */
 public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
-    protected List<T> mList;
+    List<T> mList;
+    private OnItemClickListener<T> mOnItemClickListener;
 
     public BaseAdapter() {
     }
@@ -68,5 +71,27 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         mList.remove(position);
         notifyItemRemoved(position);
         notifyItemChanged(position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener<T> listener) {
+        this.mOnItemClickListener = listener;
+    }
+
+    protected OnItemClickListener getOnItemClickListener() {
+        return mOnItemClickListener;
+    }
+
+    protected void setOnItemClickListener(@NonNull VH holder, T t) {
+        if (mOnItemClickListener != null) {
+            holder.itemView.setOnClickListener(v -> {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(holder.getAdapterPosition(), t);
+                }
+            });
+        }
+    }
+
+    public interface OnItemClickListener<T> {
+        void onItemClick(int position, @NonNull T bean);
     }
 }

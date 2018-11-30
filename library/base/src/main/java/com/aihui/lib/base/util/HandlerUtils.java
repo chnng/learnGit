@@ -15,7 +15,7 @@ public final class HandlerUtils {
     private Handler mHandler;
     private List<Handler.Callback> mCallbackList;
 
-    public static Handler getUIHandler() {
+    private static Handler getUIHandler() {
         if (mInstance == null) {
             synchronized (HandlerUtils.class) {
                 if (mInstance == null) {
@@ -28,6 +28,14 @@ public final class HandlerUtils {
 
     private HandlerUtils() {
         mHandler = new Handler(Looper.getMainLooper(), getCallback());
+    }
+
+    public static void post(Runnable r) {
+        getUIHandler().post(r);
+    }
+
+    public static void postDelayed(Runnable r, long delayMillis) {
+        getUIHandler().postDelayed(r, delayMillis);
     }
 
     @NonNull

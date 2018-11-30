@@ -9,6 +9,7 @@ import android.view.Window;
 
 import com.aihui.lib.base.R;
 import com.aihui.lib.base.app.IBaseComponent;
+import com.aihui.lib.base.util.SystemUIUtils;
 
 import butterknife.ButterKnife;
 
@@ -34,6 +35,7 @@ public abstract class BaseDialog extends Dialog implements IBaseComponent {
         }
         ButterKnife.bind(this);
         initData();
+        initEvent();
     }
 
     @Override
@@ -45,5 +47,21 @@ public abstract class BaseDialog extends Dialog implements IBaseComponent {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    }
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if (SystemUIUtils.navigationBarHide) {
+//            SystemUIUtils.hideNavigationBar(this);
+//        }
+//    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus && SystemUIUtils.navigationBarHide) {
+            SystemUIUtils.hideNavigationBar(this);
+        }
     }
 }

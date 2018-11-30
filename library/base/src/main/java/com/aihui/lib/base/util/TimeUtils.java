@@ -29,7 +29,7 @@ public final class TimeUtils {
     public final static SimpleDateFormat sdf5 = getSimpleDateFormat("HH:mm:ss");
     // 2018-07-13
     public final static SimpleDateFormat sdf6 = getSimpleDateFormat("yyyy-MM-dd");
-    // 2018-07-1312:00:00
+    // 2018-07-1316:21:12
     public final static SimpleDateFormat sdf7 = getSimpleDateFormat("yyyy-MM-ddHH:mm:ss");
     // 2018/07/13
     public final static SimpleDateFormat sdf8 = getSimpleDateFormat("yyyy/MM/dd HH:mm:ss");

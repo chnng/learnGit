@@ -40,17 +40,17 @@ class ProgressResponseBody {
                     if (curTime - lastRefreshTime >= mRefreshTime || currentBytes == contentLength) {
                         lastRefreshTime = curTime;
                         long finalCurrentBytes = currentBytes;
-                        HandlerUtils.getUIHandler().post(() -> listener.onProgress(finalCurrentBytes, contentLength));
+                        HandlerUtils.post(() -> listener.onProgress(finalCurrentBytes, contentLength));
                     }
                 }
             }
             if (listener != null) {
-                HandlerUtils.getUIHandler().post(() -> listener.onSuccess(file));
+                HandlerUtils.post(() -> listener.onSuccess(file));
             }
         } catch (IOException e) {
             e.printStackTrace();
             if (listener != null) {
-                HandlerUtils.getUIHandler().post(() -> listener.onFailure(e, file));
+                HandlerUtils.post(() -> listener.onFailure(e, file));
             }
         }
     }

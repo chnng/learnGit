@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply from: '../config/module.gradle'
+apply from: rootProject.ext.gradle_path_module
 
 // 加载 local.properties 资源
 Properties properties = new Properties()
