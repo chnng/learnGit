@@ -1,11 +1,6 @@
-apply from: '../config/module_app.gradle'
+apply from: rootProject.ext.gradle_path_module_app
 
 android {
-    defaultConfig {
-        buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
-        buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
-        buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
-    }
 //    dexOptions {
 //        javaMaxHeapSize '4g'
 //    }
@@ -66,6 +61,11 @@ android {
             applicationIdSuffix '.whfy'
             resValue 'string', 'amap_location', rootProject.ext.location.威海妇幼保健院
         }
+        青岛妇女儿童location {
+            dimension 'url'
+            applicationIdSuffix '.qdfe'
+            resValue 'string', 'amap_location', rootProject.ext.location.青岛市妇女儿童医院
+        }
         淄博中西医formal {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.base
@@ -107,6 +107,18 @@ android {
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.无锡三院local + rootProject.ext.port.base
             buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.无锡三院local + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.无锡三院local + rootProject.ext.port.rcLocal
+        }
+        苏大广慈local {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.苏大广慈local + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.苏大广慈local + rootProject.ext.port.mn
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.苏大广慈local + rootProject.ext.port.rcLocal
+        }
+        深圳罗湖妇幼local {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.深圳罗湖妇幼local + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.深圳罗湖妇幼local + rootProject.ext.port.mn
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.深圳罗湖妇幼local + rootProject.ext.port.rcLocal
         }
         thNati {
             dimension 'app'
@@ -151,6 +163,10 @@ android {
             buildConfigField 'boolean', 'AUTH', 'false'
 
             resValue 'string', 'bugly_app_id', rootProject.ext.mn.buglyAppId
+            resValue 'string', 'getui_app_id', rootProject.ext.call.getuiAppId
+            resValue 'string', 'getui_app_key', rootProject.ext.call.getuiAppKey
+            resValue 'string', 'getui_app_secret', rootProject.ext.call.getuiAppSecret
+            resValue 'string', 'getui_master_secret', rootProject.ext.call.getuiMasterSecret
         }
         expertRemote {
             dimension 'app'
@@ -164,6 +180,14 @@ android {
             applicationId rootProject.ext.ydcf.applicationId
             versionCode rootProject.ext.ydcf.versionCode
             versionName rootProject.ext.ydcf.versionName
+            buildConfigField 'String', 'APP_CODE', rootProject.ext.ydcf.appCode
+        }
+        ydhl {
+            dimension 'app'
+            applicationId rootProject.ext.ydhl.applicationId
+            versionCode rootProject.ext.ydhl.versionCode
+            versionName rootProject.ext.ydhl.versionName
+            buildConfigField 'String', 'APP_CODE', rootProject.ext.ydhl.appCode
         }
     }
 
@@ -172,19 +196,13 @@ android {
         if (!names.contains('Formal') && !names.contains('Demo') && !names.contains('Prepare')) {
             variant.setIgnore(true)
         }
-//        def nuanpingApp = names.contains('mH5') || names.contains('mNati')
-//        if (names.contains('Prepare')) {
-//            // Gradle ignores any variants that satisfy the conditions above.
-//            setIgnore(nuanpingApp)
-//        } else if (names.contains('PreNoSuffix')) {
-//            setIgnore(!nuanpingApp)
-//        } else
         if (names.contains('thNati')) {
             if (names.contains('常州武进人民location')
                     || names.contains('常州武进人民南院location')
                     || names.contains('山东聊城人民location')
                     || names.contains('苏大一医院广慈分院location')
                     || names.contains('威海妇幼保健院location')
+                    || names.contains('青岛妇女儿童location')
             ) {
                 variant.setIgnore(false)
             }
@@ -194,6 +212,14 @@ android {
                     || names.contains('广西中医药local')
                     || names.contains('上海中西医local')
                     || names.contains('无锡三院local')
+                    || names.contains('苏大广慈local')
+                    || names.contains('深圳罗湖妇幼local')
+                    || names.contains('泰兴人民local')
+            ) {
+                variant.setIgnore(false)
+            }
+        } else if (names.contains('mH5')) {
+            if (names.contains('Local')
             ) {
                 variant.setIgnore(false)
             }
@@ -210,19 +236,7 @@ android {
         }
     }
 
-//    // map for the version code
-//    project.ext.versionCodes = ['armeabi': 1, 'armeabi-v7a': 2, 'arm64-v8a': 3, 'mips': 5, 'mips64': 6, 'x86': 8, 'x86_64': 9]
-//
-//    android.applicationVariants.all { variant ->
-//        // assign different version code for each output
-//        variant.outputs.each { output ->
-//            output.versionCodeOverride =
-//                    project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI), 0) * 1000000 + android.defaultConfig.versionCode
-//            println '=============<><><>' + output
-//        }
-//    }
-
-
+    // https://blog.csdn.net/aa112901a/article/details/78911775
     android.applicationVariants.all { variant ->
         if (variant.buildType.name == "debug") { // 防止AS无法安装debug包(apk)
             variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + '/apk')
@@ -258,6 +272,8 @@ android {
                     flavorName = '天护广慈'
                 } else if (baseName.contains('威海妇幼保健院location')) {
                     flavorName = '天护威海'
+                } else if (baseName.contains('青岛妇女儿童location')) {
+                    flavorName = '天护青岛'
                 }
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.th.amapKey]
             } else if (baseName.contains('mnH5') || baseName.contains('mnNati')) {
@@ -306,6 +322,19 @@ android {
                     flavorName += flavor
                     baseUrl = rootProject.ext.domain.local + rootProject.ext.port.ydcfApi
                 }
+            } else if (baseName.contains('ydhl')) {
+                flavorName = rootProject.ext.ydhl.appName
+                baseUrl = rootProject.ext.domain.formal + rootProject.ext.port.ydhlApi
+                if (baseName.contains('Demo')) {
+                    flavorName += flavor
+                    baseUrl = rootProject.ext.domain.demo + rootProject.ext.port.ydhlApi
+                } else if (baseName.contains('Prepare')) {
+                    flavorName += flavor
+                    baseUrl = rootProject.ext.domain.prepare + rootProject.ext.port.ydhlApi
+                } else if (baseName.contains('Local')) {
+                    flavorName += flavor
+                    baseUrl = rootProject.ext.domain.local + rootProject.ext.port.ydhlApi
+                }
             }
             variant.resValue 'string', 'app_name', flavorName
             if (baseUrl != null) {
@@ -342,5 +371,8 @@ dependencies {
     }
     if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_YDCF) != 0) {
         ydcfImplementation project(':module:ydcf')
+    }
+    if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_YDHL) != 0) {
+        ydhlImplementation project(':module:ydhl')
     }
 }

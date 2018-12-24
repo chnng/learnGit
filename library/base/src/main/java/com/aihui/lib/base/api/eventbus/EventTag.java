@@ -81,5 +81,15 @@ public class EventTag {
     /**
      * 看板首页定时器
      */
-    public static final int EVENT_MN_HOMEPAGE_TIMER = 0x21;
+    public static final int EVENT_MN_UPDATE_DATA = 0x21;
+
+    /**
+     * 看板更新时间
+     */
+    public static final int EVENT_MN_UPDATE_DATE = 0x22;
+
+    /**
+     * 看板更新床卡
+     */
+    public static final int EVENT_MN_UPDATE_BED_CARD = 0x23;
 }

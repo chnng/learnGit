@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SortIndicatorView">
+        <attr name="sort_type" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="asc" value="1" />
+            <enum name="desc" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SortColumnView">
+        <attr name="sort_indicator_type" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="asc" value="1" />
+            <enum name="desc" value="2" />
+        </attr>
+        <attr name="sort_column" format="string|reference" />
+        <attr name="sort_size" format="dimension" />
+        <attr name="sort_bold" format="boolean" />
+        <attr name="sort_color" format="color" />
+    </declare-styleable>
+</resources>

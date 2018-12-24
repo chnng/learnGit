@@ -1,4 +1,4 @@
-package com.aihui.lib.nurse.ui.education;
+package com.aihui.lib.nurse.ui.view.education;
 
 import com.aihui.lib.base.model.module.th.msgpush.response.QueryEducationalDictionaryBean;
 

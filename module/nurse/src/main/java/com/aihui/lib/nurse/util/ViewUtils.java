@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.aihui.lib.nurse.manager.StyleManager;
-
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

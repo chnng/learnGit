@@ -21,7 +21,8 @@ import com.aihui.lib.base.util.CheckUtils;
 import com.aihui.lib.base.util.FileUtils;
 import com.aihui.lib.base.util.ToastUtils;
 import com.aihui.lib.nurse.manager.AccountManager;
-import com.aihui.lib.nurse.ui.education.EducationDirNode;
+import com.aihui.lib.nurse.ui.view.education.EducationDirNode;
+import com.aihui.lib.nurse.ui.view.education.EducationFileNode;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.io.File;
@@ -88,11 +89,12 @@ public final class MsgPushUtils {
 
     public static void addSelectedNodeList(@NonNull List<QueryEducationDetailsInsertBody> list,
                                            TreeNode<EducationDirNode> node,
+                                           String wardCode,
                                            String bedNumber,
                                            boolean isSelected) {
         for (TreeNode child : node.getChildList()) {
-            if (child.getContent() instanceof EducationDirNode) {
-                QueryEducationalDictionaryBean bean = ((EducationDirNode) child.getContent()).getBean();
+            if (child.getContent() instanceof EducationFileNode) {
+                QueryEducationalDictionaryBean bean = ((EducationFileNode) child.getContent()).getBean();
                 if (bean.isSelected == isSelected) {
                     String filePath = bean.FilePath;
                     if (!TextUtils.isEmpty(filePath) && bean.DicType == HttpConstant.PUSH_TYPE_DOC) {
@@ -105,7 +107,7 @@ public final class MsgPushUtils {
                             filePath += "&OperatorID=" + AccountManager.getLoginUid();
                         }
                     }
-                    QueryEducationDetailsInsertBody body = MsgPushUtils.getInsertEducationDetailsBody();
+                    QueryEducationDetailsInsertBody body = MsgPushUtils.getInsertEducationDetailsBody(wardCode);
                     body.Name = bean.DictionaryName;
                     body.DictionaryID = String.valueOf(bean.DictionaryID);
                     body.Content = TextUtils.isEmpty(filePath) ? bean.Content : filePath;
@@ -114,15 +116,19 @@ public final class MsgPushUtils {
                     list.add(body);
                 }
             }
-            addSelectedNodeList(list, child, bedNumber, isSelected);
+            addSelectedNodeList(list, child, wardCode, bedNumber, isSelected);
         }
     }
 
     public static QueryEducationDetailsInsertBody getInsertEducationDetailsBody() {
+        return getInsertEducationDetailsBody(AccountManager.getDeptCode());
+    }
+
+    public static QueryEducationDetailsInsertBody getInsertEducationDetailsBody(String wardCode) {
         QueryEducationDetailsInsertBody body = new QueryEducationDetailsInsertBody();
         body.token = AccountManager.getToken();
         body.HospitalCode = AccountManager.getHospitalCode();
-        body.WardCode = AccountManager.getDeptCode();
+        body.WardCode = wardCode;
         body.OperatorID = String.valueOf(AccountManager.getLoginUid());
         return body;
     }
@@ -145,18 +151,14 @@ public final class MsgPushUtils {
     }
 
     public static void insertMsgPush(RxAppCompatActivity activity, @NonNull QueryEducationDetailsInsertBody body) {
-        insertMsgPush(activity, body, null);
-    }
-
-    private static void insertMsgPush(RxAppCompatActivity activity, @NonNull QueryEducationDetailsInsertBody body, BaseObserver<Boolean> observer) {
-        insertMsgPush(activity, body, observer, true);
+        insertMsgPush(activity, body, null, true);
     }
 
     public static void insertMsgPush(RxAppCompatActivity activity, @NonNull QueryEducationDetailsInsertBody body, boolean isFinish) {
         insertMsgPush(activity, body, null, isFinish);
     }
 
-    private static void insertMsgPush(RxAppCompatActivity activity, @NonNull QueryEducationDetailsInsertBody body, BaseObserver<Boolean> observer, boolean isFinish) {
+    public static void insertMsgPush(RxAppCompatActivity activity, @NonNull QueryEducationDetailsInsertBody body, BaseObserver<Boolean> observer, boolean isFinish) {
         ProgressDialog dialog = null;
         if (observer == null) {
             dialog = new ProgressDialog(activity);
@@ -178,9 +180,9 @@ public final class MsgPushUtils {
                             observer.onNext(aBoolean);
                         } else if (aBoolean) {
                             ToastUtils.toast("发送成功");
-                            if (isFinish) {
-                                activity.finish();
-                            }
+                        }
+                        if (isFinish) {
+                            activity.finish();
                         }
                     }
 
@@ -203,6 +205,10 @@ public final class MsgPushUtils {
     }
 
     public static void insertMsgPushList(RxAppCompatActivity activity, List<QueryEducationDetailsInsertBody> bodyList) {
+        insertMsgPushList(activity, bodyList, true);
+    }
+
+    public static void insertMsgPushList(RxAppCompatActivity activity, List<QueryEducationDetailsInsertBody> bodyList, boolean isFinish) {
         if (bodyList == null || bodyList.isEmpty()) {
             return;
         }
@@ -231,31 +237,29 @@ public final class MsgPushUtils {
                     if (integer.decrementAndGet() == 0) {
                         ToastUtils.toast("发送成功");
                         dialog.cancel();
-                        activity.finish();
+                        if (isFinish) {
+                            activity.finish();
+                        }
                     }
                 }
-            });
+            }, false);
         }
     }
 
     public static void doUpload(RxAppCompatActivity activity,
-                                String bedNumber,
                                 String mediaType,
                                 @NonNull File file,
-                                boolean isFinish,
-                                String pushName,
-                                String fileType) {
-        doUpload(activity, bedNumber, mediaType, file, isFinish, pushName, fileType, null);
+                                String fileType,
+                                BaseObserver<String> observable) {
+        doUpload(activity, mediaType, file, fileType, null, observable);
     }
 
     public static void doUpload(RxAppCompatActivity activity,
-                                String bedNumber,
                                 String mediaType,
                                 @NonNull File file,
-                                boolean isFinish,
-                                String pushName,
                                 String fileType,
-                                ProgressDialog dialog) {
+                                ProgressDialog dialog,
+                                BaseObserver<String> observable) {
         if (dialog == null) {
             dialog = new ProgressDialog(activity);
         }
@@ -274,12 +278,9 @@ public final class MsgPushUtils {
                     @Override
                     public void onNext(String url) {
                         if (!TextUtils.isEmpty(url) && url.startsWith("http")) {
-                            QueryEducationDetailsInsertBody body = MsgPushUtils.getInsertEducationDetailsBody();
-                            body.BedNumber = bedNumber;
-                            body.Name = pushName;
-                            body.Content = url.replace(fileType, FileType.Extension.HTML);
-                            body.Type = HttpConstant.PUSH_TYPE_LINK;
-                            MsgPushUtils.insertMsgPush(activity, body, isFinish);
+                            if (observable != null) {
+                                observable.onNext(url.replace(fileType, FileType.Extension.HTML));
+                            }
                         } else {
                             ToastUtils.toast("推送失败，请重试!");
                         }

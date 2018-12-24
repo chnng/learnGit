@@ -1,6 +1,7 @@
 package com.aihui.lib.base.ui.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.ViewDragHelper;
@@ -11,7 +12,9 @@ import android.widget.RelativeLayout;
 
 import com.aihui.lib.base.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +23,7 @@ import java.util.Map;
 public class VDHLayout extends RelativeLayout {
     private ViewDragHelper mDragHelper;
     private Map<View, Rect> paramsMap = new HashMap<>();
+    private boolean mIsKeepLayout;
 
     public VDHLayout(Context context) {
         this(context, null);
@@ -32,6 +36,9 @@ public class VDHLayout extends RelativeLayout {
 
     public VDHLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.VDHLayout, defStyle, 0);
+        mIsKeepLayout = t.getBoolean(R.styleable.VDHLayout_vdh_is_keep_layout, false);
+        t.recycle();
         init();
     }
 
@@ -74,12 +81,17 @@ public class VDHLayout extends RelativeLayout {
             @Override
             public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
                 super.onViewReleased(releasedChild, xvel, yvel);
-                Rect params = new Rect();
-                params.left = releasedChild.getLeft();
-                params.top = releasedChild.getTop();
-                params.right = releasedChild.getRight();
-                params.bottom = releasedChild.getBottom();
-                paramsMap.put(releasedChild, params);
+                if (mIsKeepLayout) {
+                    Rect rect = paramsMap.get(releasedChild);
+                    if (rect == null) {
+                        rect = new Rect();
+                        paramsMap.put(releasedChild, rect);
+                    }
+                    rect.left = releasedChild.getLeft();
+                    rect.top = releasedChild.getTop();
+                    rect.right = releasedChild.getRight();
+                    rect.bottom = releasedChild.getBottom();
+                }
             }
 
             //在边界拖动时回调
@@ -123,12 +135,14 @@ public class VDHLayout extends RelativeLayout {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        for (int i = 0; i < getChildCount(); i++) {
-            View child = getChildAt(i);
-            if (child.getVisibility() != GONE) {
-                Rect params = paramsMap.get(child);
-                if (params != null) {
-                    child.layout(params.left, params.top, params.right, params.bottom);
+        if (mIsKeepLayout) {
+            for (int i = 0; i < getChildCount(); i++) {
+                View child = getChildAt(i);
+                if (child.getVisibility() != GONE) {
+                    Rect params = paramsMap.get(child);
+                    if (params != null) {
+                        child.layout(params.left, params.top, params.right, params.bottom);
+                    }
                 }
             }
         }

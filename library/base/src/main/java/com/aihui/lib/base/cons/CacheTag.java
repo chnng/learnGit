@@ -5,12 +5,16 @@ package com.aihui.lib.base.cons;
  */
 public final class CacheTag {
 
+    public static final int USER_GLOBAL = 0;
+
     /** 所在院区 */
     public static final String HOSPITAL = "hospital";
     /** token */
     public static final String TOKEN = "token";
     /** 登录账号 */
     public static final String LOGIN = "login";
+
+    // region 天护cache tag
     /** 首页菜单 */
     public static final String MENU = "menu";
     /** 床位列表 */
@@ -40,9 +44,6 @@ public final class CacheTag {
     public static final String STATISTIC_READ = "statistic_read";
     /** 数据分析:异常评价 */
     public static final String STATISTIC_QUESTION = "statistic_question";
-
-
-    public static final int USER_GLOBAL = 0;
 
     public static final Object[][] CACHE_TAG_BY_CREATOR = new Object[][]{
 //            {CacheTag.LOGIN, HospitalUserBean.CREATOR},

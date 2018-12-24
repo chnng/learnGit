@@ -12,6 +12,13 @@ import java.util.List;
  */
 public abstract class BaseSelectAdapter<T extends BaseSelectBean, VH extends RecyclerView.ViewHolder> extends BaseAdapter<T, VH> {
 
+    public BaseSelectAdapter() {
+    }
+
+    public BaseSelectAdapter(List<T> list) {
+        super(list);
+    }
+
     public boolean isAllSelected() {
         if (mList == null) {
             return false;

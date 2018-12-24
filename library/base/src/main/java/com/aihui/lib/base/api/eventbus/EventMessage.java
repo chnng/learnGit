@@ -52,8 +52,8 @@ package com.aihui.lib.base.api.eventbus;
  */
 
 public class EventMessage<T> {
-    private int key;
-    private T value;
+    public int key;
+    public T value;
 
     public EventMessage(int key) {
         this.key = key;
@@ -78,5 +78,13 @@ public class EventMessage<T> {
 
     public void setValue(T value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "EventMessage{" +
+                "key=" + key +
+                ", value=" + value +
+                '}';
     }
 }

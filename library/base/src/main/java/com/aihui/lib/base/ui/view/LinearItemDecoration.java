@@ -3,7 +3,7 @@ package com.aihui.lib.base.ui.view;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.annotation.ColorRes;
+import android.support.annotation.ColorInt;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -24,19 +24,24 @@ public class LinearItemDecoration extends RecyclerView.ItemDecoration {
      * Current orientation. Either {@link #HORIZONTAL} or {@link #VERTICAL}.
      */
     private int mOrientation;
+    private boolean mIsLastItemDecorate = true;
 
     public LinearItemDecoration() {
-        this(R.color.colorPrimary);
+        this(VERTICAL);
     }
 
-    public LinearItemDecoration(@ColorRes int colorId) {
-        this(VERTICAL, colorId);
-    }
-
-    public LinearItemDecoration(int orientation, @ColorRes int colorId) {
+    public LinearItemDecoration(int orientation) {
         this.mOrientation = orientation;
         mPaint = new Paint();
-        mPaint.setColor(BaseApplication.getContext().getResources().getColor(colorId));
+        mPaint.setColor(BaseApplication.getContext().getResources().getColor(R.color.colorPrimary));
+    }
+
+    public void setColor(@ColorInt int color) {
+        mPaint.setColor(color);
+    }
+
+    public void setLastItemDecorate(boolean isLastItemDecorate) {
+        mIsLastItemDecorate = isLastItemDecorate;
     }
 
     @Override
@@ -57,6 +62,9 @@ public class LinearItemDecoration extends RecyclerView.ItemDecoration {
         super.onDraw(c, parent, state);
         int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
+            if (!mIsLastItemDecorate && i == childCount - 1) {
+                continue;
+            }
             View view = parent.getChildAt(i);
             switch (mOrientation) {
                 case VERTICAL:

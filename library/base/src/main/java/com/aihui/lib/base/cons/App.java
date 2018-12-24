@@ -6,6 +6,7 @@ package com.aihui.lib.base.cons;
 
 public final class App {
     public static boolean DEBUG;
+    public static boolean AUTH;
 
     /**
      * 手机客户端标识

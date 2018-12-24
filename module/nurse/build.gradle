@@ -3,10 +3,15 @@ apply from: rootProject.ext.gradle_path_module
 
 dependencies {
     api project(':library:base')
-    implementation name: 'aihui_agora', ext: 'aar'
+    api name: 'aihui_agora', ext: 'aar'
     api name: 'aihui_glide', ext: 'aar'
     api rootProject.ext.dependencies.glide
     implementation rootProject.ext.dependencies.glideOkhttp
+//    api project(':library:agora')
     implementation rootProject.ext.dependencies.buglyJava
     implementation rootProject.ext.dependencies.buglyNative
+    api rootProject.ext.dependencies.flexbox
+    api rootProject.ext.dependencies.pickerView
+    api rootProject.ext.dependencies.mpAndroidChart
+    api rootProject.ext.dependencies.carousellayoutmanager
 }

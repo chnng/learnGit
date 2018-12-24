@@ -181,7 +181,9 @@
     <dimen name="dp235">470dp</dimen>
     <dimen name="dp240">480dp</dimen>
     <dimen name="dp300">600dp</dimen>
+    <dimen name="dp350">700dp</dimen>
     <dimen name="dp400">800dp</dimen>
+    <dimen name="dp450">900dp</dimen>
     <dimen name="dp500">1000dp</dimen>
     <dimen name="dp600">1200dp</dimen>
     <dimen name="dp700">1400dp</dimen>

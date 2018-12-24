@@ -1,9 +1,7 @@
 package com.aihui.lib.base.ui;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import java.util.List;
 
@@ -77,7 +75,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         this.mOnItemClickListener = listener;
     }
 
-    protected OnItemClickListener getOnItemClickListener() {
+    protected OnItemClickListener<T> getOnItemClickListener() {
         return mOnItemClickListener;
     }
 
@@ -85,13 +83,13 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(v -> {
                 if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClick(holder.getAdapterPosition(), t);
+                    mOnItemClickListener.onItemClick(holder, t);
                 }
             });
         }
     }
 
     public interface OnItemClickListener<T> {
-        void onItemClick(int position, @NonNull T bean);
+        void onItemClick(RecyclerView.ViewHolder holder, @NonNull T bean);
     }
 }
