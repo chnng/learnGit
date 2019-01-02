@@ -31,7 +31,6 @@ public class VDHLayout extends RelativeLayout {
 
     public VDHLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-
     }
 
     public VDHLayout(Context context, AttributeSet attrs, int defStyle) {
@@ -46,8 +45,6 @@ public class VDHLayout extends RelativeLayout {
         mDragHelper = ViewDragHelper.create(this, 1.0f, new ViewDragHelper.Callback() {
             @Override
             public boolean tryCaptureView(@NonNull View child, int pointerId) {
-                //mEdgeTrackerView禁止直接移动
-//                return child.getId()== R.id.rl_video /*|| child.getId() == R.id.patrol_room_view*/;
                 return child.getTag() != null && getContext().getString(R.string.vdh_drag_tag).equals(child.getTag().toString());
             }
 

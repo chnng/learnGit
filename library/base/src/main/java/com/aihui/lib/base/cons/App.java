@@ -12,8 +12,4 @@ public final class App {
      * 手机客户端标识
      */
     public static String APP_CODE;
-    /**
-     * apkPath 对应的键名
-     */
-    public static final String APK_PATH = "apkPath";
 }

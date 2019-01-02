@@ -25,7 +25,7 @@ public final class CacheTag {
     public static final String TIME = "time";
     /** 护士审核 */
     public static final String AUDIT = "audit";
-    /** 护士排班 */
+    /** 用户排班 */
     public static final String SCHEDULE = "schedule";
     /** 药典维护 */
     public static final String DRUG = "drug";
@@ -44,6 +44,7 @@ public final class CacheTag {
     public static final String STATISTIC_READ = "statistic_read";
     /** 数据分析:异常评价 */
     public static final String STATISTIC_QUESTION = "statistic_question";
+    // endregion
 
     public static final Object[][] CACHE_TAG_BY_CREATOR = new Object[][]{
 //            {CacheTag.LOGIN, HospitalUserBean.CREATOR},

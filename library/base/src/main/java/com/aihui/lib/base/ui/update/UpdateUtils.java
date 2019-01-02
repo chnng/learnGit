@@ -32,9 +32,9 @@ public class UpdateUtils {
      */
     static boolean checkLocalFile() {
         Context context = BaseApplication.getContext();
-        boolean isDownloadSuccess = SharePreferenceUtils.contains(context, App.APK_PATH);
+        boolean isDownloadSuccess = SharePreferenceUtils.contains(context, SharePreferenceUtils.SP_APK_PATH);
         if (isDownloadSuccess) {
-            String apkPath = (String) SharePreferenceUtils.get(context, App.APK_PATH, "");
+            String apkPath = (String) SharePreferenceUtils.get(context, SharePreferenceUtils.SP_APK_PATH, "");
             if (!TextUtils.isEmpty(apkPath)) {
                 int downloadVersionCode = ApplicationUtils.getVersionCode(context, apkPath);
                 if (downloadVersionCode != 0) {

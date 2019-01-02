@@ -211,7 +211,7 @@ public final class AccountManager {
                 .map(RetrofitManager.parseResponse())
                 // 2.根据医院code获取token
                 .map(token -> {
-                    SharePreferenceUtils.put(BaseApplication.getContext(), CacheTag.TOKEN, token);
+                    SharePreferenceUtils.put(BaseApplication.getContext(), SharePreferenceUtils.SP_TOKEN, token);
                     setToken(token);
                     return token;
                 })
@@ -258,7 +258,7 @@ public final class AccountManager {
      */
     public static boolean doLoginByCache() {
         Context context = BaseApplication.getContext();
-        long loginTimestamp = (long) SharePreferenceUtils.get(context, CacheTag.LOGIN, 0L);
+        long loginTimestamp = (long) SharePreferenceUtils.get(context, SharePreferenceUtils.SP_TH_LOGIN_INFO, 0L);
         LogUtils.e("doLoginByCache time:" + loginTimestamp);
         if (loginTimestamp == 0
                 || System.currentTimeMillis() / 1000 - loginTimestamp > TimeUnit.HOURS.toSeconds(1)) {
@@ -274,7 +274,7 @@ public final class AccountManager {
         if (hospitalBean == null) {
             return false;
         }
-        String token = (String) SharePreferenceUtils.get(context, CacheTag.TOKEN, "");
+        String token = (String) SharePreferenceUtils.get(context, SharePreferenceUtils.SP_TOKEN, "");
         LogUtils.e("doLoginByCache token:" + token);
         if (TextUtils.isEmpty(token)) {
             return false;
@@ -320,7 +320,7 @@ public final class AccountManager {
                     bean.pwd = pwd;
                     setLoginAccount(bean);
                     CacheUtils.saveCache(CacheTag.LOGIN, bean);
-                    SharePreferenceUtils.put(BaseApplication.getContext(), CacheTag.LOGIN, System.currentTimeMillis() / 1000);
+                    SharePreferenceUtils.put(BaseApplication.getContext(), SharePreferenceUtils.SP_TH_LOGIN_INFO, System.currentTimeMillis() / 1000);
                     return bean;
                 })
                 .flatMap(AccountManager::getAccountInfoObservable)
@@ -520,7 +520,7 @@ public final class AccountManager {
      */
     private void clearLoginAccount() {
         CacheUtils.clearCache();
-        SharePreferenceUtils.put(BaseApplication.getContext(), CacheTag.LOGIN, 0L);
+        SharePreferenceUtils.put(BaseApplication.getContext(), SharePreferenceUtils.SP_TH_LOGIN_INFO, 0L);
 //        mHospitalBean = null;
         mHospitalUserBean = null;
         mDoctorInfoBean = null;

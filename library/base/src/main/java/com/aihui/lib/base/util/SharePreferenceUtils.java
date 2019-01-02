@@ -24,16 +24,17 @@ public final class SharePreferenceUtils {
      * 保存在手机里面的文件名
      */
     private static final String FILE_NAME = "share_data";
+    /**
+     * apkPath 对应的键名
+     */
+    public static final String SP_APK_PATH = "apk_path";
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
      */
     public static void put(Context context, String key, Object object) {
-
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-
         if (object instanceof String) {
             editor.putString(key, (String) object);
         } else if (object instanceof Integer) {
@@ -80,8 +81,7 @@ public final class SharePreferenceUtils {
      * 移除某个key值已经对应的值
      */
     public static void remove(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
         SharedPreferencesCompat.apply(editor);
@@ -91,8 +91,7 @@ public final class SharePreferenceUtils {
      * 清除所有数据
      */
     public static void clear(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
         SharedPreferencesCompat.apply(editor);
@@ -102,8 +101,7 @@ public final class SharePreferenceUtils {
      * 查询某个key是否已经存在
      */
     public static boolean contains(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         return sp.contains(key);
     }
 
@@ -111,8 +109,7 @@ public final class SharePreferenceUtils {
      * 返回所有的键值对
      */
     public static Map<String, ?> getAll(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         return sp.getAll();
     }
 

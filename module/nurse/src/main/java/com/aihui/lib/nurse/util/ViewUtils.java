@@ -87,7 +87,9 @@ public final class ViewUtils {
 
     public static void setTextColor(int color, TextView... views) {
         for (TextView view : views) {
-            view.setTextColor(color);
+            if (view != null) {
+                view.setTextColor(color);
+            }
         }
     }
 

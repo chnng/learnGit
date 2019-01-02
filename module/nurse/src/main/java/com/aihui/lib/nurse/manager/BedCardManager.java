@@ -54,6 +54,9 @@ public final class BedCardManager {
         if (bedCardList == null) {
             return null;
         }
+        for (QueryBedCardBean bean : bedCardList) {
+            bean.isSelected = false;
+        }
         return new ArrayList<>(bedCardList);
     }
 

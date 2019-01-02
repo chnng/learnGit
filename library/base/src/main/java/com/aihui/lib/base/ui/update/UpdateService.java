@@ -18,7 +18,6 @@ import com.aihui.lib.base.api.eventbus.EventMessage;
 import com.aihui.lib.base.api.eventbus.EventTag;
 import com.aihui.lib.base.api.retrofit.download.DownloadManager;
 import com.aihui.lib.base.api.retrofit.download.OnProgressListener;
-import com.aihui.lib.base.cons.App;
 import com.aihui.lib.base.util.FileUtils;
 import com.aihui.lib.base.util.LogUtils;
 import com.aihui.lib.base.util.NotificationUtils;
@@ -94,7 +93,7 @@ public class UpdateService extends Service {
             @Override
             public void onSuccess(@NonNull File file) {
                 String apkPath = file.getAbsolutePath();
-                SharePreferenceUtils.put(UpdateService.this, App.APK_PATH, apkPath);
+                SharePreferenceUtils.put(UpdateService.this, SharePreferenceUtils.SP_APK_PATH, apkPath);
                 if (mNotificationBuilder != null) {
                     mNotificationBuilder.setContentTitle(getString(R.string.click_install));
                     //设置点击事件
@@ -116,7 +115,7 @@ public class UpdateService extends Service {
             @Override
             public void onFailure(@NonNull Exception e, @NonNull File file) {
                 ToastUtils.toast(R.string.update_fail);
-                SharePreferenceUtils.remove(UpdateService.this, App.APK_PATH);
+                SharePreferenceUtils.remove(UpdateService.this, SharePreferenceUtils.SP_APK_PATH);
                 if (mNotificationBuilder != null) {
                     mNotificationBuilder.setContentTitle(getString(R.string.update_fail));
                     mNotificationBuilder.setContentText(e.getMessage());

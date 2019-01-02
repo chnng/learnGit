@@ -60,7 +60,6 @@ public class UpdateActivity extends BaseActivity {
 
     @Override
     public void initEvent() {
-
     }
 
     private void installApk(boolean isRequestPermission) {

@@ -59,8 +59,8 @@ public class GalleryRecyclerView extends RecyclerView {
         DefaultChildSelectionListener.initCenterItemListener(new DefaultChildSelectionListener.OnCenterItemClickListener() {
             @Override
             public void onCenterItemClicked(@NonNull final RecyclerView recyclerView, @NonNull final CarouselLayoutManager carouselLayoutManager, @NonNull final View v) {
-                final int position = recyclerView.getChildLayoutPosition(v);
-                final String msg = String.format(Locale.US, "Item %1$d was clicked", position);
+//                final int position = recyclerView.getChildLayoutPosition(v);
+//                final String msg = String.format(Locale.US, "Item %1$d was clicked", position);
 //                ToastUtils.toast(msg);
             }
         }, recyclerView, layoutManager);

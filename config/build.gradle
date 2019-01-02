@@ -18,6 +18,7 @@ android {
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.prepare + rootProject.ext.port.base
             buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.prepare + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.prepare + rootProject.ext.port.rcLocal
+            buildConfigField 'String', 'TEMPLATE', rootProject.ext.domain.prepare + rootProject.ext.port.mnApi
             applicationIdSuffix '.pre'
         }
         // 演示
@@ -26,6 +27,7 @@ android {
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.demo + rootProject.ext.port.base
             buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.demo + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.demo + rootProject.ext.port.rcLocal
+            buildConfigField 'String', 'TEMPLATE', rootProject.ext.domain.demo + rootProject.ext.port.mnApi
             applicationIdSuffix '.demo'
         }
         // 内网
@@ -168,11 +170,19 @@ android {
             resValue 'string', 'getui_app_secret', rootProject.ext.call.getuiAppSecret
             resValue 'string', 'getui_master_secret', rootProject.ext.call.getuiMasterSecret
         }
-        expertRemote {
+        expertRemoteH5 {
             dimension 'app'
             applicationId rootProject.ext.er.applicationId
             versionCode rootProject.ext.er.versionCode
             versionName rootProject.ext.er.versionName
+            buildConfigField 'String', 'APP_CODE', rootProject.ext.er.appCode
+        }
+        expertRemoteNative {
+            dimension 'app'
+            applicationId rootProject.ext.er.applicationId
+            versionCode rootProject.ext.er.versionCode
+            versionName rootProject.ext.er.versionName
+            applicationIdSuffix '.nati'
             buildConfigField 'String', 'APP_CODE', rootProject.ext.er.appCode
         }
         ydcf {
@@ -223,7 +233,9 @@ android {
             ) {
                 variant.setIgnore(false)
             }
-        } else if (names.contains('expertRemote')) {
+        } else if (names.contains('expertRemoteH5')
+                || names.contains('expertRemoteNative')
+        ) {
             if (names.contains('淄博中西医formal')) {
                 variant.setIgnore(false)
             }
@@ -276,11 +288,8 @@ android {
                     flavorName = '天护青岛'
                 }
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.th.amapKey]
-            } else if (baseName.contains('mnH5') || baseName.contains('mnNati')) {
+            } else if (baseName.contains('mnH5')) {
                 flavorName = rootProject.ext.mn.appName
-                if (baseName.contains('mnNati')) {
-                    flavorName = '看板'
-                }
                 if (baseName.contains('Demo')) {
                     flavorName += flavor
                     webUrl = rootProject.ext.domain.demoWeb + rootProject.ext.port.mn
@@ -290,9 +299,28 @@ android {
                     flavorName += flavor
                 }
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.mn.amapKey]
-            } else if (baseName.contains('expertRemote')) {
+            } else if (baseName.contains('mnNati')) {
+                flavorName = rootProject.ext.mn.appNameNative
+                if (baseName.contains('Demo')) {
+                    flavorName += flavor
+                    baseUrl = rootProject.ext.domain.demo + rootProject.ext.port.mnApi
+                    webUrl = rootProject.ext.domain.demoWeb + rootProject.ext.port.mn
+                } else if (baseName.contains('Prepare')) {
+                    flavorName += flavor
+                    baseUrl = rootProject.ext.domain.prepare + rootProject.ext.port.mnApi
+                } else if (baseName.contains('Local')) {
+                    flavorName += flavor
+                    baseUrl = rootProject.ext.domain.local + rootProject.ext.port.mnApi
+                } else {
+                    baseUrl = rootProject.ext.domain.formal + rootProject.ext.port.mnApi
+                }
+                variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.mn.amapKey]
+            } else if (baseName.contains('expertRemoteH5') || baseName.contains('expertRemoteNative')) {
                 flavorName = rootProject.ext.er.appName
                 webUrl = rootProject.ext.domain.formal + rootProject.ext.port.erFormal
+                if (baseName.contains('expertRemoteNative')) {
+                    flavorName = rootProject.ext.er.appNameNative
+                }
                 if (baseName.contains('淄博中西医formal')) {
                     baseUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZiboApi
                     webUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZibo
@@ -349,7 +377,7 @@ android {
                                       + ' to ' + flavorName \
                                       + ' version:' + variant.versionName \
                                       + ' output:' + output.outputFileName \
-                                      + ' appid:' + variant.mergedFlavor.applicationId  \
+                                      + ' appid:' + variant.mergedFlavor.applicationId \
         }
     }
 }
@@ -366,8 +394,11 @@ dependencies {
     if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_MN_NATIVE) != 0) {
         mnNatiImplementation project(':module:mn:native')
     }
-    if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_ER) != 0) {
-        expertRemoteImplementation project(':module:er')
+    if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_ER_H5) != 0) {
+        expertRemoteH5Implementation project(':module:er:h5')
+    }
+    if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_ER_NATIVE) != 0) {
+        expertRemoteNativeImplementation project(':module:er:native')
     }
     if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_YDCF) != 0) {
         ydcfImplementation project(':module:ydcf')

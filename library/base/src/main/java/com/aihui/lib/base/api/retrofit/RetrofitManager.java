@@ -82,6 +82,16 @@ public class RetrofitManager {
         RetrofitUrlManager.getInstance().putDomain("rcUrl", "https://www.baidu.com/");
     }
 
+    public static synchronized void setBaseUrl(String url) {
+        getInstance().mRetrofit = new Retrofit.Builder()
+                .client(getOkHttpClient())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(getGson()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(url)
+                .build();
+    }
+
     public static Gson getGson() {
         return getInstance().mGson;
     }

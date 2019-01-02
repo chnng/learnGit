@@ -6,35 +6,35 @@ gradle.ext {
     MODULE_MN_NATIVE = MODULE_MN_H5 << 1
     MODULE_M_H5 = MODULE_MN_NATIVE << 1
     MODULE_M_NATIVE = MODULE_M_H5 << 1
-    MODULE_ER = MODULE_M_NATIVE << 1
-    MODULE_CALL = MODULE_ER << 1
+    MODULE_ER_H5 = MODULE_M_NATIVE << 1
+    MODULE_ER_NATIVE = MODULE_ER_H5 << 1
+    MODULE_CALL = MODULE_ER_NATIVE << 1
     MODULE_PUSH = MODULE_CALL << 1
     MODULE_YDCF = MODULE_PUSH << 1
     MODULE_YDHL = MODULE_YDCF << 1
     MODULE_NAVI = MODULE_YDHL << 1
 
     // change me
-    RELEASE_IGNORE = true
-    COMPILE_FLAG = MODULE_YDHL | MODULE_YDCF | MODULE_MN_NATIVE | MODULE_TH_NATIVE | MODULE_MN_H5
+    RELEASE_IGNORE = false
+    COMPILE_FLAG = MODULE_ALL
 }
 def flag = gradle.ext.COMPILE_FLAG
 
-include ':app:project', ':library:base'
+// ':library:agentweb',
+// ':library:amap',
+// ':library:agora',
+// ':library:glide'
+// ':library:zxing',
+// ':library:signalA:parallel-basic-http-client',
+// ':library:signalA:SignalA',
+// ':library:signalA:SignalA.LongPolling'
+include ':app:project', ':app:nuanping', ':app:test', ':library:base'
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_TH_NATIVE) != 0) {
     include ':module:th:native',
             ':module:nurse'
-//            ':library:amap',
-//            ':library:javamail',
-//            ':library:mp3recorder',
-//            ':library:glide'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_MN_H5) != 0) {
     include ':module:mn:h5'
-//            ':library:agentweb',
-//            ':library:amap',
-//            ':library:zxing',
-//            ':library:agora',
-//            ':library:whiteboard'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_MN_NATIVE) != 0) {
     include ':module:mn:native',
@@ -42,30 +42,18 @@ if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_MN_NATIVE) != 0) 
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_M_H5) != 0) {
     include ':module:m:h5'
-//            ':library:agentweb',
-//            ':library:amap',
-//            ':library:agora',
-//            ':library:glide'
-//            ':library:zxing',
-//            ':library:signalA:parallel-basic-http-client',
-//            ':library:signalA:SignalA',
-//            ':library:signalA:SignalA.LongPolling'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_M_NATIVE) != 0) {
     include ':module:m:native'
 }
-if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_ER) != 0) {
-    include ':module:er'
-//            ':library:agentweb',
-//            ':library:agora',
-//            ':library:signalA:parallel-basic-http-client',
-//            ':library:signalA:SignalA',
-//            ':library:signalA:SignalA.LongPolling'
+if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_ER_H5) != 0) {
+    include ':module:er:h5'
+}
+if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_ER_NATIVE) != 0) {
+    include ':module:er:native'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_CALL) != 0) {
     include ':module:call'
-//            ':library:agora',
-//            ':library:getui'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_YDCF) != 0) {
     include ':module:ydcf'

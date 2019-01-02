@@ -14,7 +14,11 @@ import com.aihui.lib.nurse.R;
 import com.aihui.lib.nurse.util.CacheUtils;
 import com.aihui.lib.nurse.util.ViewUtils;
 
+import java.util.LinkedHashMap;
+
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.functions.Function;
 
 /**
  * Created by 胡一鸣 on 2018/11/16.
@@ -22,6 +26,7 @@ import io.reactivex.Observable;
 public final class StyleManager {
     private static volatile StyleManager mInstance;
     private QueryStyleBean mStyleBean;
+    private LinkedHashMap<String, StyleColor> mStyleColorMap;
     private int mColor, mSubColor, mInvertSubColor;
     private boolean mIsStyleBright;
 
@@ -34,6 +39,28 @@ public final class StyleManager {
             }
         }
         return mInstance;
+    }
+
+    public StyleManager() {
+        mStyleColorMap = new LinkedHashMap<>(5);
+        // 白
+        mStyleColorMap.put("F0F4FC", new StyleColor(0XFFF0F4FC, 0xFFFFFFFF, 0xFFC6DDFF,
+                0xFF6AA7FF, 0xFF7E8A98, 0xFF52575D, 0xFF0068FF));
+        // 粉
+        mStyleColorMap.put("E98AA7", new StyleColor(0XFFE98AA7, 0xFFFFE0E9, 0xFFFF729C,
+                0xFFE07F9C, 0xFFFF729C, 0xFF976574, 0xFFFFFFFF));
+        // 蓝
+        mStyleColorMap.put("00193E", new StyleColor(0XFF00193E, 0xFF112957, 0xFF2D55A0,
+                0xFF96BAFF, 0xFF78849E, 0xFFFFFFFF, 0xFFF3F7FF));
+        // 紫
+        mStyleColorMap.put("1B083B", new StyleColor(0XFF1B083B, 0xFF251B4C, 0xFF452F6B,
+                0xFF7F5BBA, 0xFF797199, 0xFFFFFFFF, 0xFFF3F7FF));
+        // 灰
+        mStyleColorMap.put("303042", new StyleColor(0XFF303042, 0xFF424255, 0xFF38384A,
+                0xFFB6B6D5, 0xFF9999B3, 0xFFFFFFFF, 0xFFF3F7FF));
+        // 黑
+        mStyleColorMap.put("17181C", new StyleColor(0XFF17181C, 0xFF27292E, 0xFF43464D,
+                0xFFB2B8CC, 0xFF92969E, 0xFFFFFFFF, 0xFFF3F7FF));
     }
 
     private static void setStyleBean() {
@@ -126,11 +153,11 @@ public final class StyleManager {
         return getInstance().mIsStyleBright;
     }
 
-    public static Observable<QueryStyleBean> updateStyle(ComponentCallbacks callbacks) {
+    public static Observable<QueryStyleBean> updateStyle(ComponentCallbacks callbacks, int type) {
         QueryStyleBody body = new QueryStyleBody();
         body.hospital_code = AccountManager.getHospitalCode();
         body.dept_code = AccountManager.getDeptCode();
-        body.user_id = AccountManager.getLoginAccount().account_id;
+        body.user_id = type;
         return RetrofitManager.newMnServer().queryStyle(body)
                 .compose(RetrofitManager.parseResponseWith(callbacks))
                 .map(list -> {
@@ -139,7 +166,86 @@ public final class StyleManager {
                         setStyleColor(bean);
                         return bean;
                     }
-                    return null;
+                    return new QueryStyleBean();
                 });
+    }
+
+    public static Observable<QueryStyleBean> insertStyle(ComponentCallbacks callbacks, String style, int type) {
+        QueryStyleBean body = new QueryStyleBean();
+        body.hospital_code = AccountManager.getHospitalCode();
+        body.dept_code = AccountManager.getDeptCode();
+        body.style_code = style;
+        body.user_id = type;
+        return RetrofitManager.newMnServer().queryStyleInsert(body)
+                .compose(RetrofitManager.parseResponseWith(callbacks))
+                .flatMap((Function<Boolean, ObservableSource<QueryStyleBean>>) aBoolean -> {
+                    if (aBoolean) {
+                        return updateStyle(callbacks, type);
+                    } else {
+                        return Observable.empty();
+                    }
+                });
+    }
+
+//    public void saveUserSkin(String code,ComponentCallbacks callbacks) {
+//        QueryUserSkinBody body = new QueryUserSkinBody();
+//        body.setHospital_code(AccountManager.getHospitalCode());
+//        body.setDept_code(AccountManager.getDeptCode());
+//        body.setEstate("0");
+//        body.setId("0");
+//        body.setStyle_code(code);
+//        body.setUser_id("0");
+//        //查询到当前主页应该显示的module
+//        RetrofitManager.newMnHomepage2Server().saveUserSkin(body)
+//                .compose(RetrofitManager.parseResponseWith(callbacks))
+//                .subscribe(new BaseObserver<Boolean>() {
+//                    @Override
+//                    public void onNext(Boolean result) {
+//                        if (result) {
+//                            getInstance().mColor = Color.parseColor("#" + code);
+//                            EventBus.getDefault().post(new EventMessage<>(0x24));
+////                            getInstance().setChanged();
+////                            getInstance().notifyObservers();
+//                        }
+//                    }
+//                });
+//    }
+
+    public static class StyleColor {
+        public int themeColor;
+        public int backgroundColor0;
+        public int backgroundColor1;
+        public int textColor0;
+        public int textColor1;
+        public int textColor2;
+        public int textColor3;
+
+        StyleColor(int themeColor, int backgroundColor0,
+                   int backgroundColor1, int textColor0,
+                   int textColor1, int textColor2,
+                   int textColor3) {
+            this.themeColor = themeColor;
+            this.backgroundColor0 = backgroundColor0;
+            this.backgroundColor1 = backgroundColor1;
+            this.textColor0 = textColor0;
+            this.textColor1 = textColor1;
+            this.textColor2 = textColor2;
+            this.textColor3 = textColor3;
+        }
+    }
+
+    public static LinkedHashMap<String, StyleColor> getStyleColorMap() {
+        return getInstance().mStyleColorMap;
+    }
+
+    public static StyleColor getStyleColor() {
+        LinkedHashMap<String, StyleColor> styleColorMap = getInstance().mStyleColorMap;
+        StyleColor styleColor = styleColorMap.get(getStyleTag());
+        return styleColor == null ? styleColorMap.get("E98AA7") : styleColor;
+    }
+
+    public static String getStyleTag() {
+        QueryStyleBean styleBean = getInstance().mStyleBean;
+        return styleBean == null ? "E98AA7" : styleBean.style_code;
     }
 }
