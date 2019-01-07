@@ -118,8 +118,8 @@ public final class AccountManager {
     }
 
     public static String getHospitalCode() {
-        HospitalUserBean loginAccount = getLoginAccount();
-        return loginAccount == null ? null : loginAccount.hospital_code;
+        QueryHospitalBean hospital = getHospital();
+        return hospital == null ? "1000000" : hospital.code;
     }
 
     public static int getLoginUid() {
@@ -163,6 +163,10 @@ public final class AccountManager {
 
     public static void setToken(String token) {
         getInstance().mToken = TextUtils.isEmpty(token) ? "123456" : token;
+    }
+
+    public static void setHospital(QueryHospitalBean hospital) {
+        getInstance().mHospitalBean = hospital;
     }
 
     private void setDoctorInfoBean(QueryDoctorInfoBean doctorInfoBean) {
@@ -222,13 +226,11 @@ public final class AccountManager {
     /**
      * 登录
      *
-     * @param callbacks    callbacks
-     * @param hospitalBean hospitalBean
-     * @param account      account
-     * @param password     password
+     * @param callbacks callbacks
+     * @param account   account
+     * @param password  password
      */
     public static Observable<HospitalUserBean> doLogin(ComponentCallbacks callbacks,
-                                                       QueryHospitalBean hospitalBean,
                                                        String account,
                                                        String password) {
         if (account == null && password == null) {
@@ -241,16 +243,13 @@ public final class AccountManager {
                 password = userInfo.pwd;
             }
         }
+        QueryHospitalBean hospitalBean = getHospital();
         QueryLoginBody body = new QueryLoginBody();
         body.account = account;
         body.pwd = password;
         body.hospital_code = body.hospital = hospitalBean.code;
         return getLoginObservable(body)
-                .compose(RetrofitManager.switchSchedulerWith(callbacks))
-                .map(bean -> {
-                    getInstance().mHospitalBean = hospitalBean;
-                    return bean;
-                });
+                .compose(RetrofitManager.switchSchedulerWith(callbacks));
     }
 
     /**
@@ -258,7 +257,7 @@ public final class AccountManager {
      */
     public static boolean doLoginByCache() {
         Context context = BaseApplication.getContext();
-        long loginTimestamp = (long) SharePreferenceUtils.get(context, SharePreferenceUtils.SP_TH_LOGIN_INFO, 0L);
+        long loginTimestamp = (long) SharePreferenceUtils.get(context, SharePreferenceUtils.SP_TH_LOGIN_TIMESTAMP, 0L);
         LogUtils.e("doLoginByCache time:" + loginTimestamp);
         if (loginTimestamp == 0
                 || System.currentTimeMillis() / 1000 - loginTimestamp > TimeUnit.HOURS.toSeconds(1)) {
@@ -320,7 +319,7 @@ public final class AccountManager {
                     bean.pwd = pwd;
                     setLoginAccount(bean);
                     CacheUtils.saveCache(CacheTag.LOGIN, bean);
-                    SharePreferenceUtils.put(BaseApplication.getContext(), SharePreferenceUtils.SP_TH_LOGIN_INFO, System.currentTimeMillis() / 1000);
+                    SharePreferenceUtils.put(BaseApplication.getContext(), SharePreferenceUtils.SP_TH_LOGIN_TIMESTAMP, System.currentTimeMillis() / 1000);
                     return bean;
                 })
                 .flatMap(AccountManager::getAccountInfoObservable)
@@ -520,7 +519,10 @@ public final class AccountManager {
      */
     private void clearLoginAccount() {
         CacheUtils.clearCache();
-        SharePreferenceUtils.put(BaseApplication.getContext(), SharePreferenceUtils.SP_TH_LOGIN_INFO, 0L);
+        Context context = BaseApplication.getContext();
+//        SharePreferenceUtils.remove(context, SharePreferenceUtils.SP_TH_BASE_URL);
+        SharePreferenceUtils.remove(context, SharePreferenceUtils.SP_TH_LOGIN_TIMESTAMP);
+        SharePreferenceUtils.remove(context, SharePreferenceUtils.SP_TH_LOCATION_INFO);
 //        mHospitalBean = null;
         mHospitalUserBean = null;
         mDoctorInfoBean = null;

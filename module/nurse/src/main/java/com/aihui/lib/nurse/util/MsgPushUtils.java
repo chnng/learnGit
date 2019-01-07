@@ -151,7 +151,7 @@ public final class MsgPushUtils {
     }
 
     public static void insertMsgPush(RxAppCompatActivity activity, @NonNull QueryEducationDetailsInsertBody body) {
-        insertMsgPush(activity, body, null, true);
+        insertMsgPush(activity, body, null, false);
     }
 
     public static void insertMsgPush(RxAppCompatActivity activity, @NonNull QueryEducationDetailsInsertBody body, boolean isFinish) {

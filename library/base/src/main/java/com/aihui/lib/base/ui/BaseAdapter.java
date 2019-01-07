@@ -66,7 +66,7 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         return mList == null ? 0 : mList.size();
     }
 
-    protected void removeItem(int position) {
+    public void removeItem(int position) {
         mList.remove(position);
         notifyItemRemoved(position);
         notifyItemChanged(position);

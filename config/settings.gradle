@@ -15,7 +15,7 @@ gradle.ext {
     MODULE_NAVI = MODULE_YDHL << 1
 
     // change me
-    RELEASE_IGNORE = false
+    RELEASE_IGNORE = true
     COMPILE_FLAG = MODULE_ALL
 }
 def flag = gradle.ext.COMPILE_FLAG

@@ -18,7 +18,6 @@ android {
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.prepare + rootProject.ext.port.base
             buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.prepare + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.prepare + rootProject.ext.port.rcLocal
-            buildConfigField 'String', 'TEMPLATE', rootProject.ext.domain.prepare + rootProject.ext.port.mnApi
             applicationIdSuffix '.pre'
         }
         // 演示
@@ -27,7 +26,6 @@ android {
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.demo + rootProject.ext.port.base
             buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.demo + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.demo + rootProject.ext.port.rcLocal
-            buildConfigField 'String', 'TEMPLATE', rootProject.ext.domain.demo + rootProject.ext.port.mnApi
             applicationIdSuffix '.demo'
         }
         // 内网
@@ -315,12 +313,9 @@ android {
                     baseUrl = rootProject.ext.domain.formal + rootProject.ext.port.mnApi
                 }
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.mn.amapKey]
-            } else if (baseName.contains('expertRemoteH5') || baseName.contains('expertRemoteNative')) {
+            } else if (baseName.contains('expertRemoteH5')) {
                 flavorName = rootProject.ext.er.appName
                 webUrl = rootProject.ext.domain.formal + rootProject.ext.port.erFormal
-                if (baseName.contains('expertRemoteNative')) {
-                    flavorName = rootProject.ext.er.appNameNative
-                }
                 if (baseName.contains('淄博中西医formal')) {
                     baseUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZiboApi
                     webUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZibo
@@ -336,6 +331,31 @@ android {
                 } else if (baseName.contains('Local')) {
                     flavorName += flavor
                     webUrl = rootProject.ext.domain.local + rootProject.ext.port.erLocal
+                }
+            } else if (baseName.contains('expertRemoteNative')) {
+                flavorName = rootProject.ext.er.appName
+                webUrl = rootProject.ext.domain.formal + rootProject.ext.port.erFormal
+                flavorName = rootProject.ext.er.appNameNative
+                if (baseName.contains('淄博中西医formal')) {
+                    baseUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZiboApi
+                    webUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZibo
+                } else if (baseName.contains('淄博中西医local')) {
+                    webUrl = rootProject.ext.domain.淄博中西医local + rootProject.ext.port.erLocal
+                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.淄博中西医local + rootProject.ext.port.erLocal
+                } else if (baseName.contains('Demo')) {
+                    flavorName += flavor
+                    baseUrl = rootProject.ext.domain.demo + rootProject.ext.port.rcLocal
+                    webUrl = rootProject.ext.domain.demo + rootProject.ext.port.erLocal
+                } else if (baseName.contains('Prepare')) {
+                    flavorName += flavor
+                    baseUrl = rootProject.ext.domain.prepare + rootProject.ext.port.rcLocal
+                    webUrl = rootProject.ext.domain.prepare + rootProject.ext.port.erLocal
+                } else if (baseName.contains('Local')) {
+                    flavorName += flavor
+                    baseUrl = rootProject.ext.domain.local + rootProject.ext.port.rcLocal
+                    webUrl = rootProject.ext.domain.local + rootProject.ext.port.erLocal
+                } else {
+                    baseUrl = rootProject.ext.domain.formal + rootProject.ext.port.rcLocal
                 }
             } else if (baseName.contains('ydcf')) {
                 flavorName = rootProject.ext.ydcf.appName

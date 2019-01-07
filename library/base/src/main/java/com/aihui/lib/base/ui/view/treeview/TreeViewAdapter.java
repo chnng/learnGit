@@ -31,8 +31,9 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public TreeViewAdapter(List<TreeNode> nodes, List<? extends TreeViewBinder> viewBinders) {
         displayNodes = new ArrayList<>();
-        if (nodes != null)
+        if (nodes != null) {
             findDisplayNodes(nodes);
+        }
         this.viewBinders = viewBinders;
     }
 
@@ -196,12 +197,14 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public interface OnTreeNodeListener {
         /**
          * called when TreeNodes were clicked.
+         *
          * @return weather consume the click event.
          */
         boolean onClick(TreeViewAdapter adapter, TreeNode node, RecyclerView.ViewHolder holder, int position);
 
         /**
          * called when TreeNodes were toggle.
+         *
          * @param isExpand the status of TreeNodes after being toggled.
          */
         void onToggle(boolean isExpand, RecyclerView.ViewHolder holder);
@@ -209,7 +212,9 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void refresh(List<TreeNode> treeNodes) {
         displayNodes.clear();
-        findDisplayNodes(treeNodes);
+        if (treeNodes != null) {
+            findDisplayNodes(treeNodes);
+        }
         notifyDataSetChanged();
     }
 

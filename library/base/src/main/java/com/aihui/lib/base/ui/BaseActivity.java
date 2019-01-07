@@ -36,6 +36,7 @@ public abstract class BaseActivity extends RxAppCompatActivity
         implements IBaseComponent, EasyPermissions.PermissionCallbacks {
 
     private Unbinder mUnbinder;
+    private boolean mResumed;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +64,13 @@ public abstract class BaseActivity extends RxAppCompatActivity
     protected void onResume() {
         super.onResume();
         hideNavigationBar();
+        mResumed = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mResumed = false;
     }
 
     @Override
@@ -102,6 +110,10 @@ public abstract class BaseActivity extends RxAppCompatActivity
     private void unregisterApi() {
         EventBus.getDefault().unregister(this);
         mUnbinder.unbind();
+    }
+
+    protected boolean isActivityResumed() {
+        return mResumed;
     }
 
     /**
