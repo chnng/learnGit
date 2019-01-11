@@ -5,6 +5,9 @@ import com.chnng.java.dimens.utils.MakeUtils;
 
 import java.io.File;
 
+/**
+ * https://github.com/ladingwu/dimens_sw
+ */
 public class DimenGenerator {
 
     /**

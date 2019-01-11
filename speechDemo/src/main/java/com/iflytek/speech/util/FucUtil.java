@@ -44,7 +44,7 @@ public class FucUtil {
 	 * @param spsize 切割块大小
 	 * @return
 	 */
-	public ArrayList<byte[]> splitBuffer(byte[] buffer,int length,int spsize)
+	public static ArrayList<byte[]> splitBuffer(byte[] buffer,int length,int spsize)
 	{
 		ArrayList<byte[]> array = new ArrayList<byte[]>();
 		if(spsize <= 0 || length <= 0 || buffer == null || buffer.length < length)
@@ -109,7 +109,6 @@ public class FucUtil {
 				SpeechUtility.getUtility().openEngineSettings(SpeechConstant.ENG_ASR);
 				return "获取结果出错，跳转至资源下载页面";
 			case ErrorCode.ERROR_SYSTEM_PREINSTALL:
-				//语记为厂商预置版本。
 			default:
 				break;
 			}

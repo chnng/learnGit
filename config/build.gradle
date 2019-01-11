@@ -66,6 +66,11 @@ android {
             applicationIdSuffix '.qdfe'
             resValue 'string', 'amap_location', rootProject.ext.location.青岛市妇女儿童医院
         }
+        广西中医药大学仙葫校区location {
+            dimension 'url'
+            applicationIdSuffix '.gxzyy'
+            resValue 'string', 'amap_location', rootProject.ext.location.广西中医药大学仙葫校区
+        }
         淄博中西医formal {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.base
@@ -211,6 +216,7 @@ android {
                     || names.contains('苏大一医院广慈分院location')
                     || names.contains('威海妇幼保健院location')
                     || names.contains('青岛妇女儿童location')
+                    || names.contains('广西中医药大学仙葫校区location')
             ) {
                 variant.setIgnore(false)
             }
@@ -284,6 +290,8 @@ android {
                     flavorName = '天护威海'
                 } else if (baseName.contains('青岛妇女儿童location')) {
                     flavorName = '天护青岛'
+                } else if (baseName.contains('广西中医药大学仙葫校区location')) {
+                    flavorName = '天护广中仙葫'
                 }
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.th.amapKey]
             } else if (baseName.contains('mnH5')) {

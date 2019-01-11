@@ -55,12 +55,14 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return displayNodes.get(position).getContent().getLayoutId();
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(viewType, parent, false);
-        if (viewBinders.size() == 1)
+        if (viewBinders.size() == 1) {
             return viewBinders.get(0).provideViewHolder(v);
+        }
         for (TreeViewBinder viewBinder : viewBinders) {
             if (viewBinder.getLayoutId() == viewType)
                 return viewBinder.provideViewHolder(v);
@@ -69,8 +71,8 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List<Object> payloads) {
-        if (payloads != null && !payloads.isEmpty()) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (!payloads.isEmpty()) {
             Bundle b = (Bundle) payloads.get(0);
             for (String key : b.keySet()) {
                 switch (key) {
@@ -85,8 +87,10 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        holder.itemView.setPadding(displayNodes.get(position).getHeight() * padding, 3, 3, 3);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (padding > 0) {
+            holder.itemView.setPadding(displayNodes.get(position).getHeight() * padding, 3, 3, 3);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,13 +169,13 @@ public class TreeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return displayNodes.indexOf(pNode) + 1;
     }
 
-    public int getExpandChildCount(TreeNode pNode, int childCount) {
+    public int getExpandChildCount(TreeNode pNode) {
         int expandChildCount = 0;
         List<TreeNode> childList = pNode.getChildList();
         for (TreeNode treeNode : childList) {
             expandChildCount++;
             if (treeNode.isExpand()) {
-                expandChildCount += getExpandChildCount(treeNode, expandChildCount);
+                expandChildCount += getExpandChildCount(treeNode);
             }
         }
         return expandChildCount;

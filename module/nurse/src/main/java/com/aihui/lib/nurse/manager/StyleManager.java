@@ -42,31 +42,7 @@ public final class StyleManager {
     }
 
     public StyleManager() {
-        mStyleColorMap = new LinkedHashMap<>(9);
-        // 白
-        mStyleColorMap.put("F0F4FC", new StyleColor("白_F0F4FC", 0XFFF0F4FC, 0xFFFFFFFF, Color.TRANSPARENT, 0xFFC6DDFF,
-                0XFFF0F4FC, 0XFFF9CD35, 0xFF6AA7FF, 0xFF7E8A98, 0xFF52575D, 0xFF0068FF));
-        // 粉
-        mStyleColorMap.put("E98AA7", new StyleColor("粉0_E98AA7", 0XFFE98AA7, 0xFFFFE0E9, Color.TRANSPARENT, 0xFFFF729C,
-                0XFFE98AA7, 0XFFF9CD35, 0xFFE07F9C, 0xFFFF729C, 0xFF976574, 0xFFFFFFFF));
-        mStyleColorMap.put("F487A8", new StyleColor("粉1_F487A8", 0XFFF487A8, 0xFFFFFFFF, 0XFFF487A8, 0xFFFFD9E5,
-                0XFFFFEEF4, 0XFFF487A8, 0xFFF487A8, 0xFFFFFFFF, 0xFFF487A8, 0xFFF487A8));
-        // 蓝
-        mStyleColorMap.put("00193E", new StyleColor("蓝0_00193E", 0XFF00193E, 0xFF112957, Color.TRANSPARENT, 0xFF2D55A0,
-                0XFF00193E, 0XFFF9CD35, 0xFF96BAFF, 0xFF78849E, 0xFFFFFFFF, 0xFFF3F7FF));
-        mStyleColorMap.put("5078F2", new StyleColor("蓝1_5078F2", 0XFF5078F2, 0xFFFFFFFF, 0XFF5078F2, 0xFFC2D1FF,
-                0XFFEEF5FF, 0XFF5078F2, 0xFF5078F2, 0xFFFFFFFF, 0xFF5078F2, 0xFF5078F2));
-        // 紫
-        mStyleColorMap.put("1B083B", new StyleColor("紫0_1B083B", 0XFF1B083B, 0xFF251B4C, Color.TRANSPARENT, 0xFF452F6B,
-                0XFF1B083B, 0XFFF9CD35, 0xFF7F5BBA, 0xFF797199, 0xFFFFFFFF, 0xFFF3F7FF));
-        mStyleColorMap.put("6C65E9", new StyleColor("紫1_6C65E9", 0XFF6C65E9, 0xFFFFFFFF, 0XFF6C65E9, 0xFFCFCCFF,
-                0XFFF2F1FF, 0xFF6C65E9, 0XFF6C65E9, 0xFFFFFFFF, 0xFF6C65E9, 0xFF6C65E9));
-        // 灰
-        mStyleColorMap.put("303042", new StyleColor("灰_303042", 0XFF303042, 0xFF424255, Color.TRANSPARENT, 0xFF38384A,
-                0XFF303042, 0XFFF9CD35, 0xFFB6B6D5, 0xFF9999B3, 0xFFFFFFFF, 0xFFF3F7FF));
-        // 黑
-        mStyleColorMap.put("17181C", new StyleColor("黑_17181C", 0XFF17181C, 0xFF27292E, Color.TRANSPARENT, 0xFF43464D,
-                0XFF17181C, 0XFFF9CD35, 0xFFB2B8CC, 0xFF92969E, 0xFFFFFFFF, 0xFFF3F7FF));
+        initStyle();
     }
 
     private static void setStyleBean() {
@@ -222,12 +198,16 @@ public final class StyleManager {
         public String name;
         // 主题色
         public int themeColor;
+        // 菜单悬浮球颜色
+        public int menuColor;
         // 文本内容背景
         public int backgroundColor0;
         // 子标题背景
         public int backgroundColor1;
-        // 列表条目背景
+        // 内容背景
         public int backgroundColor2;
+        // 列表条目背景
+        public int backgroundColor3;
         // 边框颜色
         public int borderColor0;
         // 列表条目圆点颜色
@@ -243,27 +223,60 @@ public final class StyleManager {
 
         StyleColor(String name,
                    int themeColor,
+                   int menuColor,
                    int backgroundColor0,
                    int backgroundColor1,
                    int backgroundColor2,
-                   int borderColor0,
-                   int pointColor0,
+                   int backgroundColor3,
                    int textColor0,
                    int textColor1,
                    int textColor2,
-                   int textColor3) {
+                   int textColor3,
+                   int borderColor0,
+                   int pointColor0) {
             this.name = name;
             this.themeColor = themeColor;
+            this.menuColor = menuColor;
             this.backgroundColor0 = backgroundColor0;
             this.backgroundColor1 = backgroundColor1;
             this.backgroundColor2 = backgroundColor2;
-            this.borderColor0 = borderColor0;
-            this.pointColor0 = pointColor0;
+            this.backgroundColor3 = backgroundColor3;
             this.textColor0 = textColor0;
             this.textColor1 = textColor1;
             this.textColor2 = textColor2;
             this.textColor3 = textColor3;
+            this.borderColor0 = borderColor0;
+            this.pointColor0 = pointColor0;
         }
+    }
+
+    private void initStyle() {
+        mStyleColorMap = new LinkedHashMap<>(5);
+        // 粉
+        mStyleColorMap.put("f76e98", new StyleColor("粉_f76e98", 0xFFf76e98, 0xFFda70d6,
+                0xFFffc1d4, 0xFFf487a8, Color.TRANSPARENT, 0xFFffffff,
+                0xFFf76e98, 0xFFffffff, 0xFFf76e98, 0xFFf76e98,
+                0xFFfff9fb, 0XFFf76e98));
+        // 黑
+        mStyleColorMap.put("191b1c", new StyleColor("黑_191b1c", 0xFF191b1c, 0xFFfff9fb,
+                0xFF54565c, 0xFF292b2d, Color.TRANSPARENT, 0xFFffffff,
+                0xFF191b1c, 0xFFffffff, 0xFFffffff, 0XFF191b1c,
+                0xFF000000, 0XFF191b1c));
+        // 蓝
+        mStyleColorMap.put("1822ac", new StyleColor("蓝_1822ac", 0xFF1822ac, 0xFF778899,
+                0xFFb0c1ff, 0xFF4463D8, Color.TRANSPARENT, 0xFFffffff,
+                0xFF1822ac, 0xFFffffff, 0xFF1822ac, 0xFF1822ac,
+                0xFFfff9fb, 0XFF1822ac));
+        // 绿
+        mStyleColorMap.put("3d7d53", new StyleColor("绿_3d7d53", 0xFF3d7d53, 0xFFf0e68c,
+                0xFFd2dfd6, 0xFF3d7d53, Color.TRANSPARENT, 0xFFffffff,
+                0xFF3d7d53, 0xFFffffff, 0xFF3d7d53, 0xFF3d7d53,
+                0xFFfff9fb, 0XFF3d7d53));
+        // 紫
+        mStyleColorMap.put("4e45e3", new StyleColor("紫_4e45e3", 0xFF4e45e3, 0xFF778899,
+                0xFFc5c2ff, 0xFF6c65e9, Color.TRANSPARENT, 0xFFffffff,
+                0xFF4e45e3, 0xFFffffff, 0xFF4e45e3, 0xFF4e45e3,
+                0xFFfff9fb, 0XFF4e45e3));
     }
 
     public static LinkedHashMap<String, StyleColor> getStyleColorMap() {
@@ -273,7 +286,13 @@ public final class StyleManager {
     public static StyleColor getStyleColor() {
         LinkedHashMap<String, StyleColor> styleColorMap = getInstance().mStyleColorMap;
         QueryStyleBean styleBean = getInstance().mStyleBean;
-        StyleColor styleColor = styleColorMap.get(styleBean == null ? "E98AA7" : styleBean.style_code);
-        return styleColor == null ? styleColorMap.get("E98AA7") : styleColor;
+        StyleColor styleColor = null;
+        if (styleBean != null) {
+            styleColor = styleColorMap.get(styleBean.style_code);
+        }
+        if (styleColor == null) {
+            styleColor = styleColorMap.values().iterator().next();
+        }
+        return styleColor;
     }
 }

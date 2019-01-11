@@ -43,7 +43,7 @@ import java.util.Map;
  * 支持组创建/添加成员/查询组成员/删除成员/删除组/
  * @see this#createGroup()
  * @see this#joinGroup(String)
- * @see this#queryGroups()
+ * @see //this#queryGroups()
  * @see this#deleteGroup(String, boolean) ,第二个参数用于标示删除组成员or组
  *
  * @author hjyu

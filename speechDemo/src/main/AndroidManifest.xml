@@ -2,6 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.iflytek.voicedemo">
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name="SpeechApp"
         android:icon="@drawable/icon"
@@ -18,56 +32,56 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.iflytek.speech.setting.TtsSettings"/>
-        <activity android:name="com.iflytek.speech.setting.IatSettings"/>
+        <activity android:name="com.iflytek.speech.setting.TtsSettings"></activity>
+        <activity android:name="com.iflytek.speech.setting.IatSettings"></activity>
         <activity
             android:name="com.iflytek.voicedemo.IatDemo"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.iflytek.voicedemo.AsrDemo"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.iflytek.voicedemo.TtsDemo"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.iflytek.voicedemo.IseDemo"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.iflytek.voicedemo.vocalverify.VocalVerifyDemo"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.iflytek.voicedemo.faceonline.OnlineFaceDemo"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.iflytek.voicedemo.IdentifyGroup.GroupManagerActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.iflytek.voicedemo.IdentifyGroup.FaceIdentifyActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.iflytek.voicedemo.IdentifyGroup.VocalIdentifyActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.iflytek.voicedemo.IdentifyGroup.ResultIdentifyActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.iflytek.speech.setting.IseSettings"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.iflytek.speech.setting.UrlSettings"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|fontScale"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
         <!-- 移动统计分析 -->
         <meta-data
             android:name="IFLYTEK_APPKEY"
@@ -75,20 +89,7 @@
         <meta-data
             android:name="IFLYTEK_CHANNEL"
             android:value="Android_Demo" />
+
+
     </application>
-
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
 </manifest>

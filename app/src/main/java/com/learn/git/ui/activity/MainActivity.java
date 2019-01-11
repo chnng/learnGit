@@ -1,5 +1,6 @@
 package com.learn.git.ui.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +22,7 @@ import com.learn.git.ui.fragment.EmailFragment;
 import com.learn.git.ui.fragment.EventBusFragment;
 import com.learn.git.ui.fragment.FFmpegFragment;
 import com.learn.git.ui.fragment.GlideFragment;
+import com.learn.git.ui.fragment.IFlyFragment;
 import com.learn.git.ui.fragment.OkHttpFragment;
 import com.learn.git.ui.fragment.PermissionFragment;
 import com.learn.git.ui.fragment.PickerFragment;
@@ -50,6 +52,7 @@ public class MainActivity extends BaseActivity {
     public void initData() {
         LogUtils.e("onCreate");
         Class<?>[] fragmentList = {
+                TestActivity.class,
                 OkHttpFragment.class,
                 RetrofitFragment.class,
                 GlideFragment.class,
@@ -60,6 +63,7 @@ public class MainActivity extends BaseActivity {
                 FFmpegFragment.class,
                 WebFragment.class,
                 DocFragment.class,
+                IFlyFragment.class,
         };
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
         layoutManager.setJustifyContent(JustifyContent.SPACE_AROUND);
@@ -80,13 +84,17 @@ public class MainActivity extends BaseActivity {
 //                itemView.setText(simpleName.substring(0, simpleName.lastIndexOf("Fragment")));
                 itemView.setText(simpleName);
                 itemView.setOnClickListener(v -> {
-                    Fragment fragment = getFragment(fragmentClass);
-                    if (fragment != null) {
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .add(R.id.layout_main, fragment)
-                                .addToBackStack(null)
-                                .commit();
+                    if (fragmentClass == TestActivity.class) {
+                        startActivity(new Intent(MainActivity.this, fragmentClass));
+                    } else {
+                        Fragment fragment = getFragment(fragmentClass);
+                        if (fragment != null) {
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .add(R.id.layout_main, fragment)
+                                    .addToBackStack(null)
+                                    .commit();
+                        }
                     }
                 });
             }

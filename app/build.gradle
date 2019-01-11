@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //apply plugin: "androidx.navigation.safeargs"
 
-apply from: '../config/module_app.gradle'
+apply from: rootProject.ext.gradle_path_module_app
 
 android {
     defaultConfig {
@@ -48,6 +48,7 @@ dependencies {
 //    implementation project(path: ':library:ffmpeg')
 //    implementation name: 'ffmpeg', ext: 'aar'
     implementation project(path: ':library:agentweb')
+    implementation project(path: ':library:ifly')
     annotationProcessor rootProject.ext.dependencies.glideCompiler
     implementation(rootProject.ext.dependencies.glide) {
         exclude group: "com.android.support"

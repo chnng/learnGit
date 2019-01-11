@@ -43,7 +43,7 @@ public class TtsDemo extends Activity implements OnClickListener {
 	private String[] mCloudVoicersEntries;
 	private String[] mCloudVoicersValue ;
 	String texts = "";
-
+	
 	// 缓冲进度
 	private int mPercentForBuffering = 0;
 	// 播放进度
@@ -62,6 +62,7 @@ public class TtsDemo extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.ttsdemo);
+		texts = getResources().getString(R.string.text_tts_source);
 		initLayout();
 		// 初始化合成对象
 		mTts = SpeechSynthesizer.createSynthesizer(TtsDemo.this, mTtsInitListener);
@@ -85,7 +86,7 @@ public class TtsDemo extends Activity implements OnClickListener {
 		findViewById(R.id.tts_resume).setOnClickListener(TtsDemo.this);
 		findViewById(R.id.image_tts_set).setOnClickListener(TtsDemo.this);
 		findViewById(R.id.tts_btn_person_select).setOnClickListener(TtsDemo.this);
-		texts = getResources().getString(R.string.text_tts_source);
+		
 		mRadioGroup=((RadioGroup) findViewById(R.id.tts_rediogroup));
 		mRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -176,10 +177,8 @@ public class TtsDemo extends Activity implements OnClickListener {
 							int which) { // 点击了哪一项
 						voicer = mCloudVoicersValue[which];
 						if ("catherine".equals(voicer) || "henry".equals(voicer) || "vimary".equals(voicer)) {
-							texts = getResources().getString(R.string.text_tts_source_en);
-							 ((EditText) findViewById(R.id.tts_text)).setText(/*R.string.text_tts_source_en*/texts);
+							 ((EditText) findViewById(R.id.tts_text)).setText(R.string.text_tts_source_en);
 						}else {
-							texts = getResources().getString(R.string.text_tts_source);
 							((EditText) findViewById(R.id.tts_text)).setText(/*R.string.text_tts_source*/texts);
 						}
 						selectedNum = which;
@@ -247,9 +246,6 @@ public class TtsDemo extends Activity implements OnClickListener {
 					mPercentForBuffering, mPercentForPlaying));
 
 			SpannableStringBuilder style=new SpannableStringBuilder(texts);
-			if(!"henry".equals(voicer)||!"xiaoyan".equals(voicer)||
-					!"xiaoyu".equals(voicer)||!"catherine".equals(voicer))
-				endPos++;
 			Log.e(TAG,"beginPos = "+beginPos +"  endPos = "+endPos);
 			style.setSpan(new BackgroundColorSpan(Color.RED),beginPos,endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			((EditText) findViewById(R.id.tts_text)).setText(style);
@@ -268,11 +264,16 @@ public class TtsDemo extends Activity implements OnClickListener {
 		public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
 			// 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因
 			// 若使用本地能力，会话id为null
-			Log.e(TAG,"TTS Demo onEvent >>>"+eventType);
-				if (SpeechEvent.EVENT_SESSION_ID == eventType) {
-					String sid = obj.getString(SpeechEvent.KEY_EVENT_SESSION_ID);
-					Log.d(TAG, "session id =" + sid);
-				}
+			//	if (SpeechEvent.EVENT_SESSION_ID == eventType) {
+			//		String sid = obj.getString(SpeechEvent.KEY_EVENT_SESSION_ID);
+			//		Log.d(TAG, "session id =" + sid);
+			//	}
+
+			if (SpeechEvent.EVENT_TTS_BUFFER == eventType) {
+						byte[] buf = obj.getByteArray(SpeechEvent.KEY_EVENT_TTS_BUFFER);
+						Log.e("MscSpeechLog", "buf is =" + buf);
+					}
+
 		}
 	};
 
@@ -291,8 +292,7 @@ public class TtsDemo extends Activity implements OnClickListener {
 		// 根据合成引擎设置相应参数
 		if(mEngineType.equals(SpeechConstant.TYPE_CLOUD)) {
 			mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
-			//onevent回调接口实时返回音频流数据
-			//mTts.setParameter(SpeechConstant.TTS_DATA_NOTIFY, "1");
+			mTts.setParameter(SpeechConstant.TTS_DATA_NOTIFY, "1");
 			// 设置在线合成发音人
 			mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
 			//设置合成语速
@@ -303,12 +303,8 @@ public class TtsDemo extends Activity implements OnClickListener {
 			mTts.setParameter(SpeechConstant.VOLUME, mSharedPreferences.getString("volume_preference", "50"));
 		}else {
 			mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
-			// 设置本地合成发音人 voicer为空，默认通过语记界面指定发音人。
 			mTts.setParameter(SpeechConstant.VOICE_NAME, "");
-			/**
-			 * TODO 本地合成不设置语速、音调、音量，默认使用语记设置
-			 * 开发者如需自定义参数，请参考在线合成参数设置
-			 */
+
 		}
 		//设置播放器音频流类型
 		mTts.setParameter(SpeechConstant.STREAM_TYPE, mSharedPreferences.getString("stream_preference", "3"));
@@ -316,9 +312,8 @@ public class TtsDemo extends Activity implements OnClickListener {
 		mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
 
 		// 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-		// 注：AUDIO_FORMAT参数语记需要更新版本才能生效
-		mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "pcm");
-		mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory()+"/msc/tts.pcm");
+//		mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "pcm");
+//		mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory()+"/msc/tts.pcm");
 	}
 	
 	@Override

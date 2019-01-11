@@ -3,6 +3,7 @@ include ':app', ':test', ':java', ':okhttp',
         ':library:agentweb',
         ':library:javamail',
         ':library:mp3recorder',
-        ':library:whiteboard'
-//        ':speechDemo'
+        ':library:whiteboard',
+        ':library:ifly',
+        ':speechDemo'
 //        ':library:ffmpeg'

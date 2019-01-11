@@ -292,7 +292,6 @@ public class IseDemo extends Activity implements OnClickListener {
 		mIse.setParameter(SpeechConstant.RESULT_LEVEL, result_level);
 
 		// 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-		// 注：AUDIO_FORMAT参数语记需要更新版本才能生效
 		mIse.setParameter(SpeechConstant.AUDIO_FORMAT,"wav");
 		mIse.setParameter(SpeechConstant.ISE_AUDIO_PATH, Environment.getExternalStorageDirectory().getAbsolutePath() + "/msc/ise.wav");
 		//通过writeaudio方式直接写入音频时才需要此设置

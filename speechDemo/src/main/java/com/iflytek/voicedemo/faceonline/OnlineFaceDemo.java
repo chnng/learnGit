@@ -283,14 +283,6 @@ public class OnlineFaceDemo extends Activity implements View.OnClickListener {
 
 
     private void executeModelCommand(String cmd) {
-        // 设置人脸模型操作参数
-        // 清空参数
-        mIdVerifier.setParameter(SpeechConstant.PARAMS, null);
-        // 设置会话场景
-        mIdVerifier.setParameter(SpeechConstant.MFV_SCENES, "ifr");
-        // 用户id
-        mIdVerifier.setParameter(SpeechConstant.AUTH_ID, mAuthid);
-
         // 设置模型参数，若无可以传空字符传
         StringBuffer params = new StringBuffer();
         // 执行模型操作

@@ -1,0 +1,6 @@
+apply plugin: 'com.android.library'
+apply from: rootProject.ext.gradle_path_module
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+}

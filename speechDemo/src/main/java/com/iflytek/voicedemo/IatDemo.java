@@ -1,5 +1,6 @@
 package com.iflytek.voicedemo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -12,6 +13,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -54,6 +57,19 @@ public class IatDemo extends Activity implements OnClickListener {
 	private String mEngineType = SpeechConstant.TYPE_CLOUD;
 
 	private boolean mTranslateEnable = false;
+
+	private boolean cyclic = false;//音频流识别是否循环调用
+
+	Handler han = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			if (msg.what == 0x001) {
+				executeStream();
+			}
+		}
+	};
 	
 
 	@SuppressLint("ShowToast")
@@ -136,35 +152,7 @@ public class IatDemo extends Activity implements OnClickListener {
 			break;
 		// 音频流识别
 		case R.id.iat_recognize_stream:
-			mResultText.setText(null);// 清空显示内容
-			mIatResults.clear();
-			// 设置参数
-			setParam();
-			// 设置音频来源为外部文件
-			mIat.setParameter(SpeechConstant.AUDIO_SOURCE, "-1");
-			// 也可以像以下这样直接设置音频文件路径识别（要求设置文件在sdcard上的全路径）：
-			// mIat.setParameter(SpeechConstant.AUDIO_SOURCE, "-2");
-			// mIat.setParameter(SpeechConstant.ASR_SOURCE_PATH, "sdcard/XXX/XXX.pcm");
-			ret = mIat.startListening(mRecognizerListener);
-			if (ret != ErrorCode.SUCCESS) {
-				showTip("识别失败,错误码：" + ret);
-			} else {
-				byte[] audioData = FucUtil.readAudioFile(IatDemo.this, "iattest.wav");
-				
-				if (null != audioData) {
-					showTip(getString(R.string.text_begin_recognizer));
-					// 一次（也可以分多次）写入音频文件数据，数据格式必须是采样率为8KHz或16KHz（本地识别只支持16K采样率，云端都支持），
-					// 位长16bit，单声道的wav或者pcm
-					// 写入8KHz采样的音频时，必须先调用setParameter(SpeechConstant.SAMPLE_RATE, "8000")设置正确的采样率
-					// 注：当音频过长，静音部分时长超过VAD_EOS将导致静音后面部分不能识别。
-					// 音频切分方法：FucUtil.splitBuffer(byte[] buffer,int length,int spsize);
-					mIat.writeAudio(audioData, 0, audioData.length);
-					mIat.stopListening();
-				} else {
-					mIat.cancel();
-					showTip("读取音频流失败");
-				}
-			}
+			executeStream();
 			break;
 		// 停止听写
 		case R.id.iat_stop:
@@ -267,8 +255,11 @@ public class IatDemo extends Activity implements OnClickListener {
 				printResult(results);
 			}
 			
-			if (isLast) {
+			if (isLast & cyclic) {
 				// TODO 最后的结果
+				Message message = Message.obtain();
+				message.what = 0x001;
+				han.sendMessageDelayed(message,100);
 			}
 		}
 
@@ -426,7 +417,6 @@ public class IatDemo extends Activity implements OnClickListener {
 		mIat.setParameter(SpeechConstant.ASR_PTT, mSharedPreferences.getString("iat_punc_preference", "1"));
 		
 		// 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-		// 注：AUDIO_FORMAT参数语记需要更新版本才能生效
 		mIat.setParameter(SpeechConstant.AUDIO_FORMAT,"wav");
 		mIat.setParameter(SpeechConstant.ASR_AUDIO_PATH, Environment.getExternalStorageDirectory()+"/msc/iat.wav");
 	}
@@ -468,5 +458,39 @@ public class IatDemo extends Activity implements OnClickListener {
 		FlowerCollector.onPageEnd(TAG);
 		FlowerCollector.onPause(IatDemo.this);
 		super.onPause();
+	}
+
+	//执行音频流识别操作
+	private void executeStream() {
+		mResultText.setText(null);// 清空显示内容
+		mIatResults.clear();
+		// 设置参数
+		setParam();
+		// 设置音频来源为外部文件
+		mIat.setParameter(SpeechConstant.AUDIO_SOURCE, "-1");
+		// 也可以像以下这样直接设置音频文件路径识别（要求设置文件在sdcard上的全路径）：
+		// mIat.setParameter(SpeechConstant.AUDIO_SOURCE, "-2");
+		 //mIat.setParameter(SpeechConstant.ASR_SOURCE_PATH, "sdcard/XXX/XXX.pcm");
+		ret = mIat.startListening(mRecognizerListener);
+		if (ret != ErrorCode.SUCCESS) {
+			showTip("识别失败,错误码：" + ret);
+		} else {
+			byte[] audioData = FucUtil.readAudioFile(IatDemo.this, "iattest.wav");
+
+			if (null != audioData) {
+				showTip(getString(R.string.text_begin_recognizer));
+				// 一次（也可以分多次）写入音频文件数据，数据格式必须是采样率为8KHz或16KHz（本地识别只支持16K采样率，云端都支持），
+				// 位长16bit，单声道的wav或者pcm
+				// 写入8KHz采样的音频时，必须先调用setParameter(SpeechConstant.SAMPLE_RATE, "8000")设置正确的采样率
+				// 注：当音频过长，静音部分时长超过VAD_EOS将导致静音后面部分不能识别。
+				// 音频切分方法：FucUtil.splitBuffer(byte[] buffer,int length,int spsize);
+				mIat.writeAudio(audioData, 0, audioData.length);
+
+				mIat.stopListening();
+			} else {
+				mIat.cancel();
+				showTip("读取音频流失败");
+			}
+		}
 	}
 }

@@ -54,6 +54,10 @@ public abstract class BaseLazyFragment extends BaseFragment {
         }
     }
 
+    protected boolean isInitiated() {
+        return mIsInit;
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

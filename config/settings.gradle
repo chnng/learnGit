@@ -15,7 +15,7 @@ gradle.ext {
     MODULE_NAVI = MODULE_YDHL << 1
 
     // change me
-    RELEASE_IGNORE = true
+    RELEASE_IGNORE = false
     COMPILE_FLAG = MODULE_ALL
 }
 def flag = gradle.ext.COMPILE_FLAG
@@ -28,7 +28,8 @@ def flag = gradle.ext.COMPILE_FLAG
 // ':library:signalA:parallel-basic-http-client',
 // ':library:signalA:SignalA',
 // ':library:signalA:SignalA.LongPolling'
-include ':app:project', ':app:nuanping', ':app:test', ':library:base'
+include ':app:project', ':app:nuanping', ':app:test', ':library:base',
+        ':library:ifly'
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_TH_NATIVE) != 0) {
     include ':module:th:native',
             ':module:nurse'

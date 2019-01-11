@@ -276,7 +276,6 @@ public class AsrDemo extends Activity implements OnClickListener{
 		}
 
 		// 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-		// 注：AUDIO_FORMAT参数语记需要更新版本才能生效
 		mAsr.setParameter(SpeechConstant.AUDIO_FORMAT,"wav");
 		mAsr.setParameter(SpeechConstant.ASR_AUDIO_PATH, Environment.getExternalStorageDirectory()+"/msc/asr.wav");
 		return result;

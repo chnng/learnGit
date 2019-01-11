@@ -631,7 +631,9 @@ public class VocalVerifyDemo extends Activity implements OnClickListener,View.On
 		// 设置模型操作的密码类型
 		params.append("pwdt=" + mPwdType + ",");
 		// 执行密码下载操作
-		mIdVerifier.execute("ivp", "download", params.toString(), mDownloadPwdListener);
+		int ret = mIdVerifier.execute("ivp", "download", params.toString(), mDownloadPwdListener);
+		if (ret!= 0)
+			mProDialog.dismiss();
 	}
 
 
