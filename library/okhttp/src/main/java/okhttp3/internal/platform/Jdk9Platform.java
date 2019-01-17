@@ -18,20 +18,14 @@ package okhttp3.internal.platform;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-
+import javax.annotation.Nullable;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
-
-import androidx.annotation.Nullable;
 import okhttp3.Protocol;
 
-import static okhttp3.internal.Util.assertionError;
-
-/**
- * OpenJDK 9+.
- */
+/** OpenJDK 9+. */
 final class Jdk9Platform extends Platform {
   final Method setProtocolMethod;
   final Method getProtocolMethod;
@@ -54,7 +48,7 @@ final class Jdk9Platform extends Platform {
 
       sslSocket.setSSLParameters(sslParameters);
     } catch (IllegalAccessException | InvocationTargetException e) {
-      throw assertionError("unable to set ssl parameters", e);
+      throw new AssertionError("failed to set SSL parameters", e);
     }
   }
 
@@ -71,7 +65,7 @@ final class Jdk9Platform extends Platform {
 
       return protocol;
     } catch (IllegalAccessException | InvocationTargetException e) {
-      throw assertionError("unable to get selected protocols", e);
+      throw new AssertionError("failed to get ALPN selected protocol", e);
     }
   }
 

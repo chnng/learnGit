@@ -24,8 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import androidx.annotation.Nullable;
+import javax.annotation.Nullable;
 import okhttp3.internal.Util;
 import okhttp3.internal.http.HttpDate;
 import okhttp3.internal.publicsuffix.PublicSuffixDatabase;
@@ -451,7 +450,7 @@ public final class Cookie {
 
     return cookies != null
         ? Collections.unmodifiableList(cookies)
-        : Collections.<Cookie>emptyList();
+        : Collections.emptyList();
   }
 
   /**
@@ -459,10 +458,10 @@ public final class Cookie {
    * #domain() domain} values must all be set before calling {@link #build}.
    */
   public static final class Builder {
-    String name;
-    String value;
+    @Nullable String name;
+    @Nullable String value;
     long expiresAt = HttpDate.MAX_DATE;
-    String domain;
+    @Nullable String domain;
     String path = "/";
     boolean secure;
     boolean httpOnly;

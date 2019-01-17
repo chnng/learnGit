@@ -17,7 +17,6 @@ package okhttp3.internal.http;
 
 import java.io.IOException;
 import java.net.ProtocolException;
-
 import okhttp3.Protocol;
 import okhttp3.Response;
 

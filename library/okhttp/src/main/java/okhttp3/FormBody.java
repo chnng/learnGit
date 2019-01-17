@@ -19,8 +19,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.Nullable;
+import javax.annotation.Nullable;
 import okhttp3.internal.Util;
 import okio.Buffer;
 import okio.BufferedSink;
@@ -29,8 +28,7 @@ import static okhttp3.HttpUrl.FORM_ENCODE_SET;
 import static okhttp3.HttpUrl.percentDecode;
 
 public final class FormBody extends RequestBody {
-  private static final MediaType CONTENT_TYPE =
-      MediaType.parse("application/x-www-form-urlencoded");
+  private static final MediaType CONTENT_TYPE = MediaType.get("application/x-www-form-urlencoded");
 
   private final List<String> encodedNames;
   private final List<String> encodedValues;
@@ -107,13 +105,13 @@ public final class FormBody extends RequestBody {
   public static final class Builder {
     private final List<String> names = new ArrayList<>();
     private final List<String> values = new ArrayList<>();
-    private final Charset charset;
+    private final @Nullable Charset charset;
 
     public Builder() {
       this(null);
     }
 
-    public Builder(Charset charset) {
+    public Builder(@Nullable Charset charset) {
       this.charset = charset;
     }
 

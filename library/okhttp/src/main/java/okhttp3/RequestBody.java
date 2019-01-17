@@ -18,13 +18,14 @@ package okhttp3;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-
-import androidx.annotation.Nullable;
+import javax.annotation.Nullable;
 import okhttp3.internal.Util;
 import okio.BufferedSink;
 import okio.ByteString;
 import okio.Okio;
 import okio.Source;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public abstract class RequestBody {
   /** Returns the Content-Type header for this body. */
@@ -46,11 +47,11 @@ public abstract class RequestBody {
    * and lacks a charset, this will use UTF-8.
    */
   public static RequestBody create(@Nullable MediaType contentType, String content) {
-    Charset charset = Util.UTF_8;
+    Charset charset = UTF_8;
     if (contentType != null) {
       charset = contentType.charset();
       if (charset == null) {
-        charset = Util.UTF_8;
+        charset = UTF_8;
         contentType = MediaType.parse(contentType + "; charset=utf-8");
       }
     }
@@ -103,7 +104,7 @@ public abstract class RequestBody {
 
   /** Returns a new request body that transmits the content of {@code file}. */
   public static RequestBody create(final @Nullable MediaType contentType, final File file) {
-    if (file == null) throw new NullPointerException("content == null");
+    if (file == null) throw new NullPointerException("file == null");
 
     return new RequestBody() {
       @Override public @Nullable MediaType contentType() {
@@ -115,12 +116,8 @@ public abstract class RequestBody {
       }
 
       @Override public void writeTo(BufferedSink sink) throws IOException {
-        Source source = null;
-        try {
-          source = Okio.source(file);
+        try (Source source = Okio.source(file)) {
           sink.writeAll(source);
-        } finally {
-          Util.closeQuietly(source);
         }
       }
     };

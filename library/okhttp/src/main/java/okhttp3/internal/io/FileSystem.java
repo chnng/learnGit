@@ -18,7 +18,6 @@ package okhttp3.internal.io;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import okio.Okio;
 import okio.Sink;
 import okio.Source;

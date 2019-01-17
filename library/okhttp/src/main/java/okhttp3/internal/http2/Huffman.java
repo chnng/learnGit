@@ -17,7 +17,6 @@ package okhttp3.internal.http2;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
 import okio.BufferedSink;
 import okio.ByteString;
 

@@ -18,7 +18,6 @@ package okhttp3.internal.http;
 
 import java.io.IOException;
 import java.util.List;
-
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.Headers;

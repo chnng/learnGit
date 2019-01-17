@@ -20,18 +20,11 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.List;
-
-import androidx.annotation.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * Listener for metrics events. Extend this class to monitor the quantity, size, and duration of
  * your application's HTTP calls.
- *
- * <h3>Warning: This is a non-final API.</h3>
- *
- * <p><strong>As of OkHttp 3.10, this feature is an unstable preview: the API is subject to change,
- * and the implementation is incomplete. We expect that OkHttp 3.11 or 3.12 will finalize this API.
- * Until then, expect API and behavior changes when you update your OkHttp dependency.</strong>
  *
  * <p>All start/connect/acquire events will eventually receive a matching end/release event,
  * either successful (non-null parameters), or failed (non-null throwable).  The first common
@@ -60,12 +53,8 @@ public abstract class EventListener {
   public static final EventListener NONE = new EventListener() {
   };
 
-  static EventListener.Factory factory(final EventListener listener) {
-    return new EventListener.Factory() {
-      public EventListener create(Call call) {
-        return listener;
-      }
-    };
+  static EventListener.Factory factory(EventListener listener) {
+    return call -> listener;
   }
 
   /**
@@ -284,14 +273,6 @@ public abstract class EventListener {
   public void callFailed(Call call, IOException ioe) {
   }
 
-  /**
-   * <h3>Warning: This is a non-final API.</h3>
-   *
-   * <p><strong>As of OkHttp 3.10, this feature is an unstable preview: the API is subject to
-   * change, and the implementation is incomplete. We expect that OkHttp 3.11 or 3.12 will finalize
-   * this API. Until then, expect API and behavior changes when you update your OkHttp
-   * dependency.</strong>
-   */
   public interface Factory {
     /**
      * Creates an instance of the {@link EventListener} for a particular {@link Call}. The returned

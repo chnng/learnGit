@@ -26,19 +26,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.annotation.Nullable;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
-
-import androidx.annotation.Nullable;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
+import okhttp3.internal.Util;
 import okhttp3.internal.tls.BasicCertificateChainCleaner;
-import okhttp3.internal.tls.BasicTrustRootIndex;
 import okhttp3.internal.tls.CertificateChainCleaner;
-import okhttp3.internal.tls.TrustRootIndex;
 import okio.Buffer;
 
 /**
@@ -48,7 +45,7 @@ import okio.Buffer;
  *
  * <p>Supported on Android 2.3+.
  *
- * Supported on OpenJDK 7+
+ * <p>Supported on OpenJDK 7+
  *
  * <h3>Session Tickets</h3>
  *
@@ -63,9 +60,9 @@ import okio.Buffer;
  * <p>Supported on Android 5.0+. The APIs were present in Android 4.4, but that implementation was
  * unstable.
  *
- * Supported on OpenJDK 7 and 8 (via the JettyALPN-boot library).
+ * <p>Supported on OpenJDK 8 via the JettyALPN-boot library.
  *
- * Supported on OpenJDK 9 via SSLParameters and SSLSocket features.
+ * <p>Supported on OpenJDK 9+ via SSLParameters and SSLSocket features.
  *
  * <h3>Trust Manager Extraction</h3>
  *
@@ -91,7 +88,7 @@ public class Platform {
     return "OkHttp";
   }
 
-  protected X509TrustManager trustManager(SSLSocketFactory sslSocketFactory) {
+  protected @Nullable X509TrustManager trustManager(SSLSocketFactory sslSocketFactory) {
     // Attempt to get the trust manager from an OpenJDK socket factory. We attempt this on all
     // platforms in order to support Robolectric, which mixes classes from both Android and the
     // Oracle JDK. Note that we don't support HTTP/2 or other nice features on Robolectric.
@@ -110,7 +107,7 @@ public class Platform {
    *
    * @param hostname non-null for client-side handshakes; null for server-side handshakes.
    */
-  public void configureTlsExtensions(SSLSocket sslSocket, String hostname,
+  public void configureTlsExtensions(SSLSocket sslSocket, @Nullable String hostname,
       List<Protocol> protocols) {
   }
 
@@ -126,12 +123,12 @@ public class Platform {
     return null;
   }
 
-  public void connectSocket(Socket socket, InetSocketAddress address,
-      int connectTimeout) throws IOException {
+  public void connectSocket(Socket socket, InetSocketAddress address, int connectTimeout)
+      throws IOException {
     socket.connect(address, connectTimeout);
   }
 
-  public void log(int level, String message, Throwable t) {
+  public void log(int level, String message, @Nullable Throwable t) {
     Level logLevel = level == WARN ? Level.WARNING : Level.INFO;
     logger.log(logLevel, message, t);
   }
@@ -171,15 +168,17 @@ public class Platform {
   }
 
   public CertificateChainCleaner buildCertificateChainCleaner(X509TrustManager trustManager) {
-    return new BasicCertificateChainCleaner(buildTrustRootIndex(trustManager));
+    return new BasicCertificateChainCleaner(trustManager.getAcceptedIssuers());
   }
 
   public CertificateChainCleaner buildCertificateChainCleaner(SSLSocketFactory sslSocketFactory) {
     X509TrustManager trustManager = trustManager(sslSocketFactory);
 
     if (trustManager == null) {
-      throw new IllegalStateException("Unable to extract the trust manager on " + Platform.get()
-          + ", sslSocketFactory is " + sslSocketFactory.getClass());
+      throw new IllegalStateException("Unable to extract the trust manager on "
+          + Platform.get()
+          + ", sslSocketFactory is "
+          + sslSocketFactory.getClass());
     }
 
     return buildCertificateChainCleaner(trustManager);
@@ -187,7 +186,7 @@ public class Platform {
 
   public static boolean isConscryptPreferred() {
     // mainly to allow tests to run cleanly
-    if ("conscrypt".equals(System.getProperty("okhttp.platform"))) {
+    if ("conscrypt".equals(Util.getSystemProperty("okhttp.platform", null))) {
       return true;
     }
 
@@ -198,12 +197,12 @@ public class Platform {
 
   /** Attempt to match the host runtime to a capable Platform implementation. */
   private static Platform findPlatform() {
-    Platform android = AndroidPlatform.buildIfSupported();
-
-    if (android != null) {
-      return android;
-    }
-
+//    Platform android = AndroidPlatform.buildIfSupported();
+//
+//    if (android != null) {
+//      return android;
+//    }
+//
 //    if (isConscryptPreferred()) {
 //      Platform conscrypt = ConscryptPlatform.buildIfSupported();
 //
@@ -218,7 +217,7 @@ public class Platform {
       return jdk9;
     }
 
-    Platform jdkWithJettyBoot = JdkWithJettyBootPlatform.buildIfSupported();
+    Platform jdkWithJettyBoot = Jdk8WithJettyBootPlatform.buildIfSupported();
 
     if (jdkWithJettyBoot != null) {
       return jdkWithJettyBoot;
@@ -243,13 +242,13 @@ public class Platform {
     return result.readByteArray();
   }
 
-  static <T> T readFieldOrNull(Object instance, Class<T> fieldType, String fieldName) {
+  static @Nullable <T> T readFieldOrNull(Object instance, Class<T> fieldType, String fieldName) {
     for (Class<?> c = instance.getClass(); c != Object.class; c = c.getSuperclass()) {
       try {
         Field field = c.getDeclaredField(fieldName);
         field.setAccessible(true);
         Object value = field.get(instance);
-        if (value == null || !fieldType.isInstance(value)) return null;
+        if (!fieldType.isInstance(value)) return null;
         return fieldType.cast(value);
       } catch (NoSuchFieldException ignored) {
       } catch (IllegalAccessException e) {
@@ -274,10 +273,10 @@ public class Platform {
     }
   }
 
-  public TrustRootIndex buildTrustRootIndex(X509TrustManager trustManager) {
-    return new BasicTrustRootIndex(trustManager.getAcceptedIssuers());
+  public void configureSslSocketFactory(SSLSocketFactory socketFactory) {
   }
 
-  public void configureSslSocketFactory(SSLSocketFactory socketFactory) {
+  @Override public String toString() {
+    return getClass().getSimpleName();
   }
 }

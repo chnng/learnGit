@@ -15,18 +15,16 @@
 // */
 //package okhttp3.internal.platform;
 //
-//import android.support.annotation.Nullable;
-//
 //import java.security.NoSuchAlgorithmException;
 //import java.security.Provider;
 //import java.util.List;
+//import javax.annotation.Nullable;
 //import javax.net.ssl.SSLContext;
 //import javax.net.ssl.SSLSocket;
 //import javax.net.ssl.SSLSocketFactory;
 //import javax.net.ssl.X509TrustManager;
 //import okhttp3.Protocol;
 //import org.conscrypt.Conscrypt;
-//import org.conscrypt.OpenSSLProvider;
 //
 ///**
 // * Platform using Conscrypt (conscrypt.org) if installed as the first Security Provider.
@@ -38,10 +36,10 @@
 //  }
 //
 //  private Provider getProvider() {
-//    return new OpenSSLProvider();
+//    return Conscrypt.newProviderBuilder().provideTrustManager().build();
 //  }
 //
-//  @Override public X509TrustManager trustManager(SSLSocketFactory sslSocketFactory) {
+//  @Override public @Nullable X509TrustManager trustManager(SSLSocketFactory sslSocketFactory) {
 //    if (!Conscrypt.isConscrypt(sslSocketFactory)) {
 //      return super.trustManager(sslSocketFactory);
 //    }
@@ -79,8 +77,7 @@
 //    }
 //  }
 //
-//  @Override public @Nullable
-//  String getSelectedProtocol(SSLSocket sslSocket) {
+//  @Override public @Nullable String getSelectedProtocol(SSLSocket sslSocket) {
 //    if (Conscrypt.isConscrypt(sslSocket)) {
 //      return Conscrypt.getApplicationProtocol(sslSocket);
 //    } else {
@@ -90,16 +87,21 @@
 //
 //  @Override public SSLContext getSSLContext() {
 //    try {
-//      return SSLContext.getInstance("TLS", getProvider());
+//      return SSLContext.getInstance("TLSv1.3", getProvider());
 //    } catch (NoSuchAlgorithmException e) {
-//      throw new IllegalStateException("No TLS provider", e);
+//      try {
+//        // Allow for Conscrypt 1.2
+//        return SSLContext.getInstance("TLS", getProvider());
+//      } catch (NoSuchAlgorithmException e2) {
+//        throw new IllegalStateException("No TLS provider", e);
+//      }
 //    }
 //  }
 //
-//  public static Platform buildIfSupported() {
+//  public static ConscryptPlatform buildIfSupported() {
 //    try {
-//      // trigger early exception over a fatal error
-//      Class.forName("org.conscrypt.ConscryptEngineSocket");
+//      // Trigger an early exception over a fatal error, prefer a RuntimeException over Error.
+//      Class.forName("org.conscrypt.Conscrypt");
 //
 //      if (!Conscrypt.isAvailable()) {
 //        return null;

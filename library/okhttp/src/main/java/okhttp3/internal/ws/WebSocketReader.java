@@ -18,7 +18,6 @@ package okhttp3.internal.ws;
 import java.io.IOException;
 import java.net.ProtocolException;
 import java.util.concurrent.TimeUnit;
-
 import okio.Buffer;
 import okio.BufferedSource;
 import okio.ByteString;

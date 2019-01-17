@@ -19,7 +19,6 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
-
 import okio.Buffer;
 import okio.BufferedSink;
 
@@ -120,24 +119,6 @@ final class Http2Writer implements Closeable {
   public synchronized void flush() throws IOException {
     if (closed) throw new IOException("closed");
     sink.flush();
-  }
-
-  public synchronized void synStream(boolean outFinished, int streamId,
-      int associatedStreamId, List<Header> headerBlock) throws IOException {
-    if (closed) throw new IOException("closed");
-    headers(outFinished, streamId, headerBlock);
-  }
-
-  public synchronized void synReply(boolean outFinished, int streamId,
-      List<Header> headerBlock) throws IOException {
-    if (closed) throw new IOException("closed");
-    headers(outFinished, streamId, headerBlock);
-  }
-
-  public synchronized void headers(int streamId, List<Header> headerBlock)
-      throws IOException {
-    if (closed) throw new IOException("closed");
-    headers(false, streamId, headerBlock);
   }
 
   public synchronized void rstStream(int streamId, ErrorCode errorCode)
@@ -295,7 +276,8 @@ final class Http2Writer implements Closeable {
     }
   }
 
-  void headers(boolean outFinished, int streamId, List<Header> headerBlock) throws IOException {
+  public synchronized void headers(
+      boolean outFinished, int streamId, List<Header> headerBlock) throws IOException {
     if (closed) throw new IOException("closed");
     hpackWriter.writeHeaders(headerBlock);
 

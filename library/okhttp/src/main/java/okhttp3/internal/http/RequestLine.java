@@ -17,7 +17,6 @@ package okhttp3.internal.http;
 
 import java.net.HttpURLConnection;
 import java.net.Proxy;
-
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 

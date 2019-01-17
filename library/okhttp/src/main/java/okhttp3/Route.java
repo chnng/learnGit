@@ -17,8 +17,7 @@ package okhttp3;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-
-import androidx.annotation.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * The concrete route used by a connection to reach an abstract origin server. When creating a

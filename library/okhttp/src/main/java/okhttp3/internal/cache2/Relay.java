@@ -18,7 +18,6 @@ package okhttp3.internal.cache2;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-
 import okio.Buffer;
 import okio.ByteString;
 import okio.Source;

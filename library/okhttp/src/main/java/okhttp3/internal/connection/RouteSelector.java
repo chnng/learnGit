@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import okhttp3.Address;
 import okhttp3.Call;
 import okhttp3.EventListener;

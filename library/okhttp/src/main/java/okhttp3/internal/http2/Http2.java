@@ -16,7 +16,6 @@
 package okhttp3.internal.http2;
 
 import java.io.IOException;
-
 import okio.ByteString;
 
 import static okhttp3.internal.Util.format;

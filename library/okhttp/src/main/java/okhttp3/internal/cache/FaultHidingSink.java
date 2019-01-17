@@ -16,7 +16,6 @@
 package okhttp3.internal.cache;
 
 import java.io.IOException;
-
 import okio.Buffer;
 import okio.ForwardingSink;
 import okio.Sink;

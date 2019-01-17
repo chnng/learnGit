@@ -1,8 +1,7 @@
 package okhttp3;
 
 import java.util.concurrent.TimeUnit;
-
-import androidx.annotation.Nullable;
+import javax.annotation.Nullable;
 import okhttp3.internal.http.HttpHeaders;
 
 /**

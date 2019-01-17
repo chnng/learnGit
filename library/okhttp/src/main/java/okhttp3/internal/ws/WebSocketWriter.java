@@ -17,7 +17,6 @@ package okhttp3.internal.ws;
 
 import java.io.IOException;
 import java.util.Random;
-
 import okio.Buffer;
 import okio.BufferedSink;
 import okio.ByteString;
@@ -247,7 +246,6 @@ final class WebSocketWriter {
       return sink.timeout();
     }
 
-    @SuppressWarnings("PointlessBitwiseExpression")
     @Override public void close() throws IOException {
       if (closed) throw new IOException("closed");
 

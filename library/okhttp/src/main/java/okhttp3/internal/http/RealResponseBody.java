@@ -15,7 +15,7 @@
  */
 package okhttp3.internal.http;
 
-import androidx.annotation.Nullable;
+import javax.annotation.Nullable;
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import okio.BufferedSource;
