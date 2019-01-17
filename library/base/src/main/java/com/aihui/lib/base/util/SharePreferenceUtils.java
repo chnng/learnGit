@@ -28,6 +28,42 @@ public final class SharePreferenceUtils {
      * apkPath 对应的键名
      */
     public static final String SP_APK_PATH = "apk_path";
+    /**
+     * token
+     */
+    public static final String SP_TOKEN = "token";
+    /**
+     * 天护登录账号
+     */
+    public static final String SP_TH_LOGIN_TIMESTAMP = "th_login_timestamp";
+    /**
+     * 天护数据分析范围
+     */
+    public static final String SP_TH_WARD_RANGE = "th_ward_range";
+    /**
+     * 天护位置信息
+     */
+    public static final String SP_TH_LOCATION_INFO = "th_location_info";
+    /**
+     * 天护接口地址
+     */
+    public static final String SP_TH_BASE_URL = "th_base_url";
+    /**
+     * 个推绑定时间
+     */
+    public static final String SP_GETUI_TIMESTAMP_BIND = "push_bind_alias_timestamp";
+    /**
+     * 个推绑定延时
+     */
+    public static final String SP_GETUI_TIMESTAMP_DELAY = "task_delay_timestamp";
+    /**
+     * 个推cid
+     */
+    public static final String SP_GETUI_CLIENT_ID = "getui_client_id";
+    /**
+     * 看板首页类型
+     */
+    public static final String SP_MN_HOMEPAGE_TYPE = "mn_homepage_type";
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法

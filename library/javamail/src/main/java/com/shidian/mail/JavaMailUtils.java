@@ -1,6 +1,5 @@
 package com.shidian.mail;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -10,6 +9,8 @@ import java.util.concurrent.Executors;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeUtility;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by Administrator on 2017/4/10.

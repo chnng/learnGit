@@ -1,7 +1,6 @@
 package com.aihui.lib.nurse.manager;
 
 import android.content.ComponentCallbacks;
-import android.support.annotation.NonNull;
 
 import com.aihui.lib.base.api.retrofit.RetrofitManager;
 import com.aihui.lib.base.cons.App;
@@ -13,9 +12,8 @@ import com.aihui.lib.base.model.module.mn.main.response.QueryMnMenuBean;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
 
 /**
  * Created by 胡一鸣 on 2018/12/4.

@@ -1,0 +1,19 @@
+apply from: rootProject.ext.gradle_path_module_app
+
+android {
+    defaultConfig {
+        applicationId "io.agora.tutorials1v1vcall"
+        minSdkVersion 16
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
+}

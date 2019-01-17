@@ -14,8 +14,6 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -46,13 +44,15 @@ import com.aihui.lib.whiteboard.adapter.SketchDataGridAdapter;
 import com.aihui.lib.whiteboard.bean.SketchData;
 import com.aihui.lib.whiteboard.bean.StrokeRecord;
 import com.aihui.lib.whiteboard.view.SketchView;
-import com.trello.rxlifecycle2.components.support.RxFragment;
+import com.trello.rxlifecycle3.components.support.RxFragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 

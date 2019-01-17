@@ -5,7 +5,7 @@ apply from: 'config/version.gradle'
 buildscript { 
     ext {
         kotlin_version = '1.2.51'
-        butterknife_version = '9.0.0-rc1'
+        butterknife_version = '10.0.0'
         butterknife_url = 'https://oss.sonatype.org/content/repositories/snapshots/'
         gradle_path_module = project.rootDir.path + '/config/module.gradle'
         gradle_path_module_app = project.rootDir.path + '/config/module_app.gradle'
@@ -39,13 +39,14 @@ allprojects {
     configurations.all {
         resolutionStrategy {
             force 'com.android.support:appcompat-v7:' + rootProject.ext.android.supportVersion
-            force 'com.android.support:design:' + rootProject.ext.android.supportVersion
-            force 'com.android.support:recyclerview-v7:' + rootProject.ext.android.supportVersion
-            force 'com.android.support:support-annotations:' + rootProject.ext.android.supportVersion
-            force 'com.android.support:support-compat:' + rootProject.ext.android.supportVersion
-            force 'com.android.support:support-v4:' + rootProject.ext.android.supportVersion
-            force 'com.android.support:transition:' + rootProject.ext.android.supportVersion
-            force 'com.android.support:versionedparcelable:' + rootProject.ext.android.supportVersion
+            force "com.android.support:design:$rootProject.ext.android.supportVersion"
+            force "com.android.support:recyclerview-v7:$rootProject.ext.android.supportVersion"
+            force "com.android.support:support-annotations:$rootProject.ext.android.supportVersion"
+            force "com.android.support:support-compat:$rootProject.ext.android.supportVersion"
+            force "com.android.support:support-v4:$rootProject.ext.android.supportVersion"
+            force "com.android.support:support-v13:$rootProject.ext.android.supportVersion"
+            force "com.android.support:transition:$rootProject.ext.android.supportVersion"
+            force "com.android.support:versionedparcelable:$rootProject.ext.android.supportVersion"
         }
     }
 }

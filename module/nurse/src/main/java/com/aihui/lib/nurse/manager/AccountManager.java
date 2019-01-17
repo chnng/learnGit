@@ -2,7 +2,6 @@ package com.aihui.lib.nurse.manager;
 
 import android.content.ComponentCallbacks;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.aihui.lib.base.api.retrofit.BaseObserver;
@@ -38,6 +37,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+import androidx.annotation.NonNull;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;

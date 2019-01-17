@@ -2,12 +2,13 @@ package com.aihui.lib.base.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by 胡一鸣 on 2018/8/19.

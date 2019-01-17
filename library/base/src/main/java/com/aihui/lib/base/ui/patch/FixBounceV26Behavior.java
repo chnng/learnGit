@@ -1,14 +1,16 @@
 package com.aihui.lib.base.ui.patch;
 
 import android.content.Context;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.OverScroller;
 
+import com.google.android.material.appbar.AppBarLayout;
+
 import java.lang.reflect.Field;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.ViewCompat;
 
 /**
  * Created by 胡一鸣 on 2018/10/11.
@@ -34,13 +36,25 @@ public class FixBounceV26Behavior extends AppBarLayout.Behavior {
     private void getParentScroller(Context context) {
         if (mScroller != null) return;
         mScroller = new OverScroller(context);
+        Field fieldScroller = null;
+        Class<?> reflex_class = getClass().getSuperclass().getSuperclass();//父类AppBarLayout.Behavior父类的父类HeaderBehavior
         try {
-            Class<?> reflex_class = getClass().getSuperclass().getSuperclass();//父类AppBarLayout.Behavior父类的父类HeaderBehavior
-            Field fieldScroller = reflex_class.getDeclaredField("mScroller");
-            fieldScroller.setAccessible(true);
-            fieldScroller.set(this, mScroller);
-        } catch (Exception e) {
+            fieldScroller = reflex_class.getDeclaredField("scroller");
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
+            try {
+                fieldScroller = reflex_class.getDeclaredField("mScroller");
+            } catch (NoSuchFieldException e1) {
+                e1.printStackTrace();
+            }
+        }
+        if (fieldScroller != null) {
+            try {
+                fieldScroller.setAccessible(true);
+                fieldScroller.set(this, mScroller);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
     }
 

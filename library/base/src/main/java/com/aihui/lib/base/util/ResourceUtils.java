@@ -1,10 +1,11 @@
 package com.aihui.lib.base.util;
 
 import android.content.Context;
-import android.support.annotation.DimenRes;
 import android.util.TypedValue;
 
 import com.aihui.lib.base.app.BaseApplication;
+
+import androidx.annotation.DimenRes;
 
 /**
  * Created by 胡一鸣 on 2018/7/16.

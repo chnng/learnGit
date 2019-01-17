@@ -1,9 +1,10 @@
-include ':app', ':test', ':java', ':okhttp',
+include ':app:project', ':app:test', ':app:java',
+        ':sample:agora', ':sample:ifly',
         ':library:base',
         ':library:agentweb',
+//        ':library:ffmpeg',
+        ':library:ifly',
         ':library:javamail',
         ':library:mp3recorder',
-        ':library:whiteboard',
-        ':library:ifly',
-        ':speechDemo'
-//        ':library:ffmpeg'
+        ':library:okhttp',
+        ':library:whiteboard'

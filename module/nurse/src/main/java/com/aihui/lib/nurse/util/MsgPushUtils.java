@@ -2,8 +2,6 @@ package com.aihui.lib.nurse.util;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.aihui.lib.base.api.retrofit.BaseObserver;
@@ -23,12 +21,14 @@ import com.aihui.lib.base.util.ToastUtils;
 import com.aihui.lib.nurse.manager.AccountManager;
 import com.aihui.lib.nurse.ui.view.education.EducationDirNode;
 import com.aihui.lib.nurse.ui.view.education.EducationFileNode;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
 

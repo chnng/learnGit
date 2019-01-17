@@ -12,15 +12,24 @@ android {
         versionName '1.0'
         multiDexEnabled true
 
+//        buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
+//        buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
+//        buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
 //        buildConfigField 'boolean', 'AUTH', 'false'
 //        buildConfigField 'String', 'APP_CODE', 'null'
+//        buildConfigField 'int', 'HIDE_NAME_TYPE', rootProject.ext.global.hideNameType
+//        buildConfigField 'int', 'BED_CARD_TYPE', rootProject.ext.global.bedCardType
 //        resValue "string", "agora_app_id", rootProject.ext.global.agoraAppId
     }
     signingConfigs {
         config {
+//            keyAlias properties.getProperty('KEY_ALIAS')
+//            keyPassword properties.getProperty('KEY_PASSWORD')
+//            storeFile file(properties.getProperty('STORE_FILE'))
+//            storePassword properties.getProperty('STORE_PASSWORD')
             keyAlias 'chnng'
             keyPassword '123456'
-            storeFile file('../config/chnng_key_store.jks')
+            storeFile file('../../config/chnng_key_store.jks')
             storePassword '123456'
             v1SigningEnabled true
             v2SigningEnabled true

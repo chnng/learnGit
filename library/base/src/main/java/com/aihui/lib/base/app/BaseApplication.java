@@ -2,7 +2,6 @@ package com.aihui.lib.base.app;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.aihui.lib.base.api.eventbus.EventMessage;
@@ -14,6 +13,7 @@ import com.wanjian.cockroach.Cockroach;
 
 import org.greenrobot.eventbus.EventBus;
 
+import androidx.multidex.MultiDex;
 import io.reactivex.plugins.RxJavaPlugins;
 
 /**

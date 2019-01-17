@@ -1,7 +1,6 @@
 package com.aihui.lib.base.api.retrofit.download;
 
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 
 import com.aihui.lib.base.util.FileUtils;
 import com.aihui.lib.base.util.HandlerUtils;
@@ -10,6 +9,7 @@ import com.aihui.lib.base.util.LogUtils;
 import java.io.File;
 import java.io.IOException;
 
+import androidx.annotation.NonNull;
 import okhttp3.ResponseBody;
 import okio.BufferedSink;
 import okio.BufferedSource;

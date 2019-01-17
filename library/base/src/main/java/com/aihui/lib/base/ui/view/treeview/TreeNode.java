@@ -1,9 +1,9 @@
 package com.aihui.lib.base.ui.view.treeview;
 
-import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by tlh on 2016/10/1 :)

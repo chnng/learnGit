@@ -2,7 +2,6 @@ package com.aihui.lib.base.ui.update;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.aihui.lib.base.api.retrofit.BaseObserver;
@@ -13,6 +12,8 @@ import com.aihui.lib.base.model.common.request.CheckUpdateBody;
 import com.aihui.lib.base.model.common.response.CheckUpdateBean;
 import com.aihui.lib.base.util.ApplicationUtils;
 import com.aihui.lib.base.util.SharePreferenceUtils;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by 胡一鸣 on 2018/8/16.

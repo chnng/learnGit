@@ -6,7 +6,6 @@ import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -27,6 +26,8 @@ import com.aihui.lib.base.util.StringUtils;
 import com.zhy.base.fileprovider.FileProvider7;
 
 import java.io.File;
+
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * Created by 胡一鸣 on 2018/8/16.

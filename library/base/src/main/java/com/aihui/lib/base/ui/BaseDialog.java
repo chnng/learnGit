@@ -3,7 +3,6 @@ package com.aihui.lib.base.ui;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.ViewGroup;
 import android.view.Window;
 
@@ -11,6 +10,7 @@ import com.aihui.lib.base.R;
 import com.aihui.lib.base.app.IBaseComponent;
 import com.aihui.lib.base.util.SystemUIUtils;
 
+import androidx.annotation.NonNull;
 import butterknife.ButterKnife;
 
 /**

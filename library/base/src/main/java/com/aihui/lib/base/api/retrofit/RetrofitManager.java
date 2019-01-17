@@ -1,9 +1,6 @@
 package com.aihui.lib.base.api.retrofit;
 
 import android.content.ComponentCallbacks;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import com.aihui.lib.base.api.retrofit.server.HttpBaseServer;
@@ -14,12 +11,12 @@ import com.aihui.lib.base.util.LogUtils;
 import com.aihui.lib.base.util.TimeUtils;
 import com.aihui.lib.base.util.ToastUtils;
 import com.google.gson.Gson;
-import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.android.FragmentEvent;
-import com.trello.rxlifecycle2.components.RxActivity;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle3.LifecycleProvider;
+import com.trello.rxlifecycle3.LifecycleTransformer;
+import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.trello.rxlifecycle3.android.FragmentEvent;
+import com.trello.rxlifecycle3.components.RxActivity;
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 
 import org.reactivestreams.Publisher;
 
@@ -27,6 +24,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.Observable;

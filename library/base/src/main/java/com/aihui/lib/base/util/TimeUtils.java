@@ -1,13 +1,15 @@
 package com.aihui.lib.base.util;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import androidx.annotation.NonNull;
 
 /**
  * 时间处理工具
@@ -41,6 +43,22 @@ public final class TimeUtils {
     public final static SimpleDateFormat sdf11 = getSimpleDateFormat("yyyyMMdd");
     // 2018.07.13
     public final static SimpleDateFormat sdf12 = getSimpleDateFormat("yyyy.MM.dd");
+    // 20180713162112
+    public final static SimpleDateFormat sdf13 = getSimpleDateFormat("yyyyMMddHHmmss");
+    // 0713
+    public final static SimpleDateFormat sdf14 = getSimpleDateFormat("MMdd");
+    // 2018年07月13日 16:21 星期五
+    public final static SimpleDateFormat sdf15 = getSimpleDateFormat("yyyy年MM月dd日 HH:mm EEEE");
+    // 21:12
+    public final static SimpleDateFormat sdf16 = getSimpleDateFormat("mm:ss");
+    //201812
+    public final static SimpleDateFormat sdf17 = getSimpleDateFormat("yyyyMM");
+    // 2018-07-13 16:21
+    public final static SimpleDateFormat sdf18 = getSimpleDateFormat("yyyy-MM-dd HH:mm");
+    // 2018年07月13日
+    public final static SimpleDateFormat sdf19 = getSimpleDateFormat("yyyy年MM月dd日");
+	// 07月13日
+    public final static SimpleDateFormat sdf20 = getSimpleDateFormat("MM月dd日");
 
     @NonNull
     private static SimpleDateFormat getSimpleDateFormat(String s) {
@@ -67,9 +85,40 @@ public final class TimeUtils {
         return 0;
     }
 
+    public static long getYdcfTime(String timeString) {
+        if (TextUtils.isEmpty(timeString)) return 0;
+        try {
+            return sdf13.parse(timeString).getTime();
+        } catch (ParseException e) {
+            try {
+                return sdf11.parse(timeString).getTime();
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+        }
+        return 0;
+    }
+
     public static String formatDate(String timeStr) {
         long time = getTime(timeStr);
         return time != 0 ? sdf2.format(time) : "0";
+    }
+
+    public static String formatDateByReplace(String timeStr) {
+        if (TextUtils.isEmpty(timeStr)) {
+            return timeStr;
+        }
+        return timeStr.replace('T', ' ');
+    }
+
+    public static String formatYdcfDate(String timeStr) {
+        long time = getTime(timeStr);
+        return time != 0 ? sdf14.format(time) : "0";
+    }
+
+    public static String getYdcfDate(String timeStr) {
+        long time = getTime(timeStr);
+        return time != 0 ? sdf11.format(time) : "0";
     }
 
     public static String getNowTimeString() {
@@ -102,5 +151,16 @@ public final class TimeUtils {
         }
         calendar.set(Calendar.DAY_OF_WEEK, day);
         return sdf6.format(calendar.getTime());
+    }
+
+    /**
+     * 通过时间秒毫秒数判断两个时间的间隔
+     * @param date1
+     * @param date2
+     * @return
+     */
+    public static int differentDays(Date date1, Date date2)
+    {
+        return (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
     }
 }

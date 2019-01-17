@@ -2,15 +2,14 @@ apply plugin: 'com.android.library'
 apply from: rootProject.ext.gradle_path_module
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies.multidex
-    api rootProject.ext.dependencies.appcompatV7
-    api rootProject.ext.dependencies.supportV13
-    api rootProject.ext.dependencies.supportDesign
-    api rootProject.ext.dependencies.recyclerviewV7
-    api rootProject.ext.dependencies.cardviewV7
-    api rootProject.ext.dependencies.supportAnnotations
-    api rootProject.ext.dependencies.constraintLayout
+    api 'androidx.appcompat:appcompat:1.1.0-alpha01'
+    api 'androidx.legacy:legacy-support-v13:1.0.0'
+    api 'com.google.android.material:material:1.1.0-alpha02'
+    api 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
+    api 'androidx.cardview:cardview:1.0.0'
+    api 'androidx.annotation:annotation:1.0.1'
+    api 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     api rootProject.ext.dependencies.butterknife
     api rootProject.ext.dependencies.easypermissions
     api rootProject.ext.dependencies.cockroach
@@ -28,8 +27,6 @@ dependencies {
     }
     api rootProject.ext.dependencies.progressmanager
     api rootProject.ext.dependencies.retrofitUrlManager
-//    api rootProject.ext.dependencies.spinKit
-//    api rootProject.ext.dependencies.autolayout
     api rootProject.ext.dependencies.materialDialogs
     api rootProject.ext.dependencies.fileprovider
 }

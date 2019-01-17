@@ -1,9 +1,9 @@
 package com.aihui.lib.nurse.ui.view.sort;
 
-import android.support.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * Created by 胡一鸣 on 2018/9/1.

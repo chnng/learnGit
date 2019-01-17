@@ -10,12 +10,13 @@ import android.graphics.Picture;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.RecyclerView;
 import android.util.LruCache;
 import android.view.Display;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ScrollView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by 胡一鸣 on 2018/8/23.

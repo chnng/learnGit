@@ -1,7 +1,6 @@
 package com.aihui.lib.base.api.retrofit.download;
 
 import android.accounts.NetworkErrorException;
-import android.support.annotation.NonNull;
 
 import com.aihui.lib.base.api.retrofit.RetrofitManager;
 import com.aihui.lib.base.api.retrofit.server.HttpBaseServer;
@@ -11,6 +10,7 @@ import com.aihui.lib.base.util.LogUtils;
 import java.io.File;
 import java.io.IOException;
 
+import androidx.annotation.NonNull;
 import io.reactivex.Observable;
 import me.jessyan.progressmanager.ProgressManager;
 import me.jessyan.progressmanager.body.ProgressInfo;

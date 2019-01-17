@@ -2,7 +2,6 @@ package com.aihui.lib.nurse.db.userinfo;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
 
 import com.aihui.lib.nurse.db.DBField;
 import com.aihui.lib.nurse.db.DBHelper;
@@ -10,6 +9,8 @@ import com.aihui.lib.nurse.db.DBSql;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by 胡一鸣 on 2018/6/21.

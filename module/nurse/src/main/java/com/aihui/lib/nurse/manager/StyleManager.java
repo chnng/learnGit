@@ -257,21 +257,26 @@ public final class StyleManager {
                 0xFFffc1d4, 0xFFf487a8, Color.TRANSPARENT, 0xFFffffff,
                 0xFFf76e98, 0xFFffffff, 0xFFf76e98, 0xFFf76e98,
                 0xFFfff9fb, 0XFFf76e98));
+        // 灰
+        mStyleColorMap.put("424255", new StyleColor("灰_424255", 0xFF424255, 0xFF191b1c,
+                0xFF737388, 0xFF424255, Color.TRANSPARENT, 0xFFffffff,
+                0xFF191b1c, 0xFFffffff, 0xFFffffff, 0XFF424255,
+                0xFF2d2d3d, 0XFF424255));
         // 黑
         mStyleColorMap.put("191b1c", new StyleColor("黑_191b1c", 0xFF191b1c, 0xFFfff9fb,
                 0xFF54565c, 0xFF292b2d, Color.TRANSPARENT, 0xFFffffff,
                 0xFF191b1c, 0xFFffffff, 0xFFffffff, 0XFF191b1c,
                 0xFF000000, 0XFF191b1c));
-        // 蓝
-        mStyleColorMap.put("1822ac", new StyleColor("蓝_1822ac", 0xFF1822ac, 0xFF778899,
-                0xFFb0c1ff, 0xFF4463D8, Color.TRANSPARENT, 0xFFffffff,
-                0xFF1822ac, 0xFFffffff, 0xFF1822ac, 0xFF1822ac,
-                0xFFfff9fb, 0XFF1822ac));
         // 绿
         mStyleColorMap.put("3d7d53", new StyleColor("绿_3d7d53", 0xFF3d7d53, 0xFFf0e68c,
                 0xFFd2dfd6, 0xFF3d7d53, Color.TRANSPARENT, 0xFFffffff,
                 0xFF3d7d53, 0xFFffffff, 0xFF3d7d53, 0xFF3d7d53,
                 0xFFfff9fb, 0XFF3d7d53));
+        // 蓝
+        mStyleColorMap.put("1822ac", new StyleColor("蓝_1822ac", 0xFF1822ac, 0xFF778899,
+                0xFFb0c1ff, 0xFF4463D8, Color.TRANSPARENT, 0xFFffffff,
+                0xFF1822ac, 0xFFffffff, 0xFF1822ac, 0xFF1822ac,
+                0xFFfff9fb, 0XFF1822ac));
         // 紫
         mStyleColorMap.put("4e45e3", new StyleColor("紫_4e45e3", 0xFF4e45e3, 0xFF778899,
                 0xFFc5c2ff, 0xFF6c65e9, Color.TRANSPARENT, 0xFFffffff,

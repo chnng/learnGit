@@ -31,7 +31,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -51,6 +50,8 @@ import com.aihui.lib.whiteboard.bean.SketchData;
 import com.aihui.lib.whiteboard.bean.StrokeRecord;
 
 import java.io.File;
+
+import androidx.annotation.NonNull;
 
 
 public class SketchView extends View implements OnTouchListener {

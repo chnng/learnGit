@@ -2,8 +2,6 @@ package com.aihui.lib.base.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,7 @@ import android.view.ViewGroup;
 import com.aihui.lib.base.api.eventbus.EventMessage;
 import com.aihui.lib.base.app.BaseApplication;
 import com.aihui.lib.base.app.IBaseComponent;
-import com.trello.rxlifecycle2.components.support.RxFragment;
+import com.trello.rxlifecycle3.components.support.RxFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -19,6 +17,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -30,11 +30,13 @@ public abstract class BaseFragment extends RxFragment
         implements IBaseComponent, EasyPermissions.PermissionCallbacks {
 
     private Context mContext;
+    private ViewGroup mContainerView;
     private Unbinder mViewBinder;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mContainerView = container;
         EventBus.getDefault().register(this);
         View view = null;
         int contentViewId = getContentViewId();
@@ -92,5 +94,9 @@ public abstract class BaseFragment extends RxFragment
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // Forward results to EasyPermissions
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    protected View getContainerView() {
+        return mContainerView;
     }
 }

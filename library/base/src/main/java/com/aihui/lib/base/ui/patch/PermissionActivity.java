@@ -3,13 +3,13 @@ package com.aihui.lib.base.ui.patch;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 
 import com.aihui.lib.base.ui.BaseActivity;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 import pub.devrel.easypermissions.helper.BaseSupportPermissionsHelper;

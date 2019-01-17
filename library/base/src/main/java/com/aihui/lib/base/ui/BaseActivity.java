@@ -2,10 +2,6 @@ package com.aihui.lib.base.ui;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -16,7 +12,7 @@ import com.aihui.lib.base.ui.patch.AndroidBug5497Workaround;
 import com.aihui.lib.base.util.ApplicationUtils;
 import com.aihui.lib.base.util.SystemUIUtils;
 import com.aihui.lib.base.util.ToastUtils;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -24,6 +20,10 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import pub.devrel.easypermissions.EasyPermissions;

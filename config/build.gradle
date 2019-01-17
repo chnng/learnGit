@@ -18,6 +18,7 @@ android {
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.prepare + rootProject.ext.port.base
             buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.prepare + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.prepare + rootProject.ext.port.rcLocal
+            buildConfigField 'int', 'BED_CARD_TYPE', '0'
             applicationIdSuffix '.pre'
         }
         // 演示
@@ -124,6 +125,12 @@ android {
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.深圳罗湖妇幼local + rootProject.ext.port.base
             buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.深圳罗湖妇幼local + rootProject.ext.port.mn
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.深圳罗湖妇幼local + rootProject.ext.port.rcLocal
+        }
+        湖南省直中医院local {
+            dimension 'url'
+            buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.湖南省直中医院local + rootProject.ext.port.base
+            buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.湖南省直中医院local + rootProject.ext.port.mn
+            buildConfigField 'String', 'RC_URL', rootProject.ext.domain.湖南省直中医院local + rootProject.ext.port.rcLocal
         }
         thNati {
             dimension 'app'
@@ -232,6 +239,11 @@ android {
             ) {
                 variant.setIgnore(false)
             }
+        } else if (names.contains('mnNati')) {
+            if (names.contains('湖南省直中医院local')
+            ) {
+                variant.setIgnore(false)
+            }
         } else if (names.contains('mH5')) {
             if (names.contains('Local')
             ) {
@@ -307,18 +319,24 @@ android {
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.mn.amapKey]
             } else if (baseName.contains('mnNati')) {
                 flavorName = rootProject.ext.mn.appNameNative
-                if (baseName.contains('Demo')) {
+                if (baseName.contains('湖南省直中医院local')) {
+                    baseUrl = rootProject.ext.domain.湖南省直中医院local + rootProject.ext.port.mnApi
+                    webUrl = rootProject.ext.domain.湖南省直中医院local + rootProject.ext.port.mnWeb
+                } else if (baseName.contains('Demo')) {
                     flavorName += flavor
                     baseUrl = rootProject.ext.domain.demo + rootProject.ext.port.mnApi
-                    webUrl = rootProject.ext.domain.demoWeb + rootProject.ext.port.mn
+                    webUrl = rootProject.ext.domain.demoWeb + rootProject.ext.port.mnWeb
                 } else if (baseName.contains('Prepare')) {
                     flavorName += flavor
                     baseUrl = rootProject.ext.domain.prepare + rootProject.ext.port.mnApi
+                    webUrl = rootProject.ext.domain.prepare + rootProject.ext.port.mnWeb
                 } else if (baseName.contains('Local')) {
                     flavorName += flavor
                     baseUrl = rootProject.ext.domain.local + rootProject.ext.port.mnApi
+                    webUrl = rootProject.ext.domain.local + rootProject.ext.port.mnWeb
                 } else {
                     baseUrl = rootProject.ext.domain.formal + rootProject.ext.port.mnApi
+                    webUrl = rootProject.ext.domain.formal + rootProject.ext.port.mnWeb
                 }
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.mn.amapKey]
             } else if (baseName.contains('expertRemoteH5')) {
@@ -345,7 +363,7 @@ android {
                 webUrl = rootProject.ext.domain.formal + rootProject.ext.port.erFormal
                 flavorName = rootProject.ext.er.appNameNative
                 if (baseName.contains('淄博中西医formal')) {
-                    baseUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZiboApi
+                    baseUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.rcZibo
                     webUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZibo
                 } else if (baseName.contains('淄博中西医local')) {
                     webUrl = rootProject.ext.domain.淄博中西医local + rootProject.ext.port.erLocal

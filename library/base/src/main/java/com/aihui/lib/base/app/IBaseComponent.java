@@ -1,6 +1,6 @@
 package com.aihui.lib.base.app;
 
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 
 /**
  * Created by 胡一鸣 on 2018/7/30.

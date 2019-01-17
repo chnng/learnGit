@@ -3,12 +3,13 @@ package com.aihui.lib.base.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by 路传涛 on 2017/6/5.

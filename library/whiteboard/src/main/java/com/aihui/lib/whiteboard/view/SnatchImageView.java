@@ -1,9 +1,10 @@
 package com.aihui.lib.whiteboard.view;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 /**
  * Created by 胡一鸣 on 2018/7/31.

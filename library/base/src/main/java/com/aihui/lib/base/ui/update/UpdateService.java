@@ -8,9 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
 import com.aihui.lib.base.R;
@@ -27,6 +24,10 @@ import com.aihui.lib.base.util.ToastUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 /**
  * Created by 胡一鸣 on 2018/8/16.

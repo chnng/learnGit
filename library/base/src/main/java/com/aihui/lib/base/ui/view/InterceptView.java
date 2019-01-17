@@ -1,10 +1,11 @@
 package com.aihui.lib.base.ui.view;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by 胡一鸣 on 2018/7/3.

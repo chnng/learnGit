@@ -1,11 +1,11 @@
 package com.aihui.lib.base.ui;
 
-import android.support.v7.widget.RecyclerView;
-
 import com.aihui.lib.base.model.common.response.BaseSelectBean;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by 胡一鸣 on 2018/9/13.

@@ -1,10 +1,9 @@
 package com.aihui.lib.base.ui;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by 胡一鸣 on 2018/8/13.

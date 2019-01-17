@@ -1,10 +1,10 @@
 package com.aihui.lib.base.api.retrofit.download;
 
-import android.support.annotation.NonNull;
-
 import com.aihui.lib.base.util.LogUtils;
 
 import java.io.File;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by 胡一鸣 on 2018/9/4.

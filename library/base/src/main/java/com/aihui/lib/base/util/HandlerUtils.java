@@ -2,10 +2,11 @@ package com.aihui.lib.base.util;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by 胡一鸣 on 2018/6/20.

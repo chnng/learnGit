@@ -9,9 +9,10 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 
 import com.aihui.lib.base.cons.FileType;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by 胡一鸣 on 2018/9/21.

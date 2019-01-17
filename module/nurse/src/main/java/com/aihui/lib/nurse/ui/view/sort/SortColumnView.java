@@ -3,7 +3,6 @@ package com.aihui.lib.nurse.ui.view.sort;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -11,6 +10,8 @@ import android.widget.TextView;
 
 import com.aihui.lib.base.util.DensityUtils;
 import com.aihui.lib.nurse.R;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by 胡一鸣 on 2018/8/18.

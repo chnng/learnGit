@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -12,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+import androidx.annotation.NonNull;
 import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
@@ -29,6 +29,7 @@ public final class FileUtils {
     public static final String DIR_DOWNLOAD = "download";
     public static final String DIR_PROFILE = "profile";
     public static final String DIR_RECORD = "record";
+    public static final String DIR_LOG = "log";
 
 //    public static File createTmpFile(Context context) throws IOException{
 //        File dir = null;

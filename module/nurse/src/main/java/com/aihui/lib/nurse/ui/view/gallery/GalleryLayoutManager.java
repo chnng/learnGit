@@ -1,12 +1,14 @@
 package com.aihui.lib.nurse.ui.view.gallery;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearSmoothScroller;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.azoft.carousellayoutmanager.CarouselLayoutManager;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by 胡一鸣 on 2018/9/1.
@@ -14,7 +16,7 @@ import com.azoft.carousellayoutmanager.CarouselLayoutManager;
 public class GalleryLayoutManager extends CarouselLayoutManager {
     /**
      * Many calculations are made depending on orientation. To keep it clean, this interface
-     * helps {@link android.support.v7.widget.LinearLayoutManager} make those decisions.
+     * helps {@link LinearLayoutManager} make those decisions.
      */
 //    OrientationHelper mOrientationHelper;
     public GalleryLayoutManager(int orientation) {
