@@ -7,4 +7,5 @@ include ':app:project', ':app:test', ':app:java',
         ':library:javamail',
         ':library:mp3recorder',
         ':library:okhttp',
+        ':library:okhttp4j',
         ':library:whiteboard'
