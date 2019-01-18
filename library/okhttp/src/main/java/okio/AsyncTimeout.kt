@@ -15,7 +15,6 @@
  */
 package okio
 
-import okhttp3.internal.Util.checkOffsetAndCount
 import java.io.IOException
 import java.io.InterruptedIOException
 import java.util.concurrent.TimeUnit

@@ -19,7 +19,7 @@
 
 package okio
 
-//import org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+import org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -195,13 +195,13 @@ fun File.source(): Source = inputStream().source()
 
 /** Returns a source that reads from `path`. */
 @Throws(IOException::class)
-//@IgnoreJRERequirement // Can only be invoked on Java 7+.
+@IgnoreJRERequirement // Can only be invoked on Java 7+.
 fun Path.sink(vararg options: OpenOption): Sink =
     Files.newOutputStream(this, *options).sink()
 
 /** Returns a sink that writes to `path`. */
 @Throws(IOException::class)
-//@IgnoreJRERequirement // Can only be invoked on Java 7+.
+@IgnoreJRERequirement // Can only be invoked on Java 7+.
 fun Path.source(vararg options: OpenOption): Source =
     Files.newInputStream(this, *options).source()
 

@@ -15,7 +15,6 @@
  */
 package okio
 
-import okhttp3.internal.Util.checkOffsetAndCount
 import okio.internal.COMMON_EMPTY
 import okio.internal.commonBase64
 import okio.internal.commonBase64Url
@@ -48,7 +47,6 @@ import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.io.OutputStream
 import java.io.Serializable
-import java.lang.System.arraycopy
 import java.nio.ByteBuffer
 import java.nio.charset.Charset
 import java.security.InvalidKeyException

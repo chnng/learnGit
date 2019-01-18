@@ -15,7 +15,11 @@
  */
 package okio
 
-import java.io.*
+import java.io.Closeable
+import java.io.EOFException
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 import java.nio.ByteBuffer
 import java.nio.channels.ByteChannel
 import java.nio.charset.Charset
@@ -23,7 +27,6 @@ import java.security.InvalidKeyException
 import java.security.MessageDigest
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
-
 
 /**
  * A collection of bytes in memory.
