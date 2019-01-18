@@ -15,6 +15,7 @@ import com.aihui.lib.nurse.manager.AccountManager;
 import org.reactivestreams.Publisher;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -66,7 +67,7 @@ public final class CacheUtils {
                                                                                          @NonNull String tag,
                                                                                          Parcelable.Creator<T> creator,
                                                                                          OnCacheListener<List<L>> listener) {
-        if (creator == null) {
+        if (creator == null || listener == null) {
             return false;
         }
         File file = new File(ParcelableUtils.getCacheFilePath(AccountManager.getLoginUid(),
@@ -87,11 +88,13 @@ public final class CacheUtils {
     }
 
     public static <T extends Parcelable> Observable<T> getCacheObserver(@NonNull String tag,
-                                                     @NonNull Parcelable.Creator<T> creator) {
+                                                                        @NonNull Parcelable.Creator<T> creator) {
         return Observable.create(emitter -> {
             T parcelable = ParcelableUtils.getParcelableFromFile(AccountManager.getLoginUid(), tag, creator);
             if (parcelable != null) {
                 emitter.onNext(parcelable);
+            } else {
+                emitter.onError(new FileNotFoundException());
             }
             emitter.onComplete();
         });

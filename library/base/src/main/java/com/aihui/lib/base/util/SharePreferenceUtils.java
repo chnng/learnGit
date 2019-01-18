@@ -64,6 +64,18 @@ public final class SharePreferenceUtils {
      * 看板首页类型
      */
     public static final String SP_MN_HOMEPAGE_TYPE = "mn_homepage_type";
+    /**
+     * 看板设置:首页切换
+     */
+    public static final String SP_MN_SETTINGS_HOMEPAGE = "mn_settings_homepage";
+    /**
+     * 看板设置:重要提醒
+     */
+    public static final String SP_MN_SETTINGS_REMIND = "mn_settings_remind";
+    /**
+     * 看板设置:物联网设备
+     */
+    public static final String SP_MN_SETTINGS_DEVICE = "mn_settings_device";
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法

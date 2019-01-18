@@ -3,7 +3,12 @@ package com.aihui.lib.base.util;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.aihui.lib.base.api.retrofit.BaseObserver;
+import com.aihui.lib.base.api.retrofit.RetrofitManager;
+import com.aihui.lib.base.api.retrofit.download.DownloadManager;
+import com.aihui.lib.base.api.retrofit.download.OnProgressListener;
 import com.aihui.lib.base.app.BaseApplication;
+import com.aihui.lib.base.cons.FileType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,6 +27,7 @@ public final class LogUtils {
     private static boolean mIsDebug = true;
     private static boolean mIsEnableWriteFile;
     private static File mLogFile;
+    private static volatile boolean mIsLogFileLoading;
 
     /**
      * 是否打印log日志
@@ -122,7 +128,7 @@ public final class LogUtils {
     }
 
     private static void writeLogFile(String log) {
-        if (!mIsEnableWriteFile) {
+        if (!mIsEnableWriteFile || mIsLogFileLoading) {
             return;
         }
         File file = getLogFile();
@@ -137,5 +143,39 @@ public final class LogUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void uploadLogFile() {
+        File file = LogUtils.mLogFile;
+        if (!file.exists() || file.length() == 0) {
+            return;
+        }
+        mIsLogFileLoading = true;
+        LogUtils.e("log file size:" + FileUtils.getFileSizeFormat(file));
+        DownloadManager.uploadFile("log\\android", file, FileType.Mime.TXT, new OnProgressListener() {
+            @Override
+            public void onProgress(int progress) {
+            }
+        })
+                .compose(RetrofitManager.switchScheduler())
+                .subscribe(new BaseObserver<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        LogUtils.e("uploadLogFile:" + s);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        mIsLogFileLoading = false;
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        super.onComplete();
+                        file.delete();
+                        mIsLogFileLoading = false;
+                    }
+                });
     }
 }

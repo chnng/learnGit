@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.aihui.lib.base.app.BaseApplication;
+import com.aihui.lib.base.cons.CacheTag;
 
 import java.io.File;
 
@@ -46,7 +47,7 @@ public final class ParcelableUtils {
     private static String getAccountFilePath(int uid) {
         if (uid == -1) {
             return null;
-        } else if (uid == 0) {
+        } else if (uid == CacheTag.USER_GLOBAL) {
             return FileUtils.getCacheDirectory(BaseApplication.getContext()).getAbsolutePath()
                     + File.separator + FileUtils.DIR_PROFILE;
         }

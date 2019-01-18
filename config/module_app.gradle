@@ -11,7 +11,9 @@ android {
         versionCode 1
         versionName '1.0'
         multiDexEnabled true
-
+//        ndk {
+//            abiFilters 'armeabi-v7a'
+//        }
 //        buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.formal + rootProject.ext.port.base
 //        buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.formal + rootProject.ext.port.mn
 //        buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal

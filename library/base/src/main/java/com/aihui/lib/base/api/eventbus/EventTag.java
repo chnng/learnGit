@@ -107,11 +107,14 @@ public class EventTag {
      * 看板视频呼叫更新
      */
     public static final int EVENT_MN_UPDATE_VIDEO_CALL = EVENT_MN_UPDATE_REMIND + 1;
-
+    /**
+     * 看板布局状态变更
+     */
+    public static final int EVENT_MN_UPDATE_SETTINGS = EVENT_MN_UPDATE_VIDEO_CALL + 1;
     /**
      * 看板移动状态变更
      */
-    public static final int EVENT_MN_MODULE_MOVE = EVENT_MN_UPDATE_VIDEO_CALL + 1;
+    public static final int EVENT_MN_MODULE_MOVE = EVENT_MN_UPDATE_SETTINGS + 1;
     /**
      * 看板移动状态变更
      */
