@@ -3,8 +3,8 @@ package com.learn.git.ui.fragment;
 import android.util.Log;
 import android.view.View;
 
+import com.aihui.lib.base.api.retrofit.RetrofitManager;
 import com.learn.git.R;
-import com.learn.git.api.okhttp.OkHttpClientHelper;
 import com.learn.git.ui.common.MyFragment;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class OkHttpFragment extends MyFragment {
             case R.id.button_request:
                 final Request request = new Request.Builder().url("http://httpbin.org/delay/5")
                         .build();
-                OkHttpClientHelper.get().newCall(request).enqueue(new Callback() {
+                RetrofitManager.getOkHttpClient().newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NonNull Call call, @NonNull final IOException e) {
                         Log.d("MainActivity", "onFailure:" + Thread.currentThread().getName());
@@ -42,7 +42,7 @@ public class OkHttpFragment extends MyFragment {
                 });
                 break;
             case R.id.button_cancel:
-                OkHttpClientHelper.get().dispatcher().cancelAll();
+                RetrofitManager.getOkHttpClient().dispatcher().cancelAll();
                 break;
         }
     }

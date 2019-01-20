@@ -15,6 +15,8 @@
  */
 package okio;
 
+import org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -168,7 +170,7 @@ public final class Okio {
   }
 
   /** Returns a source that reads from {@code path}. */
-//  @IgnoreJRERequirement // Should only be invoked on Java 7+.
+  @IgnoreJRERequirement // Should only be invoked on Java 7+.
   public static Source source(Path path, OpenOption... options) throws IOException {
     if (path == null) throw new IllegalArgumentException("path == null");
     return source(Files.newInputStream(path, options));
@@ -187,7 +189,7 @@ public final class Okio {
   }
 
   /** Returns a sink that writes to {@code path}. */
-//  @IgnoreJRERequirement // Should only be invoked on Java 7+.
+  @IgnoreJRERequirement // Should only be invoked on Java 7+.
   public static Sink sink(Path path, OpenOption... options) throws IOException {
     if (path == null) throw new IllegalArgumentException("path == null");
     return sink(Files.newOutputStream(path, options));
