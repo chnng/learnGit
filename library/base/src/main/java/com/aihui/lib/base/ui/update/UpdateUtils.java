@@ -57,7 +57,7 @@ public class UpdateUtils {
                 .compose(RetrofitManager.switchScheduler())
                 .subscribe(new BaseObserver<CheckUpdateBean>() {
                     @Override
-                    public void onNext(CheckUpdateBean bean) {
+                    public void onNext(@NonNull CheckUpdateBean bean) {
                         int severVersionCode = Integer.parseInt(bean.v_code);
                         int nativeVersionCode = ApplicationUtils.getVersionCode(context);
                         if (severVersionCode > nativeVersionCode) {

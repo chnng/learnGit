@@ -94,13 +94,13 @@ public class CustomProductFragment extends WhiteBoardFragment implements WhiteBo
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         ToastUtils.toast("上传失败\n" + e.getMessage());
                         dialog.dismiss();
                     }
 
                     @Override
-                    public void onNext(Boolean aBoolean) {
+                    public void onNext(@NonNull Boolean aBoolean) {
 
                     }
                 });

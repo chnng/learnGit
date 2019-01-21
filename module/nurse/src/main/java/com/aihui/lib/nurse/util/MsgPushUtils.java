@@ -175,7 +175,7 @@ public final class MsgPushUtils {
                 .compose(RetrofitManager.parseResponseWith(activity))
                 .subscribe(new BaseObserver<Boolean>() {
                     @Override
-                    public void onNext(Boolean aBoolean) {
+                    public void onNext(@NonNull Boolean aBoolean) {
                         if (observer != null) {
                             observer.onNext(aBoolean);
                         } else if (aBoolean) {
@@ -195,7 +195,7 @@ public final class MsgPushUtils {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         CheckUtils.dismissDialog(finalDialog);
                         if (observer != null) {
                             observer.onError(e);
@@ -219,12 +219,12 @@ public final class MsgPushUtils {
         for (QueryEducationDetailsInsertBody body : bodyList) {
             insertMsgPush(activity, body, new BaseObserver<Boolean>() {
                 @Override
-                public void onNext(Boolean aBoolean) {
+                public void onNext(@NonNull Boolean aBoolean) {
 
                 }
 
                 @Override
-                public void onError(Throwable e) {
+                public void onError(@NonNull Throwable e) {
                     finishSend();
                 }
 
@@ -276,7 +276,7 @@ public final class MsgPushUtils {
                 .compose(RetrofitManager.switchSchedulerWith(activity))
                 .subscribe(new BaseObserver<String>() {
                     @Override
-                    public void onNext(String url) {
+                    public void onNext(@NonNull String url) {
                         if (!TextUtils.isEmpty(url) && url.startsWith("http")) {
                             if (observable != null) {
                                 observable.onNext(url.replace(fileType, FileType.Extension.HTML));
@@ -293,7 +293,7 @@ public final class MsgPushUtils {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         super.onError(e);
                         finishRecord();
                         ToastUtils.toast("上传失败:" + e.getMessage());

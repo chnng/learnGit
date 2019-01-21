@@ -53,13 +53,13 @@ public class UpdateService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    public class UpdateBinder extends Binder {
-        public void download(String url) {
+    class UpdateBinder extends Binder {
+        void download(String url) {
             LogUtils.e("download:" + url);
             downloadApk(url);
         }
 
-        public void showNotification() {
+        void showNotification() {
             mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             mNotificationBuilder = NotificationUtils.getUpdateBuilder(UpdateService.this);
             mNotificationManager.notify(NotificationUtils.ID_UPDATE, mNotificationBuilder.build());

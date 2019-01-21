@@ -160,12 +160,12 @@ public final class LogUtils {
                 .compose(RetrofitManager.switchScheduler())
                 .subscribe(new BaseObserver<String>() {
                     @Override
-                    public void onNext(String s) {
+                    public void onNext(@NonNull String s) {
                         LogUtils.e("uploadLogFile:" + s);
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         super.onError(e);
                         mIsLogFileLoading = false;
                     }

@@ -95,7 +95,7 @@ public final class AccountManager {
                 .compose(RetrofitManager.switchScheduler())
                 .subscribe(new BaseObserver<QueryAccessBean>() {
                     @Override
-                    public void onNext(QueryAccessBean bean) {
+                    public void onNext(@NonNull QueryAccessBean bean) {
                         mAccessId = bean.ID;
                     }
                 });
@@ -405,7 +405,7 @@ public final class AccountManager {
                     .compose(RetrofitManager.switchScheduler())
                     .subscribe(new BaseObserver<String>() {
                         @Override
-                        public void onNext(String s) {
+                        public void onNext(@NonNull String s) {
                             getInstance().mDeptUserIds = s;
                         }
                     });
