@@ -27,8 +27,7 @@ final class SegmentPool {
   static final long MAX_SIZE = 64 * 1024; // 64 KiB.
 
   /** Singly-linked list of segments. */
-  static @Nullable
-  Segment next;
+  static @Nullable Segment next;
 
   /** Total bytes in this pool. */
   static long byteCount;

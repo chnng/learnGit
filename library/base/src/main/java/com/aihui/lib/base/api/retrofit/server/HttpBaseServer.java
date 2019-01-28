@@ -3,6 +3,9 @@ package com.aihui.lib.base.api.retrofit.server;
 import com.aihui.lib.base.model.common.request.CheckUpdateBody;
 import com.aihui.lib.base.model.common.response.BaseResponseBean;
 import com.aihui.lib.base.model.common.response.CheckUpdateBean;
+import com.aihui.lib.base.model.module.mn.main.request.CustomProductBody;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -38,4 +41,13 @@ public interface HttpBaseServer {
      */
     @POST("api/appversion/getbycode")
     Observable<BaseResponseBean<CheckUpdateBean>> checkUpdate(@Body CheckUpdateBody body);
+
+    /**
+     * 上传自定义项目
+     *
+     * @param body body
+     * @return data
+     */
+    @POST("api/ProjectContent/Insert")
+    Observable<BaseResponseBean<Boolean>> updateCustomProduct(@Body List<CustomProductBody> body);
 }

@@ -42,8 +42,7 @@ import static okio.Util.checkOffsetAndCount;
  * }</pre>
  */
 public final class HashingSink extends ForwardingSink {
-  private final @Nullable
-  MessageDigest messageDigest;
+  private final @Nullable MessageDigest messageDigest;
   private final @Nullable Mac mac;
 
   /** Returns a sink that uses the obsolete MD5 hash algorithm to produce 128-bit hashes. */

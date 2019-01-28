@@ -56,8 +56,7 @@ public final class Buffer implements BufferedSource, BufferedSink, Cloneable, By
       { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
   static final int REPLACEMENT_CHARACTER = '\ufffd';
 
-  @Nullable
-  Segment head;
+  @Nullable Segment head;
   long size;
 
   public Buffer() {
