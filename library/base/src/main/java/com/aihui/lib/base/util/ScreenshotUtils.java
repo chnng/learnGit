@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by 胡一鸣 on 2018/8/23.
  */
-public class ScreenshotUtils {
+public final class ScreenshotUtils {
 
     /**
      * 截屏

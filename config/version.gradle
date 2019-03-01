@@ -21,7 +21,6 @@ ext {
             supportDesign           : "com.android.support:design:$android.supportVersion",
             recyclerviewV7          : "com.android.support:recyclerview-v7:$android.supportVersion",
             cardviewV7              : "com.android.support:cardview-v7:$android.supportVersion",
-            drawerlayout              : "com.android.support:drawerlayout:$android.supportVersion",
             constraintLayout        : 'com.android.support.constraint:constraint-layout:1.1.3',
 
             // https://bugly.qq.com/docs/user-guide/instruction-manual-android-upgrade/?v=20180521124306
@@ -62,6 +61,8 @@ ext {
             // https://github.com/JakeWharton/butterknife
             butterknife             : "com.jakewharton:butterknife:$butterknife_version",
             butterknifeCompiler     : "com.jakewharton:butterknife-compiler:$butterknife_version",
+            // https://github.com/Meituan-Dianping/Robust
+            robust                  : "com.meituan.robust:robust:$robust_version",
             // https://github.com/JessYanCoding/ProgressManager
             progressmanager         : 'me.jessyan:progressmanager:1.5.0',
             // https://github.com/JessYanCoding/RetrofitUrlManager
@@ -115,5 +116,7 @@ ext {
             marquee                 : 'com.gongwen:marqueelibrary:1.1.3',
             // https://github.com/laobie/StatusBarUtil
             statusBarUtil           : 'com.jaeger.statusbarutil:library:1.5.1',
+            // https://github.com/H07000223/FlycoTabLayout
+            flycoTabLayout          : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar',
     ]
 }

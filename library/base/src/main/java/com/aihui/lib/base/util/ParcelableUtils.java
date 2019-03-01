@@ -48,11 +48,11 @@ public final class ParcelableUtils {
         if (uid == -1) {
             return null;
         } else if (uid == CacheTag.USER_GLOBAL) {
-            return FileUtils.getCacheDirectory(BaseApplication.getContext()).getAbsolutePath()
-                    + File.separator + FileUtils.DIR_PROFILE;
+            return FileUtils.getIndividualCacheDirectory(BaseApplication.getContext(), FileUtils.DIR_PROFILE)
+                    .getAbsolutePath();
         }
-        return FileUtils.getCacheDirectory(BaseApplication.getContext()).getAbsolutePath()
-                + File.separator + FileUtils.DIR_PROFILE + File.separator + uid;
+        return FileUtils.getIndividualCacheDirectory(BaseApplication.getContext(), FileUtils.DIR_PROFILE + File.separator + uid)
+                .getAbsolutePath();
     }
 
 //    public static void saveParcelableToFile(String tag, Parcelable parcelable) {

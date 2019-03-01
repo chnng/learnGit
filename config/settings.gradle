@@ -9,14 +9,19 @@ gradle.ext {
     MODULE_ER_H5 = MODULE_M_NATIVE << 1
     MODULE_ER_NATIVE = MODULE_ER_H5 << 1
     MODULE_CALL = MODULE_ER_NATIVE << 1
-    MODULE_PUSH = MODULE_CALL << 1
-    MODULE_YDCF = MODULE_PUSH << 1
+    MODULE_YDCF = MODULE_CALL << 1
     MODULE_YDHL = MODULE_YDCF << 1
     MODULE_NAVI = MODULE_YDHL << 1
 
     // change me
     RELEASE_IGNORE = false
-    COMPILE_FLAG = MODULE_ALL
+    COMPILE_FLAG = MODULE_TH_NATIVE \
+                 | MODULE_MN_H5 \
+                 | MODULE_MN_NATIVE \
+                 | MODULE_M_H5 \
+                 | MODULE_CALL \
+                 | MODULE_ER_NATIVE \
+                 | MODULE_YDHL \
 }
 def flag = gradle.ext.COMPILE_FLAG
 
@@ -28,8 +33,8 @@ def flag = gradle.ext.COMPILE_FLAG
 // ':library:signalA:parallel-basic-http-client',
 // ':library:signalA:SignalA',
 // ':library:signalA:SignalA.LongPolling'
-include ':app:project', ':app:nuanping', ':app:test', ':library:base',
-//        ':library:agentweb',
+include /*':app:test', */':library:base'
+//        ':library:agentweb'
 //        ':library:agora',
 //        ':library:amap',
 //        ':library:ffmpeg',
@@ -38,43 +43,55 @@ include ':app:project', ':app:nuanping', ':app:test', ':library:base',
 //        ':library:ifly',
 //        ':library:javamail',
 //        ':library:mp3recorder',
-        ':library:signalA:parallel-basic-http-client',
-        ':library:signalA:SignalA',
-        ':library:signalA:SignalA.LongPolling'
+//        ':library:signalA:parallel-basic-http-client',
+//        ':library:signalA:SignalA',
+//        ':library:signalA:SignalA.LongPolling',
 //        ':library:whiteboard',
 //        ':library:widget',
 //        ':library:zxing'
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_TH_NATIVE) != 0) {
-    include ':module:th:native',
+    include ':app:project',
+            ':module:th:native',
             ':module:nurse'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_MN_H5) != 0) {
-    include ':module:mn:h5'
+    include ':app:project',
+            ':module:mn:h5'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_MN_NATIVE) != 0) {
-    include ':module:mn:native',
-            ':module:nurse'
+    include ':app:project',
+            ':module:mn:native',
+            ':module:nurse',
+            ':library:linphone'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_M_H5) != 0) {
-    include ':module:m:h5'
+    include ':app:nuanping',
+            ':module:m:h5'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_M_NATIVE) != 0) {
-    include ':module:m:native'
+    include ':app:nuanping',
+            ':module:m:native'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_ER_H5) != 0) {
-    include ':module:er:h5'
+    include ':app:project',
+            ':module:er:h5'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_ER_NATIVE) != 0) {
-    include ':module:er:native'
+    include ':app:project',
+            ':module:er:native'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_CALL) != 0) {
-    include ':module:call'
+    include ':app:nuanping',
+            ':module:call',
+            ':library:linphone'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_YDCF) != 0) {
-    include ':module:ydcf'
+    include ':app:project',
+            ':module:ydcf'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_YDHL) != 0) {
-    include ':module:ydhl'
+    include ':app:project',
+            ':module:ydhl'
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_NAVI) != 0) {
     include ':module:navi'

@@ -71,7 +71,7 @@ public abstract class BaseApplication extends Application {
                     //正式发布版本时注销该 toast
                     //Toast.makeText(BaseApplication.this, "Exception Happend\n" + thread + "\n" + throwable.toString(), Toast.LENGTH_SHORT).show();
                     //扫码出现异常时关闭扫码页面
-                    EventBus.getDefault().post(new EventMessage<>(EventTag.CLOSE_SCAN_ACTIVITY, null));
+                    EventBus.getDefault().post(new EventMessage(EventTag.CLOSE_SCAN_ACTIVITY, null));
                 } catch (Throwable e) {
                     e.printStackTrace();
                 }

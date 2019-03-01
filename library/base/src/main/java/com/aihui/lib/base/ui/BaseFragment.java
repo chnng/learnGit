@@ -99,4 +99,8 @@ public abstract class BaseFragment extends RxFragment
     protected View getContainerView() {
         return mContainerView;
     }
+
+    public boolean onBackKeyDown() {
+        return false;
+    }
 }

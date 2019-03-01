@@ -3,7 +3,7 @@ package com.aihui.lib.base.util;
 /**
  * Created by 胡一鸣 on 2018/8/21.
  */
-public class NumberUtils {
+public final class NumberUtils {
     public static int str2Int(String src) {
         int dest = 0;
         try {

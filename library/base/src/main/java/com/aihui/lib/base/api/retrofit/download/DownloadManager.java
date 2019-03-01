@@ -11,11 +11,13 @@ import java.io.File;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import io.reactivex.Observable;
 import me.jessyan.progressmanager.ProgressManager;
 import me.jessyan.progressmanager.body.ProgressInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
@@ -44,17 +46,37 @@ public class DownloadManager {
                                     @NonNull String fileDir,
                                     @NonNull String fileName,
                                     OnProgressListener listener) {
-        downloadFile(url, new File(fileDir, fileName), listener);
+        downloadFile(url, null, fileDir, fileName, listener);
+    }
+
+
+    /**
+     * 通过URL下载文件
+     *
+     * @param url      下载文件的URL
+     * @param headers  请求头
+     * @param fileDir  下载的文件存储目录
+     * @param fileName 下载的文件名称
+     * @param listener 下载结果监听器
+     */
+    public static void downloadFile(@NonNull String url,
+                                    @Nullable Headers headers,
+                                    @NonNull String fileDir,
+                                    @NonNull String fileName,
+                                    OnProgressListener listener) {
+        downloadFile(url, headers, new File(fileDir, fileName), listener);
     }
 
     /**
      * 通过URL下载文件
      *
      * @param url      下载文件的URL
+     * @param headers  请求头
      * @param file     下载的文件
      * @param listener 下载结果监听器
      */
     public static void downloadFile(@NonNull String url,
+                                    @Nullable Headers headers,
                                     @NonNull File file,
                                     OnProgressListener listener) {
         //注册下载进度 监听器
@@ -81,7 +103,11 @@ public class DownloadManager {
         });
 
         //开始下载
-        Request request = new Request.Builder().url(url).build();
+        Request.Builder builder = new Request.Builder().url(url);
+        if (headers != null) {
+            builder.headers(headers);
+        }
+        Request request = builder.build();
         RetrofitManager.getOkHttpClient().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -92,18 +118,31 @@ public class DownloadManager {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) {
                 if (!response.isSuccessful()) {
-                    safeFailure(listener, new NetworkErrorException("response failed!"), file);
+                    switch (response.code()) {
+                        case 304:
+                            break;
+                        case 404:
+                            safeFailure(listener, new NetworkErrorException("file not found!"), file);
+                            break;
+                        default:
+                            safeFailure(listener, new NetworkErrorException("response failed!"), file);
+                            break;
+                    }
                     return;
                 }
-                ResponseBody delegateBody = response.body();
-                if (delegateBody == null) {
-                    safeFailure(listener, new NullPointerException("response delegateBody is null!"), file);
+                ResponseBody body = response.body();
+                if (listener != null) {
+                    Headers headers = response.headers();
+                    listener.onHeaders(headers);
+                }
+                if (body == null) {
+                    safeFailure(listener, new NullPointerException("response body is null!"), file);
                     return;
                 }
-//                new ProgressResponseBody(delegateBody, file, listener);
                 try (BufferedSink sink = Okio.buffer(Okio.sink(FileUtils.createFile(file)))) {
                     //写入SD卡
-                    sink.writeAll(delegateBody.source());
+                    sink.writeAll(body.source());
+                    sink.flush();
                     LogUtils.i(file.getName() + " 下载完成");
                     //写入完成
                     safeSuccess(listener, file);

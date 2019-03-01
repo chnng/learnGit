@@ -5,6 +5,7 @@ import com.aihui.lib.base.util.LogUtils;
 import java.io.File;
 
 import androidx.annotation.NonNull;
+import okhttp3.Headers;
 
 /**
  * Created by 胡一鸣 on 2018/9/4.
@@ -12,8 +13,15 @@ import androidx.annotation.NonNull;
 public abstract class OnProgressListener {
 
     /**
+     * @param headers 响应头
+     */
+    protected void onHeaders(Headers headers) {
+    }
+
+    /**
      * 传输进度
-     * @param currentBytes 当前进度
+     *
+     * @param currentBytes  当前进度
      * @param contentLength 文件总长
      */
     protected void onProgress(long currentBytes, long contentLength) {

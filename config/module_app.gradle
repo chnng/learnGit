@@ -3,8 +3,11 @@ apply from: rootProject.ext.gradle_path_module
 
 // 加载 local.properties 资源
 Properties properties = new Properties()
-InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
-properties.load(inputStream)
+project.rootProject.file('local.properties').withInputStream {
+    properties.load(it)
+}
+//InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
+//properties.load(inputStream)
 
 android {
     defaultConfig {
@@ -19,7 +22,6 @@ android {
 //        buildConfigField 'String', 'RC_URL', rootProject.ext.domain.formal + rootProject.ext.port.rcFormal
 //        buildConfigField 'boolean', 'AUTH', 'false'
 //        buildConfigField 'String', 'APP_CODE', 'null'
-//        buildConfigField 'int', 'HIDE_NAME_TYPE', rootProject.ext.global.hideNameType
 //        buildConfigField 'int', 'BED_CARD_TYPE', rootProject.ext.global.bedCardType
 //        resValue "string", "agora_app_id", rootProject.ext.global.agoraAppId
     }
@@ -44,6 +46,7 @@ android {
             signingConfig signingConfigs.config
         }
         debug {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
     }

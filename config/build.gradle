@@ -1,4 +1,6 @@
 apply from: rootProject.ext.gradle_path_module_app
+//apply plugin: 'auto-patch-plugin'
+apply plugin: 'robust'
 
 android {
 //    dexOptions {
@@ -71,6 +73,11 @@ android {
             dimension 'url'
             applicationIdSuffix '.gxzyy'
             resValue 'string', 'amap_location', rootProject.ext.location.广西中医药大学仙葫校区
+        }
+        潍坊中医院location {
+            dimension 'url'
+            applicationIdSuffix '.wfz'
+            resValue 'string', 'amap_location', rootProject.ext.location.潍坊中医院
         }
         淄博中西医formal {
             dimension 'url'
@@ -168,8 +175,14 @@ android {
             versionCode rootProject.ext.mn.versionCode
             versionName rootProject.ext.mn.versionName
             applicationIdSuffix '.nati'
+            minSdkVersion 16
             ndk {
                 abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
+            buildTypes {
+                release {
+                    minifyEnabled true
+                }
             }
             buildConfigField 'String', 'APP_CODE', rootProject.ext.mn.appCode
             buildConfigField 'boolean', 'AUTH', 'false'
@@ -224,6 +237,7 @@ android {
                     || names.contains('威海妇幼保健院location')
                     || names.contains('青岛妇女儿童location')
                     || names.contains('广西中医药大学仙葫校区location')
+                    || names.contains('潍坊中医院location')
             ) {
                 variant.setIgnore(false)
             }
@@ -236,6 +250,7 @@ android {
                     || names.contains('苏大广慈local')
                     || names.contains('深圳罗湖妇幼local')
                     || names.contains('泰兴人民local')
+                    || names.contains('南阳骨科local')
             ) {
                 variant.setIgnore(false)
             }
@@ -265,8 +280,11 @@ android {
     }
 
     // https://blog.csdn.net/aa112901a/article/details/78911775
+    // https://blog.csdn.net/angcyo/article/details/78357512
+    // https://github.com/JakeWharton/butterknife/issues/1431
     android.applicationVariants.all { variant ->
         if (variant.buildType.name == "debug") { // 防止AS无法安装debug包(apk)
+//            variant.getPackageApplicationProvider().get().outputDirectory = new File(project.rootDir.absolutePath + '/apk')
             variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + '/apk')
         }
         def baseName = variant.baseName, flavorName = 'app'
@@ -304,6 +322,8 @@ android {
                     flavorName = '天护青岛'
                 } else if (baseName.contains('广西中医药大学仙葫校区location')) {
                     flavorName = '天护广中仙葫'
+                } else if (baseName.contains('潍坊中医院location')) {
+                    flavorName = '天护潍坊'
                 }
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.th.amapKey]
             } else if (baseName.contains('mnH5')) {
@@ -359,30 +379,29 @@ android {
                     webUrl = rootProject.ext.domain.local + rootProject.ext.port.erLocal
                 }
             } else if (baseName.contains('expertRemoteNative')) {
-                flavorName = rootProject.ext.er.appName
-                webUrl = rootProject.ext.domain.formal + rootProject.ext.port.erFormal
-                flavorName = rootProject.ext.er.appNameNative
-                if (baseName.contains('淄博中西医formal')) {
-                    baseUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.rcZibo
-                    webUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZibo
-                } else if (baseName.contains('淄博中西医local')) {
-                    webUrl = rootProject.ext.domain.淄博中西医local + rootProject.ext.port.erLocal
-                    variant.buildConfigField 'String', 'WEB_URL', rootProject.ext.domain.淄博中西医local + rootProject.ext.port.erLocal
-                } else if (baseName.contains('Demo')) {
-                    flavorName += flavor
-                    baseUrl = rootProject.ext.domain.demo + rootProject.ext.port.rcLocal
-                    webUrl = rootProject.ext.domain.demo + rootProject.ext.port.erLocal
-                } else if (baseName.contains('Prepare')) {
-                    flavorName += flavor
-                    baseUrl = rootProject.ext.domain.prepare + rootProject.ext.port.rcLocal
-                    webUrl = rootProject.ext.domain.prepare + rootProject.ext.port.erLocal
-                } else if (baseName.contains('Local')) {
-                    flavorName += flavor
-                    baseUrl = rootProject.ext.domain.local + rootProject.ext.port.rcLocal
-                    webUrl = rootProject.ext.domain.local + rootProject.ext.port.erLocal
-                } else {
-                    baseUrl = rootProject.ext.domain.formal + rootProject.ext.port.rcLocal
-                }
+                flavorName = rootProject.ext.er.appNameNative + flavor
+//                flavorName = rootProject.ext.er.appNameNative
+//                webUrl = rootProject.ext.domain.formal + rootProject.ext.port.erFormal
+//                if (baseName.contains('淄博中西医formal')) {
+//                    baseUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.rcZibo
+//                    webUrl = rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZibo
+//                } else if (baseName.contains('淄博中西医local')) {
+//                    webUrl = rootProject.ext.domain.淄博中西医local + rootProject.ext.port.erLocal
+//                } else if (baseName.contains('Demo')) {
+//                    flavorName += flavor
+//                    baseUrl = rootProject.ext.domain.demo + rootProject.ext.port.rcLocal
+//                    webUrl = rootProject.ext.domain.demo + rootProject.ext.port.erLocal
+//                } else if (baseName.contains('Prepare')) {
+//                    flavorName += flavor
+//                    baseUrl = rootProject.ext.domain.prepare + rootProject.ext.port.rcLocal
+//                    webUrl = rootProject.ext.domain.prepare + rootProject.ext.port.erLocal
+//                } else if (baseName.contains('Local')) {
+//                    flavorName += flavor
+//                    baseUrl = rootProject.ext.domain.local + rootProject.ext.port.rcLocal
+//                    webUrl = rootProject.ext.domain.local + rootProject.ext.port.erLocal
+//                } else {
+//                    baseUrl = rootProject.ext.domain.formal + rootProject.ext.port.rcLocal
+//                }
             } else if (baseName.contains('ydcf')) {
                 flavorName = rootProject.ext.ydcf.appName
                 baseUrl = rootProject.ext.domain.formal + rootProject.ext.port.ydcfApi

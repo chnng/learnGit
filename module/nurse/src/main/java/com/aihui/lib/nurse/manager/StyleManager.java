@@ -185,7 +185,7 @@ public final class StyleManager {
 //                    public void onNext(Boolean result) {
 //                        if (result) {
 //                            getInstance().mColor = Color.parseColor("#" + code);
-//                            EventBus.getDefault().post(new EventMessage<>(0x24));
+//                            EventBus.getDefault().post(new EventMessage(0x24));
 ////                            getInstance().setChanged();
 ////                            getInstance().notifyObservers();
 //                        }
@@ -258,7 +258,7 @@ public final class StyleManager {
                 0xFFf76e98, 0xFFffffff, 0xFFf76e98, 0xFFf76e98,
                 0xFFfff9fb, 0XFFf76e98));
         // 灰
-        mStyleColorMap.put("424255", new StyleColor("灰_424255", 0xFF424255, 0xFF191b1c,
+        mStyleColorMap.put("424255", new StyleColor("灰_424255", 0xFF424255, 0xFF1822ac,
                 0xFF737388, 0xFF424255, Color.TRANSPARENT, 0xFFffffff,
                 0xFF191b1c, 0xFFffffff, 0xFFffffff, 0XFF424255,
                 0xFF2d2d3d, 0XFF424255));

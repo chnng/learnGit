@@ -46,6 +46,21 @@ public final class CacheTag {
     public static final String STATISTIC_QUESTION = "statistic_question";
     // endregion
 
+    // region 看板cache tag
+    /** 模版版本 */
+    public static final String MN_TEMPLATE_VERSION = "mn_template_version";
+    /** 模版信息 */
+    public static final String MN_TEMPLATE_INFO = "mn_template_info";
+    /** 主题 */
+    public static final String MN_STYLE = "mn_style";
+    /** 自定义设置 */
+    public static final String MN_SETTINGS_CUSTOM = "mn_settings_custom";
+    /** 设备分辨率 */
+    public static final String MN_MODULE_SCREEN_SIZE= "mn_module_screen_size";
+    // endregion
+
+
+
     public static final Object[][] CACHE_TAG_BY_CREATOR = new Object[][]{
 //            {CacheTag.LOGIN, HospitalUserBean.CREATOR},
 //            {CacheTag.MENU, CacheMenuWrapper.CREATOR},

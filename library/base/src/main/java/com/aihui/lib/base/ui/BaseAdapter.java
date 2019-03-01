@@ -71,6 +71,12 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         notifyItemChanged(position);
     }
 
+    public void insertItem(int position, T t) {
+        mList.add(position, t);
+        notifyItemInserted(position);
+        notifyItemChanged(position);
+    }
+
     public void setOnItemClickListener(OnItemClickListener<T> listener) {
         this.mOnItemClickListener = listener;
     }

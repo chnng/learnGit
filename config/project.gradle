@@ -15,7 +15,7 @@ ext {
             泰兴人民local        : '"http://192.169.100.132',
             // 南阳市骨科医院(工业路)
             南阳骨科formal       : '"http://219.154.133.29',
-            南阳骨科local        : '"http://192.169.100.132',
+            南阳骨科local        : '"http://192.168.0.36',
             // 北京大学深圳医院
             北大深圳local        : '"http://100.100.100.60',
             // 广西中医药大学第一附属医院(仙湖院区)
@@ -33,11 +33,14 @@ ext {
             深圳罗湖妇幼local     : '"http://172.22.7.11',
             // 湖南省直中医院
             湖南省直中医院local   : '"http://192.168.8.53',
+            // 桂林市人民医院
+            桂林人民local        : '"http://116.1.2.237',
     ]
     port = [
             base                : ':8094/"',    // 接口端口
-            ydcfApi             : ':8101/"',    // 移动查房接口端口
-            ydhlApi             : ':8194/"',    // 移动护理接口端口
+//            ydcfApi             : ':8101/"',    // 移动查房接口端口
+            ydcfApi             : ':8194/"',    // 移动查房接口端口
+            ydhlApi             : ':7092/"',    // 移动护理接口端口
             erZiboApi           : ':48194/"',   // 淄博外网专家端接口
             mnApi               : ':7094/"',    // 看板首页模块端口
             mnWeb               : ':7095/"',    // 看板首页网页
@@ -67,20 +70,18 @@ ext {
             威海妇幼保健院         : '37.50909,122.12019',
             青岛市妇女儿童医院      : '36.09725,120.40215',
             广西中医药大学仙葫校区  : '22.809874,108.446607',
+            潍坊中医院            : '36.710905,119.120697',
     ]
     global = [
             agoraAppId          : 'dade2ef7fa374e9f9f9a10aff02ae270',
-            // 脱敏：0全脱/1全不脱/2首页脱
-            hideNameType        : '0',
             // 床卡: 0普通/1南阳/2中西医/3广中院/4罗湖儿科
             bedCardType         : '0',
     ]
     th = [
             appName             : '智能天护',
             applicationId       : 'com.aihui.th',
-            versionCode         : 26,
-            versionName         : '1.2.6',
-            urlPort             : 8098,
+            versionCode         : 28,
+            versionName         : '1.2.8',
             appCode             : '"m_client_th"',
             amapKey             : '676530ea235be60032e21f23901a2d3c',
 
@@ -91,8 +92,8 @@ ext {
             appName             : '智能护士',
             appNameNative       : '智慧看板',
             applicationId       : 'com.aihui.mn',
-            versionCode         : 35,
-            versionName         : '1.0.35',
+            versionCode         : 38,
+            versionName         : '1.0.38',
             appCode             : '"m_client_n"',
             amapKey             : '886d84f24ed9d0cd9c54450879ebcc73',
 
@@ -121,8 +122,8 @@ ext {
     call = [
             appName             : 'VideoCall',
             applicationId       : 'com.aihui.videochat',
-            versionCode         : 15,
-            versionName         : '1.3.1',
+            versionCode         : 16,
+            versionName         : '1.3.2',
 
             buglyAppId          : 'fe166d1aca',
             buglyAppKey         : '5b153717-bb9b-43ea-bf08-3ff73fb7a2fb',
@@ -132,17 +133,17 @@ ext {
             getuiAppKey         : 'vZLz2RSm5QA9ozFugqexb6',
             getuiMasterSecret   : 'VDyRevv0jl7bsKpoP6PGz1',
     ]
-    push = [
-            appName             : '天护推送服务',
-            applicationId       : 'com.aihui.th.push',
-            versionCode         : 1,
-            versionName         : '1.0.0',
-
-            getuiAppId          : 'XVsr8d2TmZ5Oj33ufkzEs3',
-            getuiAppSecret      : 'RfYmHQ5eKB7vwLED8lHIX5',
-            getuiAppKey         : 'z2GpmvrZtm8EcXvFnx1GP6',
-            getuiMasterSecret   : 'wPYLHaoVY5ALxkxetNmts',
-    ]
+//    push = [
+//            appName             : '天护推送服务',
+//            applicationId       : 'com.aihui.th.push',
+//            versionCode         : 1,
+//            versionName         : '1.0.0',
+//
+//            getuiAppId          : 'XVsr8d2TmZ5Oj33ufkzEs3',
+//            getuiAppSecret      : 'RfYmHQ5eKB7vwLED8lHIX5',
+//            getuiAppKey         : 'z2GpmvrZtm8EcXvFnx1GP6',
+//            getuiMasterSecret   : 'wPYLHaoVY5ALxkxetNmts',
+//    ]
     ydcf = [
             appName             : '移动查房',
             applicationId       : 'com.aihui.ydcf',

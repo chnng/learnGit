@@ -3,12 +3,15 @@ package com.aihui.lib.nurse.manager;
 import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.aihui.lib.base.api.retrofit.AhException;
 import com.aihui.lib.base.api.retrofit.BaseObserver;
 import com.aihui.lib.base.api.retrofit.RetrofitManager;
 import com.aihui.lib.base.app.BaseApplication;
 import com.aihui.lib.base.cons.App;
 import com.aihui.lib.base.cons.CacheTag;
+import com.aihui.lib.base.cons.ErrorCode;
 import com.aihui.lib.base.cons.HttpConstant;
 import com.aihui.lib.base.model.common.request.QueryOneHospitalBody;
 import com.aihui.lib.base.model.common.response.QueryHospitalBean;
@@ -77,7 +80,7 @@ public final class AccountManager {
         mHospitalBean = ParcelableUtils.getParcelableFromFile(
                 CacheTag.USER_GLOBAL, CacheTag.HOSPITAL, QueryHospitalBean.CREATOR);
         LogUtils.e("AccountManager hospital:" + mHospitalBean);
-        mToken = (String) SharePreferenceUtils.get(
+        mToken = SharePreferenceUtils.get(
                 BaseApplication.getContext(), CacheTag.TOKEN, "");
         LogUtils.e("AccountManager token:" + mToken);
         DBUserInfoBean loginUserInfo = DBUserInfoUtils.queryLoginUserInfo();
@@ -188,7 +191,7 @@ public final class AccountManager {
                 .map(RetrofitManager.parseResponse())
                 .map(bean -> {
                     if (null == bean) {
-                        throw new IllegalStateException("hospital by location is null!");
+                        throw new AhException(ErrorCode.TH_LOGIN_LOCATION, "latitude:" + latitude + ",longitude:" + longitude);
                     }
                     hospitalBeanReference.set(bean);
                     return bean;
@@ -203,7 +206,7 @@ public final class AccountManager {
                 .map(RetrofitManager::sortByCreateTime)
                 .map(list -> {
                     if (list == null || list.isEmpty()) {
-                        throw new IllegalStateException("hospital identify is null!");
+                        throw new AhException(ErrorCode.TH_LOGIN_IDENTIFY, "hospital identify is null!");
                     } else {
                         String code = list.get(0).hospital_code;
                         QueryHospitalBean bean = hospitalBeanReference.get();
@@ -237,7 +240,7 @@ public final class AccountManager {
             // 4.判断本地登录账号
             DBUserInfoBean userInfo = DBUserInfoUtils.queryLoginUserInfo();
             if (userInfo == null) {
-                throw new NullPointerException("db user is null!");
+                return Observable.error(new AhException(ErrorCode.TH_LOGIN_USER_NOT_LOGIN, "db user is null!", Log.INFO));
             } else {
                 account = userInfo.account;
                 password = userInfo.pwd;
@@ -257,7 +260,7 @@ public final class AccountManager {
      */
     public static boolean doLoginByCache() {
         Context context = BaseApplication.getContext();
-        long loginTimestamp = (long) SharePreferenceUtils.get(context, SharePreferenceUtils.SP_TH_LOGIN_TIMESTAMP, 0L);
+        long loginTimestamp = SharePreferenceUtils.get(context, SharePreferenceUtils.SP_TH_LOGIN_TIMESTAMP, 0L);
         LogUtils.e("doLoginByCache time:" + loginTimestamp);
         if (loginTimestamp == 0
                 || System.currentTimeMillis() / 1000 - loginTimestamp > TimeUnit.HOURS.toSeconds(1)) {
@@ -273,7 +276,7 @@ public final class AccountManager {
         if (hospitalBean == null) {
             return false;
         }
-        String token = (String) SharePreferenceUtils.get(context, SharePreferenceUtils.SP_TOKEN, "");
+        String token = SharePreferenceUtils.get(context, SharePreferenceUtils.SP_TOKEN, "");
         LogUtils.e("doLoginByCache token:" + token);
         if (TextUtils.isEmpty(token)) {
             return false;
@@ -309,7 +312,7 @@ public final class AccountManager {
                 body.pwd = loginAccount.pwd;
                 body.hospital_code = body.hospital = loginAccount.hospital_code;
             } else {
-                throw new IllegalStateException("login body is null!");
+                return Observable.error(new AhException(ErrorCode.TH_LOGIN_USER_NOT_ENABLE, "login body is null!", Log.INFO));
             }
         }
         String pwd = body.pwd;
@@ -335,10 +338,10 @@ public final class AccountManager {
                     .map(RetrofitManager.parseResponse())
                     .map(bean -> {
                         if (bean == null) {
-                            throw new IllegalStateException("code:-3, login user is null!");
+                            throw new AhException(ErrorCode.TH_LOGIN_USER_NOT_EXIST, "login user is null!");
                         }
                         if (bean.account_type != HttpConstant.ACCOUNT_TYPE_WARD) {
-                            throw new IllegalStateException("code:-3, account_type is " + bean.account_type);
+                            throw new AhException(ErrorCode.TH_LOGIN_USER_NOT_WARD, "account_type is:" + bean.account_type);
                         }
                         return bean;
                     });
@@ -359,11 +362,11 @@ public final class AccountManager {
                     .map(RetrofitManager::sortByCreateTime)
                     .map(list -> {
                         if (list == null || list.isEmpty()) {
-                            throw new IllegalStateException("code:-1, login user is empty!");
+                            throw new AhException(ErrorCode.TH_LOGIN_USER_NOT_EXIST, "login user is empty!");
                         } else {
                             HospitalUserBean bean = list.get(0);
                             if (bean == null) {
-                                throw new IllegalStateException("code:-2, login user is null!");
+                                throw new AhException(ErrorCode.TH_LOGIN_USER_NOT_EXIST, "login user is null!");
                             }
                             return bean;
                         }
@@ -520,7 +523,7 @@ public final class AccountManager {
     private void clearLoginAccount() {
         CacheUtils.clearCache();
         Context context = BaseApplication.getContext();
-//        SharePreferenceUtils.remove(context, SharePreferenceUtils.SP_TH_BASE_URL);
+//        SharePreferenceUtils.remove(context, SharePreferenceUtils.SP_BASE_URL);
         SharePreferenceUtils.remove(context, SharePreferenceUtils.SP_TH_LOGIN_TIMESTAMP);
         SharePreferenceUtils.remove(context, SharePreferenceUtils.SP_TH_LOCATION_INFO);
 //        mHospitalBean = null;

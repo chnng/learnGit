@@ -28,5 +28,5 @@ dependencies {
 //    releaseImplementation 'org.linphone:liblinphone-sdk:4.0.1'
 //    debugImplementation 'org.linphone:liblinphone-sdk:4.0.1-DEBUG'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
-    api name: 'liblinphone-sdk-4.0.1', ext: 'aar'
+    implementation name: 'liblinphone-sdk-4.0.1', ext: 'aar'
 }

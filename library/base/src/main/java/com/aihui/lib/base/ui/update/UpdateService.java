@@ -76,8 +76,7 @@ public class UpdateService extends Service {
         if (TextUtils.isEmpty(url)) {
             return;
         }
-        String fileDir = FileUtils.getCacheDirectory(this).getAbsoluteFile()
-                + File.separator + FileUtils.DIR_DOWNLOAD;
+        String fileDir = FileUtils.getIndividualCacheDirectory(this, FileUtils.DIR_DOWNLOAD).getAbsolutePath();
         String fileName = "mobileNursing.apk";
         DownloadManager.downloadFile(url, fileDir, fileName, new OnProgressListener() {
             @Override
@@ -87,7 +86,7 @@ public class UpdateService extends Service {
                     mNotificationBuilder.setProgress(100, progress, false);
                     mNotificationManager.notify(NotificationUtils.ID_UPDATE, mNotificationBuilder.build());
                 } else {
-                    EventBus.getDefault().post(new EventMessage<>(EventTag.EVENT_UPDATE_DOWNLOAD_PROGRESS, progress));
+                    EventBus.getDefault().post(new EventMessage(EventTag.EVENT_UPDATE_DOWNLOAD_PROGRESS, progress));
                 }
             }
 
@@ -108,7 +107,7 @@ public class UpdateService extends Service {
                     mNotificationManager.notify(NotificationUtils.ID_UPDATE, notification);
                     mNotificationBuilder = null;
                 } else {
-                    EventBus.getDefault().post(new EventMessage<>(EventTag.EVENT_UPDATE_DOWNLOAD_RESULT, apkPath));
+                    EventBus.getDefault().post(new EventMessage(EventTag.EVENT_UPDATE_DOWNLOAD_RESULT, apkPath));
                 }
                 stopSelf();
             }
@@ -123,7 +122,7 @@ public class UpdateService extends Service {
                     mNotificationManager.notify(NotificationUtils.ID_UPDATE, mNotificationBuilder.build());
                     mNotificationBuilder = null;
                 } else {
-                    EventBus.getDefault().post(new EventMessage<>(EventTag.EVENT_UPDATE_DOWNLOAD_RESULT, null));
+                    EventBus.getDefault().post(new EventMessage(EventTag.EVENT_UPDATE_DOWNLOAD_RESULT, null));
                 }
                 //更新失败，删除已下载的文件
                 //暂不处理断点续传

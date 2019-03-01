@@ -33,6 +33,10 @@ public final class SharePreferenceUtils {
      */
     public static final String SP_TOKEN = "token";
     /**
+     * 接口地址
+     */
+    public static final String SP_BASE_URL = "base_url";
+    /**
      * 天护登录账号
      */
     public static final String SP_TH_LOGIN_TIMESTAMP = "th_login_timestamp";
@@ -44,10 +48,6 @@ public final class SharePreferenceUtils {
      * 天护位置信息
      */
     public static final String SP_TH_LOCATION_INFO = "th_location_info";
-    /**
-     * 天护接口地址
-     */
-    public static final String SP_TH_BASE_URL = "th_base_url";
     /**
      * 个推绑定时间
      */
@@ -76,6 +76,10 @@ public final class SharePreferenceUtils {
      * 看板设置:物联网设备
      */
     public static final String SP_MN_SETTINGS_DEVICE = "mn_settings_device";
+    /**
+     * 看板补丁最后修改时间
+     */
+    public static final String SP_MN_PATCH_LAST_MODIFIED = "mn_patch_last_modified";
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
@@ -93,30 +97,31 @@ public final class SharePreferenceUtils {
             editor.putFloat(key, (Float) object);
         } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
-        } else {
+        } else if (object != null) {
             editor.putString(key, object.toString());
+        } else {
+            editor.putString(key, null);
         }
-
         SharedPreferencesCompat.apply(editor);
     }
 
     /**
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
      */
-    public static Object get(Context context, String key, Object defaultObject) {
+    public static <T> T get(Context context, String key, T defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         try {
             if (defaultObject instanceof String) {
-                return sp.getString(key, (String) defaultObject);
+                return (T) sp.getString(key, (String) defaultObject);
             } else if (defaultObject instanceof Integer) {
-                return sp.getInt(key, (Integer) defaultObject);
+                return (T) (Integer) sp.getInt(key, (Integer) defaultObject);
             } else if (defaultObject instanceof Boolean) {
-                return sp.getBoolean(key, (Boolean) defaultObject);
+                return (T) (Boolean) sp.getBoolean(key, (Boolean) defaultObject);
             } else if (defaultObject instanceof Float) {
-                return sp.getFloat(key, (Float) defaultObject);
+                return (T) (Float) sp.getFloat(key, (Float) defaultObject);
             } else if (defaultObject instanceof Long) {
-                return sp.getLong(key, (Long) defaultObject);
+                return (T) (Long) sp.getLong(key, (Long) defaultObject);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -187,7 +192,7 @@ public final class SharePreferenceUtils {
      * @param context context
      */
     public static Bitmap getImage(Context context, String key) {
-        String imgString = (String) SharePreferenceUtils.get(context, key, "");
+        String imgString = SharePreferenceUtils.get(context, key, "");
         if (!TextUtils.isEmpty(imgString)) {
             // 利用Base64将我们string转换
             byte[] byteArray = Base64.decode(imgString, Base64.DEFAULT);

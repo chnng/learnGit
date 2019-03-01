@@ -8,4 +8,6 @@ public final class BroadcastAction {
     public static final String NURSE_MENU = "com.aihui.videochat.BROADCAST_RECEIVER";
     // 床旁护士呼叫时通知
     public static final String NURSE_PATROL_CLOSE = "com.aihui.m.BroadcastAction.NURSE_PATROL_CLOSE";
+    // 床旁护理关闭
+    public static final String CPHL_CLOSE = "com.aihui.m.BroadcastAction.CPHL_CLOSE";
 }

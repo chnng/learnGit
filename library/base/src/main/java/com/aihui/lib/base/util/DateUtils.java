@@ -1,6 +1,5 @@
 package com.aihui.lib.base.util;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -16,14 +15,8 @@ public final class DateUtils {
      * @return true 日间模式， false 夜间模式
      */
     public static boolean isDay() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        String time = simpleDateFormat.format(new Date());
+        String time = TimeUtils.sdf3.format(new Date());
         int hour = Integer.parseInt(time.split(":")[0]);
-        if (hour >= 20 || hour <= 7) {
-            return false;
-        } else {
-            return true;
-        }
+        return hour < 20 && hour > 7;
     }
-
 }

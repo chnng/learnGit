@@ -51,15 +51,15 @@ package com.aihui.lib.base.api.eventbus;
  * }
  */
 
-public class EventMessage<T> {
+public class EventMessage {
     public int key;
-    public T value;
+    public Object value;
 
     public EventMessage(int key) {
         this.key = key;
     }
 
-    public EventMessage(int key, T value) {
+    public EventMessage(int key, Object value) {
         this.key = key;
         this.value = value;
     }
@@ -72,11 +72,11 @@ public class EventMessage<T> {
         this.key = key;
     }
 
-    public T getValue() {
-        return value;
+    public <T> T getValue() {
+        return (T) value;
     }
 
-    public void setValue(T value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 

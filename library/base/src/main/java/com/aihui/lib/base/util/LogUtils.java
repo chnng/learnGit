@@ -43,6 +43,10 @@ public final class LogUtils {
         mIsEnableWriteFile = enableWriteFile;
     }
 
+    public static boolean isEnableWriteFile() {
+        return mIsEnableWriteFile;
+    }
+
     // 华为平板系统禁止information等级之下的日志输出
 //    public static void d(String log) {
 //        if (mIsDebug) {
@@ -74,7 +78,7 @@ public final class LogUtils {
 
     public static void http(Object log) {
         if (mIsDebug) {
-            Log.i("#CH#OkHttp", getLogThread() + log);
+            Log.i("#AH#OkHttp", getLogThread() + log);
             writeLogFile(TimeUtils.sdf0.format(System.currentTimeMillis()) + " #AH#OkHttp " + getLogThread() + log + '\n');
         }
     }

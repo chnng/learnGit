@@ -8,6 +8,7 @@ import com.aihui.lib.base.app.IBaseCreateTime;
 import com.aihui.lib.base.app.IBaseSort;
 import com.aihui.lib.base.model.common.response.BaseResponseBean;
 import com.aihui.lib.base.util.LogUtils;
+import com.aihui.lib.base.util.SharePreferenceUtils;
 import com.aihui.lib.base.util.TimeUtils;
 import com.aihui.lib.base.util.ToastUtils;
 import com.google.gson.Gson;
@@ -77,12 +78,15 @@ public class RetrofitManager {
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(mGson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("https://www.baidu.com/")
+                .baseUrl(SharePreferenceUtils.get(BaseApplication.getContext(),
+                        SharePreferenceUtils.SP_BASE_URL, App.BASE_URL))
                 .build();
+        RetrofitUrlManager.getInstance().putDomain("baseUrl", App.BASE_URL);
         RetrofitUrlManager.getInstance().putDomain("rcUrl", "https://www.baidu.com/");
     }
 
     public static synchronized void setBaseUrl(String url) {
+        SharePreferenceUtils.put(BaseApplication.getContext(), SharePreferenceUtils.SP_BASE_URL, url);
         getInstance().mRetrofit = new Retrofit.Builder()
                 .client(getOkHttpClient())
                 .addConverterFactory(ScalarsConverterFactory.create())

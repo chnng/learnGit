@@ -105,7 +105,7 @@ public class UpdateActivity extends BaseActivity {
         switch (event.getKey()) {
             case EventTag.EVENT_UPDATE_DOWNLOAD_PROGRESS:
                 if (mProgressDialog != null) {
-                    mProgressDialog.setProgress((Integer) event.getValue());
+                    mProgressDialog.setProgress(event.getValue());
                 }
                 break;
             case EventTag.EVENT_UPDATE_DOWNLOAD_RESULT:

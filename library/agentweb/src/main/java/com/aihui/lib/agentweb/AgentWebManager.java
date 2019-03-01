@@ -68,6 +68,7 @@ public class AgentWebManager {
         WebSettings settings = mAgentWeb.getAgentWebSettings().getWebSettings();
         settings.setUseWideViewPort(false);
         settings.setLoadWithOverviewMode(false);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         if (mIsWebTransparent) {
             WebView webView = mAgentWeb.getWebCreator().get();
             webView.setBackgroundColor(Color.TRANSPARENT);

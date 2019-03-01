@@ -3,6 +3,7 @@ package com.aihui.lib.base.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.net.NetworkInterface;
@@ -66,10 +67,12 @@ public final class NetworkUtils {
         return mMobileNetworkInfo == null || mMobileNetworkInfo.isAvailable();
     }
 
+    private static String mMacAddress = null;
     public static String macAddress() {
-        String address = null;
+        if (!TextUtils.isEmpty(mMacAddress)) {
+            return mMacAddress;
+        }
         try {
-            address = null;
             // 把当前机器上的访问网络接口的存入 Enumeration集合中
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
             while (interfaces.hasMoreElements()) {
@@ -91,12 +94,12 @@ public final class NetworkUtils {
                 // 从路由器上在线设备的MAC地址列表，可以印证设备Wifi的 name 是 wlan0
                 if (netWork.getName().equals("wlan0")) {
                     Log.d("mac", " interfaceName =" + netWork.getName() + ", mac=" + mac);
-                    address = mac;
+                    mMacAddress = mac;
                 }
             }
         } catch (SocketException e) {
             e.printStackTrace();
         }
-        return address;
+        return mMacAddress;
     }
 }

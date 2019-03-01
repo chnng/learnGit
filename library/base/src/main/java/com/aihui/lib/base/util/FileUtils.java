@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
+import okio.Source;
 
 import static android.os.Environment.MEDIA_MOUNTED;
 
@@ -395,5 +396,15 @@ public final class FileUtils {
 //            e.printStackTrace();
 //        }
 //        return null;
+    }
+
+    public static void copy(File src, File dst) {
+        try (BufferedSink sink = Okio.buffer(Okio.sink(dst));
+             Source source = Okio.source(src)) {
+            sink.writeAll(source);
+            sink.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
