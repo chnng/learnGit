@@ -38,7 +38,6 @@ public abstract class OnProgressListener {
     protected void onProgress(int progress) {
     }
 
-
     /**
      * 文件传输成功
      *

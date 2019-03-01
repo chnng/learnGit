@@ -8,6 +8,7 @@ import com.aihui.lib.base.util.FileUtils;
 import com.aihui.lib.base.util.LogUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
@@ -46,7 +47,7 @@ public class DownloadManager {
                                     @NonNull String fileDir,
                                     @NonNull String fileName,
                                     OnProgressListener listener) {
-        downloadFile(url, null, fileDir, fileName, listener);
+        downloadFile(url, new File(fileDir, fileName), listener);
     }
 
 
@@ -54,17 +55,13 @@ public class DownloadManager {
      * 通过URL下载文件
      *
      * @param url      下载文件的URL
-     * @param headers  请求头
-     * @param fileDir  下载的文件存储目录
-     * @param fileName 下载的文件名称
+     * @param file     下载的文件
      * @param listener 下载结果监听器
      */
     public static void downloadFile(@NonNull String url,
-                                    @Nullable Headers headers,
-                                    @NonNull String fileDir,
-                                    @NonNull String fileName,
+                                    @NonNull File file,
                                     OnProgressListener listener) {
-        downloadFile(url, headers, new File(fileDir, fileName), listener);
+        downloadFile(url, null, file, listener);
     }
 
     /**
@@ -122,7 +119,7 @@ public class DownloadManager {
                         case 304:
                             break;
                         case 404:
-                            safeFailure(listener, new NetworkErrorException("file not found!"), file);
+                            safeFailure(listener, new FileNotFoundException(), file);
                             break;
                         default:
                             safeFailure(listener, new NetworkErrorException("response failed!"), file);

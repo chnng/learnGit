@@ -14,4 +14,5 @@ dependencies {
     api rootProject.ext.dependencies.pickerView
     api rootProject.ext.dependencies.mpAndroidChart
     api rootProject.ext.dependencies.carousellayoutmanager
+    api rootProject.ext.dependencies.robust
 }

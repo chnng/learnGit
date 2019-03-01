@@ -15,6 +15,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+
 /**
  * Created by 路传涛 on 2017/6/15.
  */
@@ -108,7 +110,7 @@ public final class SharePreferenceUtils {
     /**
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
      */
-    public static <T> T get(Context context, String key, T defaultObject) {
+    public static <T> T get(Context context, String key, @NonNull T defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         try {
