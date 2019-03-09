@@ -37,7 +37,6 @@ import com.aihui.lib.nurse.util.CacheUtils;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import androidx.annotation.NonNull;
@@ -260,12 +259,6 @@ public final class AccountManager {
      */
     public static boolean doLoginByCache() {
         Context context = BaseApplication.getContext();
-        long loginTimestamp = SharePreferenceUtils.get(context, SharePreferenceUtils.SP_TH_LOGIN_TIMESTAMP, 0L);
-        LogUtils.e("doLoginByCache time:" + loginTimestamp);
-        if (loginTimestamp == 0
-                || System.currentTimeMillis() / 1000 - loginTimestamp > TimeUnit.HOURS.toSeconds(1)) {
-            return false;
-        }
         DBUserInfoBean loginUserInfo = DBUserInfoUtils.queryLoginUserInfo();
         if (loginUserInfo == null) {
             return false;
@@ -322,7 +315,6 @@ public final class AccountManager {
                     bean.pwd = pwd;
                     setLoginAccount(bean);
                     CacheUtils.saveCache(CacheTag.LOGIN, bean);
-                    SharePreferenceUtils.put(BaseApplication.getContext(), SharePreferenceUtils.SP_TH_LOGIN_TIMESTAMP, System.currentTimeMillis() / 1000);
                     return bean;
                 })
                 .flatMap(AccountManager::getAccountInfoObservable)
@@ -523,8 +515,6 @@ public final class AccountManager {
     private void clearLoginAccount() {
         CacheUtils.clearCache();
         Context context = BaseApplication.getContext();
-//        SharePreferenceUtils.remove(context, SharePreferenceUtils.SP_BASE_URL);
-        SharePreferenceUtils.remove(context, SharePreferenceUtils.SP_TH_LOGIN_TIMESTAMP);
         SharePreferenceUtils.remove(context, SharePreferenceUtils.SP_TH_LOCATION_INFO);
 //        mHospitalBean = null;
         mHospitalUserBean = null;

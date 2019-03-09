@@ -16,12 +16,7 @@ import com.meituan.robust.PatchManipulate;
 import com.meituan.robust.RobustApkHashUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +62,7 @@ public class PatchManager extends PatchManipulate {
         //LocalPath是存储原始的补丁文件，这个文件应该是加密过的，TempPath是加密之后的，TempPath下的补丁加载完毕就删除，保证安全性
         //这里面需要设置一些补丁的信息，主要是联网的获取的补丁信息。重要的如MD5，进行原始补丁文件的简单校验，以及补丁存储的位置，这边推荐把补丁的储存位置放置到应用的私有目录下，保证安全性
 //        patch.setLocalPath(Environment.getExternalStorageDirectory().getPath()+ File.separator+"robust"+File.separator + "patch");
-        patch.setLocalPath(FileUtils.getIndividualCacheDirectory(context, FileUtils.DIR_DOWNLOAD).getAbsolutePath() + File.separator + "patch");
+        patch.setLocalPath(FileUtils.getIndividualCacheDirectory(context, FileUtils.DIR_DOWNLOAD).getAbsolutePath() + "/patch");
 
         //setPatchesInfoImplClassFullName 设置项各个App可以独立定制，需要确保的是setPatchesInfoImplClassFullName设置的包名是和xml配置项patchPackname保持一致，而且类名必须是：PatchesInfoImpl
         //请注意这里的设置
@@ -87,7 +82,7 @@ public class PatchManager extends PatchManipulate {
         //do your verification, put the real patch to patch
         //放到app的私有目录
 //        patch.setTempPath(context.getCacheDir()+ File.separator+"robust"+File.separator + "patch");
-        patch.setTempPath(FileUtils.getIndividualCacheDirectory(context, "robust").getAbsolutePath() + File.separator + "patch");
+        patch.setTempPath(FileUtils.getIndividualCacheDirectory(context, FileUtils.DIR_ROBUST).getAbsolutePath() + "/patch");
         //in the sample we just copy the file
         try {
 //            copy(patch.getLocalPath(), patch.getTempPath());
@@ -100,27 +95,27 @@ public class PatchManager extends PatchManipulate {
         return true;
     }
 
-    private void copy(String srcPath, String dstPath) throws IOException {
-        LogUtils.e("copy " + srcPath + " " + dstPath);
-        File src = new File(srcPath);
-        if (!src.exists()) {
-            throw new RuntimeException("source patch does not exist ");
-        }
-        File dst = new File(dstPath);
-        if (!dst.getParentFile().exists()) {
-            dst.getParentFile().mkdirs();
-        }
-        try (InputStream in = new FileInputStream(src)) {
-            try (OutputStream out = new FileOutputStream(dst)) {
-                // Transfer bytes from in to out
-                byte[] buf = new byte[1024];
-                int len;
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
-                }
-            }
-        }
-    }
+//    private void copy(String srcPath, String dstPath) throws IOException {
+//        LogUtils.e("copy " + srcPath + " " + dstPath);
+//        File src = new File(srcPath);
+//        if (!src.exists()) {
+//            throw new RuntimeException("source patch does not exist ");
+//        }
+//        File dst = new File(dstPath);
+//        if (!dst.getParentFile().exists()) {
+//            dst.getParentFile().mkdirs();
+//        }
+//        try (InputStream in = new FileInputStream(src)) {
+//            try (OutputStream out = new FileOutputStream(dst)) {
+//                // Transfer bytes from in to out
+//                byte[] buf = new byte[1024];
+//                int len;
+//                while ((len = in.read(buf)) > 0) {
+//                    out.write(buf, 0, len);
+//                }
+//            }
+//        }
+//    }
 
     /**
      * @param patch patch
@@ -131,7 +126,7 @@ public class PatchManager extends PatchManipulate {
         return true;
     }
 
-    public static void checkPatch(String dir, boolean isForced) {
+    public static void checkPatch(String fileName, boolean isForced) {
         Context context = BaseApplication.getContext();
         File file = new File(FileUtils.getIndividualCacheDirectory(context, FileUtils.DIR_DOWNLOAD), "patch.jar");
         Headers headers = null;
@@ -149,7 +144,7 @@ public class PatchManager extends PatchManipulate {
         } else {
             SharePreferenceUtils.put(context, SharePreferenceUtils.SP_MN_PATCH_LAST_MODIFIED, null);
         }
-        DownloadManager.downloadFile(App.BASE_URL + "uploadfile/app/android/patch/" + dir + "/patch.jar",
+        DownloadManager.downloadFile(App.BASE_URL + "uploadfile/app/android/patch/" + fileName + ".jar",
                 headers, file,
                 new OnProgressListener() {
                     @Override

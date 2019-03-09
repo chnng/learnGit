@@ -80,7 +80,7 @@ public final class CacheUtils {
                 .compose(parseCacheListWith(callbacks))
                 .subscribe(new BaseObserver<List<L>>() {
                     @Override
-                    public void onNext(List<L> ls) {
+                    public void onNext(@NonNull List<L> ls) {
                         listener.onLoad(ls);
                     }
                 });

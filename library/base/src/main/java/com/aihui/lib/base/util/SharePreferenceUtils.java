@@ -39,10 +39,6 @@ public final class SharePreferenceUtils {
      */
     public static final String SP_BASE_URL = "base_url";
     /**
-     * 天护登录账号
-     */
-    public static final String SP_TH_LOGIN_TIMESTAMP = "th_login_timestamp";
-    /**
      * 天护数据分析范围
      */
     public static final String SP_TH_WARD_RANGE = "th_ward_range";
@@ -50,6 +46,10 @@ public final class SharePreferenceUtils {
      * 天护位置信息
      */
     public static final String SP_TH_LOCATION_INFO = "th_location_info";
+    /**
+     * 天护推送地址
+     */
+    public static final String SP_TH_WEB_URL = "th_web_url";
     /**
      * 个推绑定时间
      */

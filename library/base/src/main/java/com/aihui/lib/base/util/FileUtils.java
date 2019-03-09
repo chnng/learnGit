@@ -25,12 +25,13 @@ import static android.os.Environment.MEDIA_MOUNTED;
  */
 public final class FileUtils {
 
-    private static final String JPEG_FILE_PREFIX = "IMG_";
-    private static final String JPEG_FILE_SUFFIX = ".jpg";
+//    private static final String JPEG_FILE_PREFIX = "IMG_";
+//    private static final String JPEG_FILE_SUFFIX = ".jpg";
     public static final String DIR_DOWNLOAD = "download";
     public static final String DIR_PROFILE = "profile";
     public static final String DIR_RECORD = "record";
     public static final String DIR_LOG = "log";
+    public static final String DIR_ROBUST = "robust";
 
 //    public static File createTmpFile(Context context) throws IOException{
 //        File dir = null;

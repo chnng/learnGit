@@ -10,6 +10,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -28,6 +29,7 @@ public interface HttpBaseServer {
      * @param type 类型
      * @return data
      */
+	@Headers("Domain-Name:baseUrl")
     @Multipart
     @POST("file/upload")
     Observable<String> upload(/*@Part("description") RequestBody description, */
