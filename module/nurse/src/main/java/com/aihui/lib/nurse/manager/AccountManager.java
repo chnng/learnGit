@@ -379,29 +379,25 @@ public final class AccountManager {
             body.account_type = String.valueOf(HttpConstant.ACCOUNT_TYPE_DEPT);
             RetrofitManager.newThServer().queryHospitalUser(body)
                     .map(RetrofitManager.parseResponse())
-                    .map(list -> {
-                        String UserIds = null;
-                        if (CheckUtils.notEmpty(list)) {
-                            StringBuilder builder = null;
-                            for (HospitalUserBean bean : list) {
-                                if (builder == null) {
-                                    String id = String.valueOf(bean.id);
-                                    builder = new StringBuilder(list.size() * id.length()).append(id);
-                                } else {
-                                    builder.append(',').append(bean.id);
+                    .subscribe(new BaseObserver<List<HospitalUserBean>>() {
+                        @Override
+                        public void onNext(@NonNull List<HospitalUserBean> list) {
+                            String userIds = null;
+                            if (CheckUtils.notEmpty(list)) {
+                                StringBuilder builder = null;
+                                for (HospitalUserBean bean : list) {
+                                    if (builder == null) {
+                                        String id = String.valueOf(bean.id);
+                                        builder = new StringBuilder(list.size() * id.length()).append(id);
+                                    } else {
+                                        builder.append(',').append(bean.id);
+                                    }
+                                }
+                                if (builder != null) {
+                                    userIds = builder.toString();
                                 }
                             }
-                            if (builder != null) {
-                                UserIds = builder.toString();
-                            }
-                        }
-                        return UserIds;
-                    })
-                    .compose(RetrofitManager.switchScheduler())
-                    .subscribe(new BaseObserver<String>() {
-                        @Override
-                        public void onNext(@NonNull String s) {
-                            getInstance().mDeptUserIds = s;
+                            getInstance().mDeptUserIds = userIds;
                         }
                     });
         }

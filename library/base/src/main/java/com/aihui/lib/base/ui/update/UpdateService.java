@@ -11,7 +11,7 @@ import android.os.IBinder;
 import android.text.TextUtils;
 
 import com.aihui.lib.base.R;
-import com.aihui.lib.base.api.eventbus.EventMessage;
+import com.aihui.lib.base.api.eventbus.EventBusUtils;
 import com.aihui.lib.base.api.eventbus.EventTag;
 import com.aihui.lib.base.api.retrofit.download.DownloadManager;
 import com.aihui.lib.base.api.retrofit.download.OnProgressListener;
@@ -20,8 +20,6 @@ import com.aihui.lib.base.util.LogUtils;
 import com.aihui.lib.base.util.NotificationUtils;
 import com.aihui.lib.base.util.SharePreferenceUtils;
 import com.aihui.lib.base.util.ToastUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
@@ -86,7 +84,7 @@ public class UpdateService extends Service {
                     mNotificationBuilder.setProgress(100, progress, false);
                     mNotificationManager.notify(NotificationUtils.ID_UPDATE, mNotificationBuilder.build());
                 } else {
-                    EventBus.getDefault().post(new EventMessage(EventTag.EVENT_UPDATE_DOWNLOAD_PROGRESS, progress));
+                    EventBusUtils.post(EventTag.EVENT_UPDATE_DOWNLOAD_PROGRESS, progress);
                 }
             }
 
@@ -107,7 +105,7 @@ public class UpdateService extends Service {
                     mNotificationManager.notify(NotificationUtils.ID_UPDATE, notification);
                     mNotificationBuilder = null;
                 } else {
-                    EventBus.getDefault().post(new EventMessage(EventTag.EVENT_UPDATE_DOWNLOAD_RESULT, apkPath));
+                    EventBusUtils.post(EventTag.EVENT_UPDATE_DOWNLOAD_RESULT, apkPath);
                 }
                 stopSelf();
             }
@@ -122,7 +120,7 @@ public class UpdateService extends Service {
                     mNotificationManager.notify(NotificationUtils.ID_UPDATE, mNotificationBuilder.build());
                     mNotificationBuilder = null;
                 } else {
-                    EventBus.getDefault().post(new EventMessage(EventTag.EVENT_UPDATE_DOWNLOAD_RESULT, null));
+                    EventBusUtils.post(EventTag.EVENT_UPDATE_DOWNLOAD_RESULT);
                 }
                 //更新失败，删除已下载的文件
                 //暂不处理断点续传

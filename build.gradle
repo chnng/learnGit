@@ -10,6 +10,8 @@ buildscript {
         butterknife_url = 'https://oss.sonatype.org/content/repositories/snapshots/'
         gradle_path_module = project.rootDir.path + '/config/module.gradle'
         gradle_path_module_app = project.rootDir.path + '/config/module_app.gradle'
+        proguard_path = project.rootDir.path + '/config/proguard.cfg'
+        proguard_rules_path = project.rootDir.path + '/config/proguard-rules.pro'
     }
 
     repositories {

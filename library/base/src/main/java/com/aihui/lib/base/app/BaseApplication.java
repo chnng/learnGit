@@ -2,16 +2,14 @@ package com.aihui.lib.base.app;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
-import com.aihui.lib.base.api.eventbus.EventMessage;
+import com.aihui.lib.base.api.eventbus.EventBusUtils;
 import com.aihui.lib.base.api.eventbus.EventTag;
 import com.aihui.lib.base.cons.App;
 import com.aihui.lib.base.util.ApplicationUtils;
 import com.aihui.lib.base.util.HandlerUtils;
+import com.aihui.lib.base.util.LogUtils;
 import com.wanjian.cockroach.Cockroach;
-
-import org.greenrobot.eventbus.EventBus;
 
 import androidx.multidex.MultiDex;
 import io.reactivex.plugins.RxJavaPlugins;
@@ -67,11 +65,21 @@ public abstract class BaseApplication extends Application {
             HandlerUtils.post(() -> {
                 try {
                     //建议使用下面方式在控制台打印异常，这样就可以在Error级别看到红色log
-                    Log.e("AndroidRuntime", "--->CockroachException:" + thread + "<---", throwable);
-                    //正式发布版本时注销该 toast
-                    //Toast.makeText(BaseApplication.this, "Exception Happend\n" + thread + "\n" + throwable.toString(), Toast.LENGTH_SHORT).show();
+                    StringBuilder builder = new StringBuilder();
+                    StackTraceElement[] stackElements = throwable.getStackTrace();
+                    if (stackElements != null) {
+                        for (StackTraceElement stackElement : stackElements) {
+                            builder.append(stackElement.getClassName()).append('\t');
+                            builder.append(stackElement.getFileName()).append('\t');
+                            builder.append(stackElement.getLineNumber()).append('\t');
+                            builder.append(stackElement.getMethodName()).append('\n');
+                            builder.append("-----------------------------------").append('\n');
+                        }
+                    }
+                    LogUtils.e("--->CockroachException<---" + builder.toString());
+                    LogUtils.uploadLogFile();
                     //扫码出现异常时关闭扫码页面
-                    EventBus.getDefault().post(new EventMessage(EventTag.CLOSE_SCAN_ACTIVITY, null));
+                    EventBusUtils.post(EventTag.CLOSE_SCAN_ACTIVITY);
                 } catch (Throwable e) {
                     e.printStackTrace();
                 }

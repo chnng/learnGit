@@ -102,7 +102,7 @@ public class UpdateActivity extends BaseActivity {
     @Override
     public void onMessage(EventMessage event) {
         super.onMessage(event);
-        switch (event.getKey()) {
+        switch (event.key) {
             case EventTag.EVENT_UPDATE_DOWNLOAD_PROGRESS:
                 if (mProgressDialog != null) {
                     mProgressDialog.setProgress(event.getValue());

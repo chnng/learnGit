@@ -10,13 +10,11 @@ import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
 import com.aihui.lib.agentweb.AgentWebManager;
-import com.aihui.lib.base.api.eventbus.EventMessage;
+import com.aihui.lib.base.api.eventbus.EventBusUtils;
 import com.aihui.lib.base.api.eventbus.EventTag;
 import com.aihui.lib.base.ui.BaseFragment;
 import com.just.library.AgentWebUtils;
 import com.learn.git.R;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 
@@ -95,7 +93,7 @@ public class WebFragment extends BaseFragment {
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 //更新进度条
-                EventBus.getDefault().post(new EventMessage<>(EventTag.UPDATE_PROGRESS_BAR, newProgress));
+                EventBusUtils.post(EventTag.UPDATE_PROGRESS_BAR, newProgress);
             }
         });
 //        agentWebManager.loadWeb("https://hl.smartsky-tech.com:8095/index/index?hospitalId=1000000&app=m_client_a", "js", new AndroidInterface());

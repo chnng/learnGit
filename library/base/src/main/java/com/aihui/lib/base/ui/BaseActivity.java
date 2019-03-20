@@ -124,7 +124,7 @@ public abstract class BaseActivity extends RxAppCompatActivity
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessage(EventMessage event) {
-        switch (event.getKey()) {
+        switch (event.key) {
             case EventTag.KEYBOARD_HIDDEN:
                 hideNavigationBar();
                 break;

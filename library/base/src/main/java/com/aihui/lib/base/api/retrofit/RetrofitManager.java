@@ -4,8 +4,11 @@ import android.content.ComponentCallbacks;
 import android.text.TextUtils;
 
 import com.aihui.lib.base.api.retrofit.server.HttpBaseServer;
+import com.aihui.lib.base.api.retrofit.server.HttpGeituiServer;
+import com.aihui.lib.base.app.BaseApplication;
 import com.aihui.lib.base.app.IBaseCreateTime;
 import com.aihui.lib.base.app.IBaseSort;
+import com.aihui.lib.base.cons.App;
 import com.aihui.lib.base.model.common.response.BaseResponseBean;
 import com.aihui.lib.base.util.LogUtils;
 import com.aihui.lib.base.util.SharePreferenceUtils;
@@ -113,6 +116,10 @@ public class RetrofitManager {
     }
 
 
+
+    public static HttpGeituiServer newGeituiServer() {
+        return getRetrofit().create(HttpGeituiServer.class);
+    }
 
     @NonNull
     public static <T> Function<BaseResponseBean<T>, T> parseResponse() {

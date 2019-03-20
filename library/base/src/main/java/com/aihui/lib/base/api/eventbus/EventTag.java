@@ -99,9 +99,14 @@ public class EventTag {
     public static final int EVENT_MN_UPDATE_STYLE = EVENT_MN_UPDATE_BED_CARD + 1;
 
     /**
+     * 看板被动更新
+     */
+    public static final int EVENT_MN_UPDATE_AUTO = EVENT_MN_UPDATE_STYLE + 1;
+
+    /**
      * 看板更新提醒
      */
-    public static final int EVENT_MN_UPDATE_REMIND = EVENT_MN_UPDATE_STYLE + 1;
+    public static final int EVENT_MN_UPDATE_REMIND = EVENT_MN_UPDATE_AUTO + 1;
 
     /**
      * 看板视频呼叫更新

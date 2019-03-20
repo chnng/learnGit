@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.zsoft.signala.hubs.HubInvokeCallback;
 import com.zsoft.signala.hubs.HubOnDataCallback;
-import com.zsoft.signala.transport.StateBase;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -5,10 +5,8 @@ import android.graphics.Rect;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.aihui.lib.base.api.eventbus.EventMessage;
+import com.aihui.lib.base.api.eventbus.EventBusUtils;
 import com.aihui.lib.base.api.eventbus.EventTag;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by SkySmile on 2017/9/6.
@@ -47,7 +45,7 @@ public class AndroidBug5497Workaround {
             } else {
                 // keyboard probably just became hidden
                 frameLayoutParams.height = usableHeightSansKeyboard;
-                EventBus.getDefault().post(new EventMessage(EventTag.KEYBOARD_HIDDEN, null));
+                EventBusUtils.post(EventTag.KEYBOARD_HIDDEN);
             }
             mChildOfContent.requestLayout();
             usableHeightPrevious = usableHeightNow;

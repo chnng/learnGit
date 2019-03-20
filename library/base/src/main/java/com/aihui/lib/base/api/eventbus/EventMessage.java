@@ -1,5 +1,7 @@
 package com.aihui.lib.base.api.eventbus;
 
+import androidx.annotation.NonNull;
+
 /**
  * Created by 路传涛 on 2017/5/27.
  * 接受消息的地方根据HashMap键名取值
@@ -55,31 +57,16 @@ public class EventMessage {
     public int key;
     public Object value;
 
-    public EventMessage(int key) {
-        this.key = key;
-    }
-
     public EventMessage(int key, Object value) {
         this.key = key;
         this.value = value;
-    }
-
-    public int getKey() {
-        return key;
-    }
-
-    public void setKey(int key) {
-        this.key = key;
     }
 
     public <T> T getValue() {
         return (T) value;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
-    }
-
+    @NonNull
     @Override
     public String toString() {
         return "EventMessage{" +

@@ -5,6 +5,7 @@ import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.aihui.lib.base.api.eventbus.EventBusUtils;
 import com.aihui.lib.base.api.eventbus.EventMessage;
 import com.aihui.lib.base.ui.BaseActivity;
 import com.aihui.lib.base.util.LogUtils;
@@ -24,8 +25,6 @@ import com.learn.git.ui.fragment.PermissionFragment;
 import com.learn.git.ui.fragment.PickerFragment;
 import com.learn.git.ui.fragment.RetrofitFragment;
 import com.learn.git.ui.fragment.WebFragment;
-
-import org.greenrobot.eventbus.EventBus;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -125,14 +124,14 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        EventBus.getDefault().post(new EventMessage<>(EventTag.TEST_0, "activity pause"));
+        EventBusUtils.post(EventTag.TEST_0, "activity pause");
     }
 
     @Override
     public void onMessage(EventMessage event) {
         super.onMessage(event);
         LogUtils.e("onMessage:" + event);
-        switch (event.getKey()) {
+        switch (event.key) {
             case EventTag.TEST_1:
                 new Thread(() -> ToastUtils.toast(event.getValue().toString())).start();
                 break;

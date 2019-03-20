@@ -169,30 +169,6 @@ public final class StyleManager {
                 });
     }
 
-//    public void saveUserSkin(String code,ComponentCallbacks callbacks) {
-//        QueryUserSkinBody body = new QueryUserSkinBody();
-//        body.setHospital_code(AccountManager.getHospitalCode());
-//        body.setDept_code(AccountManager.getDeptCode());
-//        body.setEstate("0");
-//        body.setId("0");
-//        body.setStyle_code(code);
-//        body.setUser_id("0");
-//        //查询到当前主页应该显示的module
-//        RetrofitManager.newMnHomepage2Server().saveUserSkin(body)
-//                .compose(RetrofitManager.parseResponseWith(callbacks))
-//                .subscribe(new BaseObserver<Boolean>() {
-//                    @Override
-//                    public void onNext(Boolean result) {
-//                        if (result) {
-//                            getInstance().mColor = Color.parseColor("#" + code);
-//                            EventBus.getDefault().post(new EventMessage(0x24));
-////                            getInstance().setChanged();
-////                            getInstance().notifyObservers();
-//                        }
-//                    }
-//                });
-//    }
-
     public static class StyleColor {
         // 名称
         public String name;

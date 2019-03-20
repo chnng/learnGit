@@ -57,7 +57,7 @@ public final class TimeUtils {
     public final static SimpleDateFormat sdf18 = getSimpleDateFormat("yyyy-MM-dd HH:mm");
     // 2018年07月13日
     public final static SimpleDateFormat sdf19 = getSimpleDateFormat("yyyy年MM月dd日");
-	// 07月13日
+    // 07月13日
     public final static SimpleDateFormat sdf20 = getSimpleDateFormat("MM月dd日");
 
     @NonNull
@@ -155,12 +155,12 @@ public final class TimeUtils {
 
     /**
      * 通过时间秒毫秒数判断两个时间的间隔
+     *
      * @param date1
      * @param date2
      * @return
      */
-    public static int differentDays(Date date1, Date date2)
-    {
-        return (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+    public static int differentDays(Date date1, Date date2) {
+        return (int) ((date2.getTime() - date1.getTime()) / 86400000);
     }
 }
