@@ -2,7 +2,7 @@ package com.aihui.lib.nurse.ui.view.education;
 
 import com.aihui.lib.base.model.module.th.msgpush.response.QueryEducationalDictionaryBean;
 import com.aihui.lib.base.ui.view.treeview.LayoutItemType;
-import com.aihui.lib.base.ui.view.treeview.TreeNode;
+import com.aihui.lib.base.ui.view.treeview.TreeViewNode;
 
 /**
  * Created by 胡一鸣 on 2018/7/25.
@@ -26,12 +26,12 @@ public class EducationDirNode implements LayoutItemType {
         return mLayoutId;
     }
 
-    public static TreeNode<EducationDirNode> getDirNode(int layoutId, QueryEducationalDictionaryBean bean) {
-        return new TreeNode<>(new EducationDirNode(layoutId/*R.layout.item_function_msg_push_educ_dir*/, bean));
+    public static TreeViewNode getDirNode(int layoutId, QueryEducationalDictionaryBean bean) {
+        return new TreeViewNode(new EducationDirNode(layoutId/*R.layout.item_function_msg_push_educ_dir*/, bean));
     }
 
 
-    public static TreeNode<EducationDirNode> getFileNode(int layoutId, QueryEducationalDictionaryBean bean) {
+    public static TreeViewNode getFileNode(int layoutId, QueryEducationalDictionaryBean bean) {
 //        if (bean.DicType == HttpConstant.PUSH_TYPE_DOC) {
 //            String filePath = bean.FilePath;
 //            if (!TextUtils.isEmpty(filePath)) {
@@ -46,6 +46,6 @@ public class EducationDirNode implements LayoutItemType {
 //                bean.FilePath = filePath;
 //            }
 //        }
-        return new TreeNode<>(new EducationFileNode(layoutId/*R.layout.item_function_msg_push_educ_file*/, bean));
+        return new TreeViewNode(new EducationFileNode(layoutId/*R.layout.item_function_msg_push_educ_file*/, bean));
     }
 }

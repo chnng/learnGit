@@ -1,0 +1,151 @@
+-----------------------------公司WIFI-----------------------------
+TEST-AIHUI5G/AHcXue7ypX
+
+-----------------------------平板WIFI-----------------------------
+AIHUI5G/AHcXue7ypX
+
+AIHUI-HLKB/c7%tXBjz!d
+
+-----------------------------测试账号-----------------------------
+病区帐号
+心内科：01020800
+骨科：02020800
+护士帐号：0059
+密码都是88888888
+
+-----------------------------测试IP-----------------------------
+http://data.aihuichina.com/
+data_aihui/^ah_769$
+
+-----------------------------keystore-----------------------------
+keystore：minhui2017
+minhui.jks
+
+signingConfigs {
+config {
+keyAlias 'minhui'
+keyPassword 'minhui2017'
+storeFile file('minhui.jks')
+storePassword 'minhui2017'
+v1SigningEnabled true
+v2SigningEnabled true
+}
+}
+
+buildTypes {
+release {
+minifyEnabled false
+proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+signingConfig signingConfigs.config
+}
+debug {
+signingConfig signingConfigs.config
+}
+}
+
+------------------------------邮箱-------------------------------
+
+<!—发件服务器—><add key=“mail_host” value=“smtp.ym.163.com” />
+<!—发件邮箱账号—><add key=“mail_user” value=“ahims_mail@smartsky-tech.com” />
+<!—发件邮箱密码—><add key=“mail_pwd” value=“minhui@2017” />
+<!—邮件显示的公司—><add key=“mail_company” value=“上海爱汇健康科技有限公司” />
+
+huyiming@smartsky-tech.com 密码：huyiming
+POP3 pop.ym.163.com 110/smtp.ym.163.com 25
+
+huyiming@aihuizhongyi.com 密码：Ah111111
+IMAP imap.exmail.qq.com 143/smtp.exmail.qq.com 25
+
+薛鹏宙<xuepengzhou@aihuizhongyi.com>
+操旭晨<xuchen.cao@aihuizhongyi.com>,刘永平<liuyongping@aihuizhongyi.com>, 丑政<chouzheng@aihuizhongyi.com>, 赵卫<zhaowei@aihuizhongyi.com>, 彭昌<pengchang@aihuizhongyi.com>, 李文金<liwenjin@aihuizhongyi.com>
+
+----------------------------积分管理系统--------------------------
+积分管理系统：http://10.65.200.12:8093
+积分管理账号: 0016
+积分管理密码:88888888
+
+------------------------------云桌面-----------------------------
+云桌面内网登录地址：https://192.168.10.26
+云桌面外网登录地址：https://140.207.48.194:10443
+云桌面账号：aihui087
+云桌面密码:
+
+--------------------------后台配置管理系统------------------------
+生产：https://hl.smartsky-tech.com:8096
+预生产：http://10.65.200.11:8096/login/login
+账号：admin 密码：mh003mh
+
+------------------------------SVN-------------------------------
+SVN地址：https://10.65.200.12
+账号: huyiming 密码: Hy80613
+规章制度：https://10.65.200.12/svn/文档/公司制度
+代码规范：https://10.65.200.12/svn/代码/规范文档
+android 源代码地址： https://10.65.200.12/svn/代码/Android 
+IMS[积分管理系统]地址：https://10.65.200.12/svn/代码/IMSProject 
+微端H5[收费等]地址：https://10.65.200.12/svn/代码/MProject 
+天护地址： https://10.65.200.12/svn/代码/MProject/TMProtalWeb
+BI系统：https://10.65.200.12/svn/代码/BIProject
+项目原型： https://10.65.200.12/svn/原型
+后台管理： https://10.65.200.12/svn/代码/后台管理
+
+--------------------------预生产服务器---------------------------
+192.168.88.13——10.65.200.10
+192.168.88.15——10.65.200.11
+192.168.88.20——10.65.200.12
+
+10.65.200.10
+administrator/Aihui@123
+sql:sa/Aihui@123
+
+10.65.200.11
+administrator/aihui@110
+sql:sa/aihui@123
+
+10.65.200.12
+administrator/aihui@120
+sql:sa/JqMH089_@2017
+
+172.16.200.12
+administrator/Aihui@123
+
+----------------------------开发服务器---------------------------
+122.112.221.150
+administrator/MHsjY3TrqLJOGdfsq1sTFH2019
+
+122.112.221.221
+mstsc /v:122.112.221.221 /admin
+administrator/QxKhsPUjsjHSkdgMNYfo1qT2018
+
+----------------------------账号---------------------------
+个推账号
+aihui
+aihui@2018
+
+应用宝
+账号:2751203703
+密码:aihui123456
+
+百度
+账号：0我不想她0
+账号密码：aihui123456
+邮箱：2751203703@qq.com
+邮箱密码：aihui123456
+
+华为
+账号：fankuixing@aihuizhongyi.com
+密码：Aihui123456
+邮箱：liyunhang@aihuizhongyi.com
+邮箱密码：Aihui000000
+App SECRET:bbce3f5774eb42de5477f7163d5c96f2
+
+vivo
+账号：fankuixing@aihuizhongyi.com
+密码：7gFi62xSlszjMEnm
+邮箱：liyunhang@aihuizhongyi.com
+邮箱密码：Aihui000000
+
+360
+账号：2751203703
+密码：aihui123456
+邮箱：liyunhang@aihuizhongyi.com
+邮箱密码：Aihui000000

@@ -15,13 +15,7 @@ gradle.ext {
 
     // change me
     RELEASE_IGNORE = false
-    COMPILE_FLAG = MODULE_TH_NATIVE \
-                 | MODULE_MN_H5 \
-                 | MODULE_MN_NATIVE \
-                 | MODULE_M_H5 \
-                 | MODULE_CALL \
-                 | MODULE_ER_NATIVE \
-                 | MODULE_YDHL \
+    COMPILE_FLAG = MODULE_ALL
 }
 def flag = gradle.ext.COMPILE_FLAG
 

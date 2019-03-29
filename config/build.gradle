@@ -1,6 +1,6 @@
 apply from: rootProject.ext.gradle_path_module_app
 //apply plugin: 'auto-patch-plugin'
-//apply plugin: 'robust'
+apply plugin: 'robust'
 
 android {
 //    dexOptions {
@@ -39,46 +39,46 @@ android {
             buildConfigField 'String', 'RC_URL', rootProject.ext.domain.local + rootProject.ext.port.rcLocal
             applicationIdSuffix '.local'
         }
-        常州武进人民location {
-            dimension 'url'
-            applicationIdSuffix '.wjrm'
-            resValue 'string', 'amap_location', rootProject.ext.location.常州市武进人民医院
-        }
-        常州武进人民南院location {
-            dimension 'url'
-            applicationIdSuffix '.wjrmny'
-            resValue 'string', 'amap_location', rootProject.ext.location.常州市武进人民医院南院
-        }
-        山东聊城人民location {
-            dimension 'url'
-            applicationIdSuffix '.lcrm'
-            resValue 'string', 'amap_location', rootProject.ext.location.山东聊城市人民医院
-        }
-        苏大一医院广慈分院location {
-            dimension 'url'
-            applicationIdSuffix '.szgc'
-            resValue 'string', 'amap_location', rootProject.ext.location.苏州大学附属第一医院广慈分院
-        }
-        威海妇幼保健院location {
-            dimension 'url'
-            applicationIdSuffix '.whfy'
-            resValue 'string', 'amap_location', rootProject.ext.location.威海妇幼保健院
-        }
-        青岛妇女儿童location {
-            dimension 'url'
-            applicationIdSuffix '.qdfe'
-            resValue 'string', 'amap_location', rootProject.ext.location.青岛市妇女儿童医院
-        }
-        广西中医药大学仙葫校区location {
-            dimension 'url'
-            applicationIdSuffix '.gxzyy'
-            resValue 'string', 'amap_location', rootProject.ext.location.广西中医药大学仙葫校区
-        }
-        潍坊中医院location {
-            dimension 'url'
-            applicationIdSuffix '.wfz'
-            resValue 'string', 'amap_location', rootProject.ext.location.潍坊中医院
-        }
+//        常州武进人民location {
+//            dimension 'url'
+//            applicationIdSuffix '.wjrm'
+//            resValue 'string', 'amap_location', rootProject.ext.location.常州市武进人民医院
+//        }
+//        常州武进人民南院location {
+//            dimension 'url'
+//            applicationIdSuffix '.wjrmny'
+//            resValue 'string', 'amap_location', rootProject.ext.location.常州市武进人民医院南院
+//        }
+//        山东聊城人民location {
+//            dimension 'url'
+//            applicationIdSuffix '.lcrm'
+//            resValue 'string', 'amap_location', rootProject.ext.location.山东聊城市人民医院
+//        }
+//        苏大一医院广慈分院location {
+//            dimension 'url'
+//            applicationIdSuffix '.szgc'
+//            resValue 'string', 'amap_location', rootProject.ext.location.苏州大学附属第一医院广慈分院
+//        }
+//        威海妇幼保健院location {
+//            dimension 'url'
+//            applicationIdSuffix '.whfy'
+//            resValue 'string', 'amap_location', rootProject.ext.location.威海妇幼保健院
+//        }
+//        青岛妇女儿童location {
+//            dimension 'url'
+//            applicationIdSuffix '.qdfe'
+//            resValue 'string', 'amap_location', rootProject.ext.location.青岛市妇女儿童医院
+//        }
+//        广西中医药大学仙葫校区location {
+//            dimension 'url'
+//            applicationIdSuffix '.gxzyy'
+//            resValue 'string', 'amap_location', rootProject.ext.location.广西中医药大学仙葫校区
+//        }
+//        潍坊中医院location {
+//            dimension 'url'
+//            applicationIdSuffix '.wfz'
+//            resValue 'string', 'amap_location', rootProject.ext.location.潍坊中医院
+//        }
         淄博中西医formal {
             dimension 'url'
             buildConfigField 'String', 'BASE_URL', rootProject.ext.domain.淄博中西医formal + rootProject.ext.port.erZiboApi
@@ -244,7 +244,7 @@ android {
             variant.setIgnore(true)
         }
         if (names.contains('thNati')) {
-            if (names.contains('常州武进人民location')
+            if (/*names.contains('常州武进人民location')
                     || names.contains('常州武进人民南院location')
                     || names.contains('山东聊城人民location')
                     || names.contains('苏大一医院广慈分院location')
@@ -252,7 +252,7 @@ android {
                     || names.contains('青岛妇女儿童location')
                     || names.contains('广西中医药大学仙葫校区location')
                     || names.contains('潍坊中医院location')
-                    || names.contains('嘉兴二院formal')
+                    || */names.contains('嘉兴二院formal')
             ) {
                 variant.setIgnore(false)
             }
@@ -272,6 +272,7 @@ android {
         } else if (names.contains('mnNati')) {
             if (names.contains('湖南省直中医院local')
                     || names.contains('广中医仙葫local')
+                    || names.contains('嘉兴二院formal')
                     || names.contains('嘉兴二院local')
             ) {
                 variant.setIgnore(false)
@@ -325,7 +326,7 @@ android {
                 } else if (baseName.contains('Prepare')) {
                     flavorName += flavor
                     webUrl = rootProject.ext.domain.prepare + rootProject.ext.port.th
-                } else if (baseName.contains('常州武进人民location')) {
+                }/* else if (baseName.contains('常州武进人民location')) {
                     flavorName = '天护武进'
                 } else if (baseName.contains('常州武进人民南院location')) {
                     flavorName = '天护武进南'
@@ -341,7 +342,7 @@ android {
                     flavorName = '天护广中仙葫'
                 } else if (baseName.contains('潍坊中医院location')) {
                     flavorName = '天护潍坊'
-                }
+                }*/
                 variant.mergedFlavor.manifestPlaceholders = [AMAP_KEY: rootProject.ext.th.amapKey]
             } else if (baseName.contains('mnH5')) {
                 flavorName = rootProject.ext.mn.appName

@@ -14,7 +14,7 @@ import com.aihui.lib.base.model.common.response.BaseResponseBean;
 import com.aihui.lib.base.model.module.th.msgpush.request.QueryEducationDetailsInsertBody;
 import com.aihui.lib.base.model.module.th.msgpush.request.QueryPushInfoInsertBody;
 import com.aihui.lib.base.model.module.th.msgpush.response.QueryEducationalDictionaryBean;
-import com.aihui.lib.base.ui.view.treeview.TreeNode;
+import com.aihui.lib.base.ui.view.treeview.TreeViewNode;
 import com.aihui.lib.base.util.CheckUtils;
 import com.aihui.lib.base.util.FileUtils;
 import com.aihui.lib.base.util.ToastUtils;
@@ -38,10 +38,10 @@ import io.reactivex.functions.Function;
 public final class MsgPushUtils {
 
     public static void parseNode(@NonNull List<QueryEducationalDictionaryBean> list,
-                                 @NonNull TreeNode node,
+                                 @NonNull TreeViewNode node,
                                  @LayoutRes int layoutIdDir,
                                  @LayoutRes int layoutIdFile) {
-        TreeNode<EducationDirNode> childNode;
+        TreeViewNode childNode;
         for (QueryEducationalDictionaryBean bean : list) {
             QueryEducationalDictionaryBean nodeBean = ((EducationDirNode) node.getContent()).getBean();
             int dictionaryID = nodeBean.DictionaryID;
@@ -88,11 +88,11 @@ public final class MsgPushUtils {
     }
 
     public static void addSelectedNodeList(@NonNull List<QueryEducationDetailsInsertBody> list,
-                                           TreeNode<EducationDirNode> node,
+                                           TreeViewNode node,
                                            String wardCode,
                                            String bedNumber,
                                            boolean isSelected) {
-        for (TreeNode child : node.getChildList()) {
+        for (TreeViewNode child : node.getChildList()) {
             if (child.getContent() instanceof EducationFileNode) {
                 QueryEducationalDictionaryBean bean = ((EducationFileNode) child.getContent()).getBean();
                 if (bean.isSelected == isSelected) {
