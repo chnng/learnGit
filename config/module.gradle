@@ -25,6 +25,7 @@ android {
     }
     //移除lint检测的error
     lintOptions {
+//        checkReleaseBuilds false
         abortOnError false
     }
     packagingOptions {

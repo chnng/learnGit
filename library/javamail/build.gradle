@@ -1,3 +1,5 @@
+// https://github.com/teprinciple/SendMailDemo
+
 apply plugin: 'com.android.library'
 apply from: rootProject.ext.gradle_path_module
 

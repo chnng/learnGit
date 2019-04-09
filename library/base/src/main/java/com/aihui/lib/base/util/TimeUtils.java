@@ -59,6 +59,8 @@ public final class TimeUtils {
     public final static SimpleDateFormat sdf19 = getSimpleDateFormat("yyyy年MM月dd日");
     // 07月13日
     public final static SimpleDateFormat sdf20 = getSimpleDateFormat("MM月dd日");
+    //2018/7/13 16:21
+    public final static SimpleDateFormat sdf21 = getSimpleDateFormat("yyyy/M/dd H:mm:ss");
 
     @NonNull
     private static SimpleDateFormat getSimpleDateFormat(String s) {
@@ -162,5 +164,22 @@ public final class TimeUtils {
      */
     public static int differentDays(Date date1, Date date2) {
         return (int) ((date2.getTime() - date1.getTime()) / 86400000);
+    }
+
+    /**
+     * 获取体温单页面的时间戳
+     * @param timeStr
+     * @return
+     */
+    public static long getTempTime(String timeStr){
+        if (TextUtils.isEmpty(timeStr)) {
+            return 0;
+        }
+        try {
+            return sdf21.parse(timeStr).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

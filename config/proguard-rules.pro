@@ -122,6 +122,23 @@
 #endregion agora
 
 
+#region poi
+-keep class org.apache.poi.** { *; }
+-keep class org.apache.xmlbeans.** { *; }
+-keep class org.openxmlformats.schemas.** { *; }
+-keep class org.w3c.dom.** { *; }
+#endregion poi
+
+
+#region mail
+-keep class com.shidian.mail.** { *; }
+-keep class javax.activation.* { *; }
+-keep class javax.mail.* { *; }
+-keep class com.sun.activation.** { *; }
+-keep class com.sun.mail.** { *; }
+#endregion mail
+
+
 #region aihui
 -keep class com.aihui.** { *; }
 #endregion aihui

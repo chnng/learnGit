@@ -72,7 +72,10 @@ public class RetrofitManager {
     private RetrofitManager() {
         mGson = new Gson();
         mOkHttpClient = RetrofitUrlManager.getInstance().with(ProgressManager.getInstance().with(new OkHttpClient.Builder()))
+                .callTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(new HttpLoggingInterceptor(LogUtils::http)
                         .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();

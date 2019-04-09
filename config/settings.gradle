@@ -12,23 +12,26 @@ gradle.ext {
     MODULE_YDCF = MODULE_CALL << 1
     MODULE_YDHL = MODULE_YDCF << 1
     MODULE_NAVI = MODULE_YDHL << 1
+    MODULE_CTK = MODULE_NAVI << 1
+    MODULE_MPK = MODULE_CTK << 1
 
     // change me
     RELEASE_IGNORE = false
-    COMPILE_FLAG = MODULE_ALL
+    COMPILE_FLAG = /*MODULE_ALL \
+                 | */MODULE_TH_NATIVE \
+                 | MODULE_MN_NATIVE \
+                 | MODULE_CALL \
+                 | MODULE_M_H5 \
+                 | MODULE_M_NATIVE \
+                 | MODULE_MN_H5 \
+                 | MODULE_MPK \
+//                 | MODULE_ER_NATIVE \
+//                 | MODULE_YDHL \
 }
 def flag = gradle.ext.COMPILE_FLAG
 
-// ':library:agentweb',
-// ':library:amap',
-// ':library:agora',
-// ':library:glide'
-// ':library:zxing',
-// ':library:signalA:parallel-basic-http-client',
-// ':library:signalA:SignalA',
-// ':library:signalA:SignalA.LongPolling'
-include /*':app:test', */':library:base'
-//        ':library:agentweb'
+include ':app:test', ':library:base'
+//        ':library:agentweb',
 //        ':library:agora',
 //        ':library:amap',
 //        ':library:ffmpeg',
@@ -89,4 +92,12 @@ if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_YDHL) != 0) {
 }
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_NAVI) != 0) {
     include ':module:navi'
+}
+if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_CTK) != 0) {
+    include ':app:nuanping',
+            ':module:ctk'
+}
+if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_MPK) != 0) {
+    include ':app:nuanping',
+            ':module:mpk'
 }

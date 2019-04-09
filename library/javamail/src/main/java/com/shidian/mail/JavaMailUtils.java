@@ -23,7 +23,7 @@ public class JavaMailUtils {
 //    private static final String PORT = "587";
     private static final String HOST = "smtp.ym.163.com";
     private static final String PORT = "25";
-//    private static final String FROM_ADD = "269823446@qq.com";
+    //    private static final String FROM_ADD = "269823446@qq.com";
 //    private static final String FROM_PSW = "pymreyarwgpncbca";
 //    private static final String FROM_ADD = "huyiming@aihuizhongyi.com";
 //    private static final String FROM_PSW = "Ah111111";
@@ -66,14 +66,21 @@ public class JavaMailUtils {
         }
         boolean finalHasAttachment = hasAttachment;
         EXECUTOR.execute(() -> {
-            MailInfo mailInfo = createMail(address, subject, content);
-            if (finalHasAttachment) {
-                MailSender.sendFileMail(mailInfo, files, listener);
-            } else {
-                MailSender.sendHtmlMail(mailInfo, listener);
-            }
-            if (listener != null) {
-                listener.onSuccess();
+            try {
+                MailInfo mailInfo = createMail(address, subject, content);
+                if (finalHasAttachment) {
+                    MailSender.sendFileMail(mailInfo, files);
+                } else {
+                    MailSender.sendHtmlMail(mailInfo);
+                }
+                if (listener != null) {
+                    listener.onSuccess();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (listener != null) {
+                    listener.onFailure(e);
+                }
             }
         });
     }

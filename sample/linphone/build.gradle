@@ -24,6 +24,8 @@ dependencies {
     implementation rootProject.ext.dependencies.appcompatV7
     implementation rootProject.ext.dependencies.recyclerviewV7
     implementation rootProject.ext.dependencies.supportDesign
+    implementation rootProject.ext.dependencies.cockroach
+    implementation rootProject.ext.dependencies.okhttp
 //    implementation 'androidx.drawerlayout:drawerlayout:1.0.0'
 //    releaseImplementation 'org.linphone:liblinphone-sdk:4.0.1'
 //    debugImplementation 'org.linphone:liblinphone-sdk:4.0.1-DEBUG'

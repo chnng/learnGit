@@ -1,6 +1,6 @@
 apply from: rootProject.ext.gradle_path_module_app
 //apply plugin: 'auto-patch-plugin'
-apply plugin: 'robust'
+//apply plugin: 'robust'
 
 android {
 //    dexOptions {
@@ -240,7 +240,7 @@ android {
 
     android.variantFilter { variant ->
         def names = variant.flavors*.name
-        if (!names.contains('Formal') && !names.contains('Demo') && !names.contains('Prepare')) {
+        if (!names.contains('Formal') && !names.contains('Prepare')) {
             variant.setIgnore(true)
         }
         if (names.contains('thNati')) {
@@ -257,7 +257,8 @@ android {
                 variant.setIgnore(false)
             }
         } else if (names.contains('mnH5')) {
-            if (names.contains('Local')
+            if (names.contains('Demo')
+                    || names.contains('Local')
                     || names.contains('北大深圳local')
                     || names.contains('广中医仙葫local')
                     || names.contains('上海中西医local')
@@ -270,7 +271,8 @@ android {
                 variant.setIgnore(false)
             }
         } else if (names.contains('mnNati')) {
-            if (names.contains('湖南省直中医院local')
+            if (names.contains('Demo')
+                    || names.contains('湖南省直中医院local')
                     || names.contains('广中医仙葫local')
                     || names.contains('嘉兴二院formal')
                     || names.contains('嘉兴二院local')
@@ -278,7 +280,8 @@ android {
                 variant.setIgnore(false)
             }
         } else if (names.contains('mH5')) {
-            if (names.contains('Local')
+            if (names.contains('Demo')
+                    || names.contains('Local')
             ) {
                 variant.setIgnore(false)
             }
