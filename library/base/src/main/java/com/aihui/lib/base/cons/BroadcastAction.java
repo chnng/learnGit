@@ -5,7 +5,9 @@ package com.aihui.lib.base.cons;
  */
 public final class BroadcastAction {
     // 护士呼叫弹窗
-    public static final String NURSE_MENU = "com.aihui.videochat.BROADCAST_RECEIVER";
+    public static final String VIDEO_MENU = "com.aihui.videochat.BROADCAST_RECEIVER";
+    // 护士呼叫按钮
+    public static final String VIDEO_BUTTON = "com.aihui.videochat.BUTTON_VISIBLE";
     // 床旁护士呼叫时通知
     public static final String NURSE_PATROL_CLOSE = "com.aihui.m.BroadcastAction.NURSE_PATROL_CLOSE";
     // 床旁护理关闭

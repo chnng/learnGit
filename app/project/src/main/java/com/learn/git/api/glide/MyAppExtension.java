@@ -11,7 +11,7 @@ public class MyAppExtension {
 
     @GlideOption
     public static void customOption(RequestOptions options) {
-        options.diskCacheStrategy(DiskCacheStrategy.NONE)
+        RequestOptions requestOptions = options.diskCacheStrategy(DiskCacheStrategy.NONE)
                 .circleCrop()
                 .skipMemoryCache(true);
     }

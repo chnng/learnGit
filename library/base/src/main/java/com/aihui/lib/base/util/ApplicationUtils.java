@@ -14,11 +14,17 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 
+import com.aihui.lib.base.api.retrofit.BaseObserver;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.Executors;
+
+import androidx.annotation.NonNull;
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 主要功能:获取App应用版本信息
@@ -178,14 +184,17 @@ public final class ApplicationUtils {
      * 模拟返回键
      */
     public static void simulationBackKey() {
-        Executors.newCachedThreadPool().execute(() -> {
-            try {
-                Instrumentation instrumentation = new Instrumentation();
-                instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        Observable.create((ObservableOnSubscribe<Instrumentation>) emitter -> {
+            emitter.onNext(new Instrumentation());
+            emitter.onComplete();
+        })
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BaseObserver<Instrumentation>() {
+                    @Override
+                    public void onNext(@NonNull Instrumentation instrumentation) {
+                        instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
+                    }
+                });
     }
 
     public static boolean isComponentRunning(Context context, Class<?> klass) {
@@ -200,28 +209,18 @@ public final class ApplicationUtils {
                 return false;
             }
             ActivityManager.RunningTaskInfo taskInfo = taskList.get(0);
-//            LogUtils.e("isComponentRunningTask"
-//                    + " baseActivity:" + taskInfo.baseActivity
-//                    + " topActivity:" + taskInfo.topActivity
-//                    + " description:" + taskInfo.description
-//                    + " id:" + taskInfo.id
-//                    + " numActivities:" + taskInfo.numActivities
-//                    + " numRunning:" + taskInfo.numRunning
-//            );
             ComponentName componentName = taskInfo.topActivity;
-            return componentName.getClassName().equals(klass.getName());
+            return TextUtils.equals(componentName.getPackageName(), context.getPackageName())
+                    && TextUtils.equals(componentName.getClassName(), klass.getName());
         } else if (componentClass == Service.class) {
             List<ActivityManager.RunningServiceInfo> serviceList = activityManager.getRunningServices(Integer.MAX_VALUE);
             if (serviceList.size() == 0) {
                 return false;
             }
             for (ActivityManager.RunningServiceInfo serviceInfo : serviceList) {
-//                LogUtils.e("isComponentRunningService"
-//                        + " service:" + serviceInfo.service
-//                        + " clientPackage:" + serviceInfo.clientPackage
-//                );
                 ComponentName componentName = serviceInfo.service;
-                if (componentName.getClassName().equals(klass.getName())) {
+                if (TextUtils.equals(componentName.getPackageName(), context.getPackageName())
+                        && TextUtils.equals(componentName.getClassName(), klass.getName())) {
                     return true;
                 }
             }

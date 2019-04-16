@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aihui.lib.getui">
+
+    <application android:usesCleartextTraffic="true">
+        <service
+            android:name="com.aihui.lib.getui.GetuiService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice" />
+
+        <activity
+            android:name=".GetuiPermissionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Transparent" />
+    </application>
+</manifest>

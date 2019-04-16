@@ -186,13 +186,13 @@
     <dimen name="dp340">510.0dp</dimen>
     <dimen name="dp350">525.0dp</dimen>
     <dimen name="dp400">600.0dp</dimen>
-    <dimen name="dp425">637dp</dimen>
+    <dimen name="dp425">637.0dp</dimen>
     <dimen name="dp433">649.5dp</dimen>
-    <dimen name="dp440">660dp</dimen>
+    <dimen name="dp440">660.0dp</dimen>
     <dimen name="dp450">675.0dp</dimen>
-    <dimen name="dp480">720dp</dimen>
+    <dimen name="dp480">720.0dp</dimen>
     <dimen name="dp500">750.0dp</dimen>
     <dimen name="dp600">900.0dp</dimen>
     <dimen name="dp700">1050.0dp</dimen>
-    <dimen name="dp960">1440dp</dimen>
+    <dimen name="dp960">1440.0dp</dimen>
 </resources>

@@ -1,0 +1,13 @@
+apply plugin: 'com.android.library'
+apply from: rootProject.ext.gradle_path_module
+
+dependencies {
+    implementation project(':library:base')
+    annotationProcessor rootProject.ext.dependencies.glideCompiler
+    api(rootProject.ext.dependencies.glide) {
+        exclude group: "com.android.support"
+    }
+    implementation(rootProject.ext.dependencies.glideOkhttp) {
+        exclude group: 'com.squareup.okhttp3'
+    }
+}

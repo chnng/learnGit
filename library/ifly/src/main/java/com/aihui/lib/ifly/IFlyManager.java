@@ -33,7 +33,7 @@ public final class IFlyManager {
         // 注意： appid 必须和下载的SDK保持一致，否则会出现10407错误
 
         // 注意： appid 必须和下载的SDK保持一致，否则会出现10407错误
-        SpeechUtility.createUtility(context, SpeechConstant.APPID + "=" + context.getString(R.string.app_id));
+        SpeechUtility.createUtility(context, SpeechConstant.APPID + "=" + context.getString(R.string.ifly_app_id));
         // 以下语句用于设置日志开关（默认开启），设置成false时关闭语音云SDK日志打印
         Setting.setShowLog(debug);
     }
@@ -144,6 +144,20 @@ public final class IFlyManager {
             // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
             tts.setParameter(SpeechConstant.AUDIO_FORMAT, "pcm");
             tts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.pcm");
+        }
+    }
+
+    public static void resumeSpeaking() {
+        SpeechSynthesizer tts = getInstance().mTts;
+        if (tts != null) {
+            tts.resumeSpeaking();
+        }
+    }
+
+    public static void pauseSpeaking() {
+        SpeechSynthesizer tts = getInstance().mTts;
+        if (tts != null) {
+            tts.pauseSpeaking();
         }
     }
 

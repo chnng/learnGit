@@ -36,13 +36,13 @@ ext {
             // 桂林市人民医院
             桂林人民local        : '"http://116.1.2.237',
             // 嘉兴市第二医院
-            嘉兴二院formal       : '"http://122.225.19.140',
+            嘉兴二院formal       : '"http://192.168.192.2',
             嘉兴二院local        : '"http://192.168.33.25',
             // 柳州市妇幼保健院(柳东分院)
             柳州妇幼formal       : '"http://182.90.254.108',
             柳州妇幼local        : '"http://10.1.200.124',
             // 株洲市天元区人民医院
-            株洲人民formal       : '"http://183.215.233.48',
+            株洲人民formal       : '"http://10.65.200.10',
             株洲人民local        : '"http://192.168.100.10',
             // 山东聊城市人民医院
             聊城人民formal       : '"http://221.2.205.212',
@@ -104,8 +104,8 @@ ext {
             appName             : '智能护士',
             appNameNative       : '智慧看板',
             applicationId       : 'com.aihui.mn',
-            versionCode         : 38,
-            versionName         : '1.0.38',
+            versionCode         : 39,
+            versionName         : '1.0.39',
             appCode             : '"m_client_n"',
             amapKey             : '886d84f24ed9d0cd9c54450879ebcc73',
 
@@ -115,8 +115,8 @@ ext {
     m = [
             appName             : 'chuangpang',
             applicationId       : 'com.aihui.m',
-            versionCode         : 44,
-            versionName         : '1.44.0',
+            versionCode         : 47,
+            versionName         : '1.47.0',
             appCode             : '"m_client_a"',
             amapKey             : '04ff2f38dd537c04dc465b4b8d2496b4',
 
@@ -189,5 +189,16 @@ ext {
             versionCode         : 1,
             versionName         : '1.0.0',
             appCode             : '"a_client_mpk"',
+    ]
+    push = [
+            appName             : '宣教推送服务',
+            applicationId       : 'com.aihui.th.push',
+            versionCode         : 1,
+            versionName         : '1.0.0',
+
+            getuiAppId          : 'XVsr8d2TmZ5Oj33ufkzEs3',
+            getuiAppSecret      : 'RfYmHQ5eKB7vwLED8lHIX5',
+            getuiAppKey         : 'z2GpmvrZtm8EcXvFnx1GP6',
+            getuiMasterSecret   : 'wPYLHaoVY5ALxkxetNmts',
     ]
 }

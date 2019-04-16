@@ -14,23 +14,15 @@ gradle.ext {
     MODULE_NAVI = MODULE_YDHL << 1
     MODULE_CTK = MODULE_NAVI << 1
     MODULE_MPK = MODULE_CTK << 1
+//    MODULE_PUSH = MODULE_MPK << 1
 
     // change me
-    RELEASE_IGNORE = false
-    COMPILE_FLAG = /*MODULE_ALL \
-                 | */MODULE_TH_NATIVE \
-                 | MODULE_MN_NATIVE \
-                 | MODULE_CALL \
-                 | MODULE_M_H5 \
-                 | MODULE_M_NATIVE \
-                 | MODULE_MN_H5 \
-                 | MODULE_MPK \
-//                 | MODULE_ER_NATIVE \
-//                 | MODULE_YDHL \
+    RELEASE_IGNORE = true
+    COMPILE_FLAG = MODULE_ALL
 }
 def flag = gradle.ext.COMPILE_FLAG
 
-include ':app:test', ':library:base'
+include ':app:test', ':library:base',
 //        ':library:agentweb',
 //        ':library:agora',
 //        ':library:amap',
@@ -44,7 +36,7 @@ include ':app:test', ':library:base'
 //        ':library:signalA:SignalA',
 //        ':library:signalA:SignalA.LongPolling',
 //        ':library:whiteboard',
-//        ':library:widget',
+        ':library:widget'
 //        ':library:zxing'
 if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_TH_NATIVE) != 0) {
     include ':app:project',
@@ -101,3 +93,7 @@ if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_MPK) != 0) {
     include ':app:nuanping',
             ':module:mpk'
 }
+//if (flag == gradle.ext.MODULE_ALL || (flag & gradle.ext.MODULE_PUSH) != 0) {
+//    include ':app:nuanping',
+//            ':module:push'
+//}

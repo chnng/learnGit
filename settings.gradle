@@ -1,11 +1,11 @@
 include ':app:project', ':app:test', ':app:java',
-        ':sample:agora', ':sample:ifly', ':sample:linphone',
+//        ':sample:agora', ':sample:ifly', ':sample:linphone',
         ':library:base',
         ':library:agentweb',
 //        ':library:ffmpeg',
         ':library:ifly',
         ':library:javamail',
-        ':library:mp3recorder',
+//        ':library:mp3recorder',
         ':library:okhttp',
         ':library:okhttp4j',
         ':library:whiteboard'

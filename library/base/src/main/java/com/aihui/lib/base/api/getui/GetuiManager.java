@@ -31,6 +31,11 @@ public final class GetuiManager {
     public static final int MSG_TYPE_YDHL_START = 3;
     // 床旁护理关闭
     public static final int MSG_TYPE_YDHL_CLOSE = 4;
+    // 推送消息
+    public static final int MSG_TYPE_PUSH = 5;
+    // 定时事件
+    public static final int MSG_TYPE_TIME_EVENT = 6;
+
     private static QueryGetuiAuthBean mGetuiAuthBean;
 
     /**

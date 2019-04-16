@@ -10,8 +10,6 @@ import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
 import com.aihui.lib.agentweb.AgentWebManager;
-import com.aihui.lib.base.api.eventbus.EventBusUtils;
-import com.aihui.lib.base.api.eventbus.EventTag;
 import com.aihui.lib.base.ui.BaseFragment;
 import com.just.library.AgentWebUtils;
 import com.learn.git.R;
@@ -48,18 +46,7 @@ public class WebFragment extends BaseFragment {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                //延迟0.5秒隐藏，遮盖webView内置的加载错误页面
-//                Executors.newCachedThreadPool().execute(() -> {
-//                    if (isClickCancelBtn) {
-//                        try {
-//                            Thread.sleep(500);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//                        runOnUiThread(() -> previousView.setVisibility(View.INVISIBLE));
-//                        isClickCancelBtn = false;
-//                    }
-//                });
+                String title = view.getTitle();
 
                 // autoPlay when finished loading via javascript injection
                 view.loadUrl("javascript:(" +
@@ -86,6 +73,8 @@ public class WebFragment extends BaseFragment {
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                 handler.proceed();
             }
+
+
         });
 
         agentWebManager.setWebChromeClient(new WebChromeClient() {
@@ -93,8 +82,13 @@ public class WebFragment extends BaseFragment {
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 //更新进度条
-                EventBusUtils.post(EventTag.UPDATE_PROGRESS_BAR, newProgress);
             }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+            }
+
         });
 //        agentWebManager.loadWeb("https://hl.smartsky-tech.com:8095/index/index?hospitalId=1000000&app=m_client_a", "js", new AndroidInterface());
         agentWebManager.loadWeb("https://api.perffun.com:446/tvn/U20170110041218", "js", new AndroidInterface());
@@ -125,8 +119,8 @@ public class WebFragment extends BaseFragment {
     }
 
     class AndroidInterface {
-        @JavascriptInterface//javaScript
-        public void scanQrCodeByJS() { //原方法名 requestCodeQRCodePermissions
+        @JavascriptInterface
+        public void scanQrCodeByJS() {
         }
     }
 }

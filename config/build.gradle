@@ -274,7 +274,6 @@ android {
             if (names.contains('Demo')
                     || names.contains('湖南省直中医院local')
                     || names.contains('广中医仙葫local')
-                    || names.contains('嘉兴二院formal')
                     || names.contains('嘉兴二院local')
             ) {
                 variant.setIgnore(false)
@@ -361,7 +360,6 @@ android {
             } else if (baseName.contains('mnNati')) {
                 flavorName = rootProject.ext.mn.appNameNative
                 if (baseName.contains('Formal')) {
-                    flavorName += flavor
                     baseUrl = rootProject.ext.domain.formal + rootProject.ext.port.mnApi
                     webUrl = rootProject.ext.domain.formal + rootProject.ext.port.mnWeb
                 } else if (baseName.contains('Demo')) {

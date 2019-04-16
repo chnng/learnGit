@@ -31,6 +31,7 @@ import org.linphone.LinphoneManager;
 import org.linphone.LinphonePreferences;
 import org.linphone.LinphoneService;
 import org.linphone.LinphoneUtils;
+import org.linphone.LogUtils;
 import org.linphone.R;
 import org.linphone.assistant.RemoteProvisioningActivity;
 import org.linphone.call.CallActivity;
@@ -91,6 +92,7 @@ public class LinphoneLauncherActivity extends Activity {
             startService(new Intent(ACTION_MAIN).setClass(this, LinphoneService.class));
             mServiceThread = new ServiceWaitThread();
             mServiceThread.start();
+            LogUtils.init(getApplicationContext());
         }
     }
 

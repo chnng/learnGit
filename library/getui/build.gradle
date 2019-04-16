@@ -1,0 +1,7 @@
+apply plugin: 'com.android.library'
+apply from: rootProject.ext.gradle_path_module
+
+dependencies {
+    implementation project(':library:base')
+    api rootProject.ext.dependencies.getuiSdk
+}

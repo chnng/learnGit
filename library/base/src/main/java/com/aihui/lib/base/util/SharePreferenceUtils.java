@@ -51,13 +51,29 @@ public final class SharePreferenceUtils {
      */
     public static final String SP_TH_WEB_URL = "th_web_url";
     /**
-     * 个推绑定时间
+     * 呼叫个推绑定时间
      */
-    public static final String SP_GETUI_TIMESTAMP_BIND = "push_bind_alias_timestamp";
+    public static final String SP_CALL_GETUI_TIMESTAMP_BIND = "push_bind_alias_timestamp";
     /**
-     * 个推绑定延时
+     * 呼叫个推绑定延时
      */
-    public static final String SP_GETUI_TIMESTAMP_DELAY = "task_delay_timestamp";
+    public static final String SP_CALL_GETUI_TIMESTAMP_DELAY = "task_delay_timestamp";
+    /**
+     * 呼叫床位
+     */
+    public static final String SP_CALL_BED_NUMBER = "call_bed_number";
+    /**
+     * 推送院区识别代码
+     */
+    public static final String SP_CALL_HOSPITAL_IDENTIFY = "call_hospital_identify";
+    /**
+     * 推送病区识别代码
+     */
+    public static final String SP_CALL_WARD_IDENTIFY = "call_ward_identify";
+    /**
+     * 推送床位识别代码
+     */
+    public static final String SP_CALL_BED_IDENTIFY = "call_bed_identify";
     /**
      * 个推cid
      */
