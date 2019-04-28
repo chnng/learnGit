@@ -90,8 +90,9 @@ public class WebFragment extends BaseFragment {
             }
 
         });
-//        agentWebManager.loadWeb("https://hl.smartsky-tech.com:8095/index/index?hospitalId=1000000&app=m_client_a", "js", new AndroidInterface());
-        agentWebManager.loadWeb("https://api.perffun.com:446/tvn/U20170110041218", "js", new AndroidInterface());
+//        agentWebManager.loadUrl("https://hl.smartsky-tech.com:8095/index/index?hospitalId=1000000&app=m_client_a", "js", new AndroidInterface());
+//        agentWebManager.loadUrl("https://api.perffun.com:446/tvn/U20170110041218", "js", new AndroidInterface());
+        agentWebManager.loadUrl("https://hl.smartsky-tech.com:8094/uploadfile/source/missionize/20190115131005.html");
     }
 
     @Override

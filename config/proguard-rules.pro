@@ -139,6 +139,18 @@
 #endregion mail
 
 
+#region ijk
+-keep class tv.danmaku.ijk.media.player.**{*;}
+#endregion ijk
+
+
+#region ifly
+-keep class com.iflytek.** { *; }
+-keepattributes Signature
+#endregion ifly
+
+
 #region aihui
 -keep class com.aihui.** { *; }
+-keep class com.just.library.** { *; }
 #endregion aihui

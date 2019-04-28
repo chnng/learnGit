@@ -53,7 +53,7 @@ public class SignalAMeetingManager extends SignalAManager {
 
     @Override
     protected String getUrl() {
-        return SignalAUtils.HUB_MEETING_URL;
+        return SignalAUtils.HUB_URL;
     }
 
     public void addConnection(Context context,

@@ -42,11 +42,11 @@ public class AgentWebManager {
         this.mWebViewClient = webViewClient;
     }
 
-    public AgentWeb loadWeb(String webUrl) {
-        return loadWeb(webUrl, null, null);
+    public AgentWeb loadUrl(String webUrl) {
+        return loadUrl(webUrl, null, null);
     }
 
-    public AgentWeb loadWeb(String webUrl, String mark, Object object) {
+    public AgentWeb loadUrl(String webUrl, String mark, Object object) {
         if (null == preAgentWeb) {
             preAgentWeb = AgentWeb.with(mContext)
                     .setAgentWebParent(mRelativeLayout,

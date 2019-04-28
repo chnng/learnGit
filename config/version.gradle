@@ -119,6 +119,8 @@ ext {
             // https://github.com/H07000223/FlycoTabLayout
             flycoTabLayout          : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar',
             // https://github.com/7heaven/GestureLock
-            lockview                : 'com.takwolf.android:lock9view:0.1.3'
+            lockview                : 'com.takwolf.android:lock9view:0.1.3',
+            // https://github.com/bilibili/ijkplayer
+            ijkplayer               : 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8',
     ]
 }

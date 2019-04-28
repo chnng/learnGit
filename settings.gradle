@@ -1,4 +1,4 @@
-include ':app:project', ':app:test', ':app:java',
+include ':app:project', ':app:test', ':app:java', ':sample:tbs',
 //        ':sample:agora', ':sample:ifly', ':sample:linphone',
         ':library:base',
         ':library:agentweb',

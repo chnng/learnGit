@@ -50,11 +50,12 @@ ext {
     ]
     port = [
             base                : ':8094/"',    // 接口端口
+            mnApi               : ':7094/"',    // 看板首页模块端口
 //            ydcfApi             : ':8101/"',    // 移动查房接口端口
             ydcfApi             : ':8194/"',    // 移动查房接口端口
             ydhlApi             : ':7092/"',    // 移动护理接口端口
             erZiboApi           : ':48194/"',   // 淄博外网专家端接口
-            mnApi               : ':7094/"',    // 看板首页模块端口
+            mnZiboApiLocal      : ':8194/"',    // 淄博本地接口端口
 
             rcLocal             : ':8190/"',    // RC本地端口
             rcFormal            : ':8891/"',    // RC正式端口
@@ -67,6 +68,8 @@ ext {
             erLocal             : ':8192"',     // 会诊本地端口
             erFormal            : ':8892"',     // 会诊正式端口
             erZibo              : ':48192"',    // 淄博外网专家端网页端口
+            mnZiboFormal        : ':48195"',    // 淄博外网床旁网页端口
+            mnZiboLocal         : ':8195"',    // 淄博外网床旁网页端口
     ]
 //    location = [
 //            旻慧企业管理系统       : '31.223736,121.633155',
@@ -88,6 +91,8 @@ ext {
             agoraAppId          : 'dade2ef7fa374e9f9f9a10aff02ae270',
             // 床卡: 0普通/1南阳/2中西医/3广中院/4罗湖儿科
             bedCardType         : '0',
+            // 推送文字自动朗读 0关闭 1开启
+            pushAutoSpeak       : '1',
     ]
     th = [
             appName             : '智能天护',
@@ -134,8 +139,8 @@ ext {
     call = [
             appName             : 'VideoCall',
             applicationId       : 'com.aihui.videochat',
-            versionCode         : 17,
-            versionName         : '1.3.3',
+            versionCode         : 19,
+            versionName         : '1.3.5',
 
             buglyAppId          : 'fe166d1aca',
             buglyAppKey         : '5b153717-bb9b-43ea-bf08-3ff73fb7a2fb',
@@ -146,7 +151,7 @@ ext {
             getuiMasterSecret   : 'VDyRevv0jl7bsKpoP6PGz1',
     ]
 //    push = [
-//            appName             : '天护推送服务',
+//            appName             : '宣教推送服务',
 //            applicationId       : 'com.aihui.th.push',
 //            versionCode         : 1,
 //            versionName         : '1.0.0',
@@ -189,16 +194,5 @@ ext {
             versionCode         : 1,
             versionName         : '1.0.0',
             appCode             : '"a_client_mpk"',
-    ]
-    push = [
-            appName             : '宣教推送服务',
-            applicationId       : 'com.aihui.th.push',
-            versionCode         : 1,
-            versionName         : '1.0.0',
-
-            getuiAppId          : 'XVsr8d2TmZ5Oj33ufkzEs3',
-            getuiAppSecret      : 'RfYmHQ5eKB7vwLED8lHIX5',
-            getuiAppKey         : 'z2GpmvrZtm8EcXvFnx1GP6',
-            getuiMasterSecret   : 'wPYLHaoVY5ALxkxetNmts',
     ]
 }

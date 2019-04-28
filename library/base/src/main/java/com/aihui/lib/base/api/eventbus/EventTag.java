@@ -128,9 +128,12 @@ public class EventTag {
      * 看板布局状态变更
      */
     public static final int EVENT_MN_MODULE_LAYOUT = EVENT_MN_MODULE_IDLE + 1;
-
     /**
      * 移动护理护士信息
      */
     public static final int EVENT_YDHL_NURSE_INFO = EVENT_MN_MODULE_LAYOUT + 1;
+    /**
+     * 定时事件关闭
+     */
+    public static final int EVENT_CALL_TIME_EVENT_CLOSE = EVENT_YDHL_NURSE_INFO + 1;
 }

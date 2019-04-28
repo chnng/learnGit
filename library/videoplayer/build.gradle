@@ -1,0 +1,14 @@
+apply plugin: 'com.android.library'
+apply from: rootProject.ext.gradle_path_module
+
+android {
+    defaultConfig {
+        minSdkVersion 16
+    }
+}
+
+dependencies {
+    implementation rootProject.ext.dependencies.appcompatV7
+    implementation rootProject.ext.dependencies.ijkplayer
+//    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.3'
+}

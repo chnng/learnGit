@@ -50,12 +50,12 @@ public class SignalAMnManager extends SignalAManager {
     private String mConnectParam;
     private Set<OnConnectListener> mListenerSet;
 
-    public void connect(Context context, String hospitalCode, String wardCode, String mac, int... codes) {
+    public void connect(Context context, String hospitalCode, String wardCode, int... codes) {
         if (codes.length == 0) {
             disconnect();
             return;
         }
-        mConnectParam = setConnectParam(hospitalCode, wardCode, mac, codes);
+        mConnectParam = setConnectParam(hospitalCode, wardCode, codes);
         if (TextUtils.isEmpty(mConnectParam)) {
             return;
         }
@@ -76,13 +76,14 @@ public class SignalAMnManager extends SignalAManager {
         });
     }
 
-    private String setConnectParam(String hospitalCode, String wardCode, String mac, int[] codes) {
+    private String setConnectParam(String hospitalCode, String wardCode, int[] codes) {
         String param = null;
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("hospital_code", hospitalCode);
             jsonObject.put("ward_code", wardCode);
-            jsonObject.put("mac", mac);
+            jsonObject.put("app_code", SignalAUtils.APP_CODE);
+            jsonObject.put("mac", SignalAUtils.MAC);
             JSONArray jsonArray = new JSONArray();
             jsonObject.put("request_codes", jsonArray);
             for (int code : codes) {
@@ -151,5 +152,9 @@ public class SignalAMnManager extends SignalAManager {
 
     public static void removeOnConnectListener(OnConnectListener listener) {
         getInstance().mListenerSet.remove(listener);
+    }
+
+    public static void removeAllOnConnectListener() {
+        getInstance().mListenerSet.clear();
     }
 }

@@ -99,11 +99,11 @@ public final class MsgPushUtils {
                     String filePath = bean.FilePath;
                     if (!TextUtils.isEmpty(filePath) && bean.DicType == HttpConstant.PUSH_TYPE_DOC) {
                         String fileType = FileUtils.getExtension(filePath);
-                        if (!TextUtils.isEmpty(fileType)) {
+                        /*if (!TextUtils.isEmpty(fileType)) {
                             if (!FileType.Extension.PDF.equalsIgnoreCase(fileType)) {
                                 filePath = filePath.substring(0, filePath.length() - fileType.length()) + FileType.Extension.HTML;
                             }
-                        } else if (filePath.contains("patientPath") || filePath.contains("&days")) {
+                        } else */if (filePath.contains("patientPath") || filePath.contains("&days")) {
                             filePath += "&OperatorID=" + AccountManager.getLoginUid();
                         }
                     }
@@ -136,18 +136,24 @@ public final class MsgPushUtils {
     @NonNull
     private static Function<String, QueryPushInfoInsertBody> educToPush(QueryEducationDetailsInsertBody body) {
         return s -> {
-            QueryPushInfoInsertBody pushInfoBody = new QueryPushInfoInsertBody();
-            pushInfoBody.AccessId = AccountManager.getAccessId();
-            pushInfoBody.Name = body.Name;
-            pushInfoBody.DictionaryID = body.DictionaryID;
-            pushInfoBody.Content = body.Content;
-            pushInfoBody.PushType = body.Type;
-            pushInfoBody.HospitalCode = body.HospitalCode;
-            pushInfoBody.DeptCode = body.WardCode;
-            pushInfoBody.BedNumber = s;
-            pushInfoBody.UserID = body.OperatorID;
+            QueryPushInfoInsertBody pushInfoBody = obtainQueryPushInfoInsertBody(body);
+            body.BedNumber = s;
             return pushInfoBody;
         };
+    }
+
+    private static QueryPushInfoInsertBody obtainQueryPushInfoInsertBody(QueryEducationDetailsInsertBody body) {
+        QueryPushInfoInsertBody pushInfoBody = new QueryPushInfoInsertBody();
+        pushInfoBody.AccessId = AccountManager.getAccessId();
+        pushInfoBody.Name = body.Name;
+        pushInfoBody.DictionaryID = body.DictionaryID;
+        pushInfoBody.Content = body.Content;
+        pushInfoBody.PushType = body.Type;
+        pushInfoBody.HospitalCode = body.HospitalCode;
+        pushInfoBody.DeptCode = body.WardCode;
+        pushInfoBody.BedNumber = body.BedNumber;
+        pushInfoBody.UserID = body.OperatorID;
+        return pushInfoBody;
     }
 
     public static void insertMsgPush(RxAppCompatActivity activity, @NonNull QueryEducationDetailsInsertBody body) {
@@ -167,19 +173,20 @@ public final class MsgPushUtils {
             dialog.show();
         }
         Dialog finalDialog = dialog;
-        RetrofitManager.newThServer().queryEducationDetailsInsert(body)
-                .map(RetrofitManager.parseResponse())
-                .map(educToPush(body))
-                .flatMap((Function<QueryPushInfoInsertBody, ObservableSource<BaseResponseBean<Boolean>>>) queryPushInfoInsertBody ->
-                        RetrofitManager.newThServer().queryPushInfoInsert(queryPushInfoInsertBody))
+        RetrofitManager.newThServer().queryPushInfoNewInsert(obtainQueryPushInfoInsertBody(body))
                 .compose(RetrofitManager.parseResponseWith(activity))
                 .subscribe(new BaseObserver<Boolean>() {
+
                     @Override
                     public void onNext(@NonNull Boolean aBoolean) {
                         if (observer != null) {
                             observer.onNext(aBoolean);
-                        } else if (aBoolean) {
-                            ToastUtils.toast("发送成功");
+                        } else {
+                            if (aBoolean) {
+                                ToastUtils.toast("发送成功");
+                            } else {
+                                ToastUtils.toast("发送失败");
+                            }
                         }
                         if (isFinish) {
                             activity.finish();
@@ -188,6 +195,7 @@ public final class MsgPushUtils {
 
                     @Override
                     public void onComplete() {
+                        super.onComplete();
                         CheckUtils.dismissDialog(finalDialog);
                         if (observer != null) {
                             observer.onComplete();
@@ -197,11 +205,47 @@ public final class MsgPushUtils {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         CheckUtils.dismissDialog(finalDialog);
+                        ToastUtils.toast("发送失败");
                         if (observer != null) {
                             observer.onError(e);
                         }
                     }
                 });
+//        RetrofitManager.newThServer().queryEducationDetailsInsert(body)
+//                .map(RetrofitManager.parseResponse())
+//                .map(educToPush(body))
+//                .flatMap((Function<QueryPushInfoInsertBody, ObservableSource<BaseResponseBean<Boolean>>>) queryPushInfoInsertBody ->
+//                        RetrofitManager.newThServer().queryPushInfoInsert(queryPushInfoInsertBody))
+//                .compose(RetrofitManager.parseResponseWith(activity))
+//                .subscribe(new BaseObserver<Boolean>() {
+//                    @Override
+//                    public void onNext(@NonNull Boolean aBoolean) {
+//                        if (observer != null) {
+//                            observer.onNext(aBoolean);
+//                        } else if (aBoolean) {
+//                            ToastUtils.toast("发送成功");
+//                        }
+//                        if (isFinish) {
+//                            activity.finish();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        CheckUtils.dismissDialog(finalDialog);
+//                        if (observer != null) {
+//                            observer.onComplete();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(@NonNull Throwable e) {
+//                        CheckUtils.dismissDialog(finalDialog);
+//                        if (observer != null) {
+//                            observer.onError(e);
+//                        }
+//                    }
+//                });
     }
 
     public static void insertMsgPushList(RxAppCompatActivity activity, List<QueryEducationDetailsInsertBody> bodyList) {

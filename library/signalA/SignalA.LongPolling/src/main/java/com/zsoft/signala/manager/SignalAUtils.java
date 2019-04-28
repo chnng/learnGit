@@ -10,8 +10,15 @@ import org.json.JSONArray;
  * Created by 胡一鸣 on 2019/1/16.
  */
 public final class SignalAUtils {
-    public static String HUB_URL = "http://10.65.200.11:8094/signalr/hubs";
-    public static String HUB_MEETING_URL = "http://10.65.200.11:8190/signalr/hubs";
+    static String APP_CODE = "m_client_n";
+    static String HUB_URL = "http://10.65.200.12:8190/signalr/hubs";
+    static String MAC;
+
+    public static void init(String appCode, String url, String mac) {
+        APP_CODE = appCode;
+        HUB_URL = url;
+        MAC = mac;
+    }
 
     public static String EnsureEndsWith(String text, String end) {
         if (!text.endsWith(end))

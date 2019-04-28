@@ -35,6 +35,8 @@ public final class GetuiManager {
     public static final int MSG_TYPE_PUSH = 5;
     // 定时事件
     public static final int MSG_TYPE_TIME_EVENT = 6;
+    // 定时事件关闭
+    public static final int MSG_TYPE_TIME_EVENT_CLOSE = 7;
 
     private static QueryGetuiAuthBean mGetuiAuthBean;
 

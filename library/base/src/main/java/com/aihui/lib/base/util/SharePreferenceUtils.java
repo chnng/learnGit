@@ -59,6 +59,10 @@ public final class SharePreferenceUtils {
      */
     public static final String SP_CALL_GETUI_TIMESTAMP_DELAY = "task_delay_timestamp";
     /**
+     * 呼叫绑定版本
+     */
+    public static final String SP_CALL_BIND_VERSION = "call_bind_version";
+    /**
      * 呼叫床位
      */
     public static final String SP_CALL_BED_NUMBER = "call_bed_number";
@@ -74,6 +78,18 @@ public final class SharePreferenceUtils {
      * 推送床位识别代码
      */
     public static final String SP_CALL_BED_IDENTIFY = "call_bed_identify";
+    /**
+     * 呼叫域名
+     */
+    public static final String SP_CALL_ACCOUNT_DOMAIN = "call_account_domain";
+    /**
+     * 呼叫病区账号
+     */
+    public static final String SP_CALL_ACCOUNT_WARD = "call_account_ward";
+    /**
+     * 呼叫床位账号
+     */
+    public static final String SP_CALL_ACCOUNT_BED = "call_account_bed";
     /**
      * 个推cid
      */

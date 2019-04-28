@@ -23,6 +23,7 @@ android {
 //        buildConfigField 'boolean', 'AUTH', 'false'
 //        buildConfigField 'String', 'APP_CODE', 'null'
 //        buildConfigField 'int', 'BED_CARD_TYPE', rootProject.ext.global.bedCardType
+//        buildConfigField 'int', 'PUSH_AUTO_SPEAK', rootProject.ext.global.pushAutoSpeak
 //        resValue "string", "agora_app_id", rootProject.ext.global.agoraAppId
     }
     signingConfigs {

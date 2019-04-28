@@ -80,6 +80,7 @@ adb shell logcat -v time > c:\logcat.txt
 adb shell dumpsys activity activities | sed -En -e '/Running activities/,/Run #0/p'
 adb -s 0123456789ABCDEF shell am start com.android.settings/com.android.settings.Settings
 adb pull /data/anr/traces.txt /Users/chnng/Downloads
+adb tcpip 5555
 adb connect 10.62.0.52
 aapt dump badging <file_path.apk>
 adb -s JLF4T18312002870 pull /data/anr/traces.txt /Users/chnng/Downloads

@@ -20,16 +20,21 @@ public class PushMessageInfo {
      */
     public String content;
     /**
+     * 1.视频巡房唯一标识(用于调试);
+     * 2.推送消息类型,如{@link com.aihui.lib.base.cons.HttpConstant#PUSH_TYPE_TEXT}
+     */
+    public String key;
+    /**
      * 1.视频巡房超时时间;
      * 2.定时事件推送消息持续时长(秒)
      * 3.普通推送消息患者签名页url
      */
     public String extra;
     /**
-     * 1.视频巡房唯一标识(用于调试);
-     * 2.推送消息类型,如{@link com.aihui.lib.base.cons.HttpConstant#PUSH_TYPE_TEXT}
+     * 1.推送消息回调地址
+     * https://hl.smartsky-tech.com:8094/api/pushinfo/pushcallback?accessKey=1d0b680de5019e95c70ec6a193cbe3ff&PushId=1114505
      */
-    public String key;
+    public String extra2;
 
     @NonNull
     @Override
@@ -38,8 +43,9 @@ public class PushMessageInfo {
                 "type=" + type +
                 ", title=" + title +
                 ", content='" + content + '\'' +
-                ", extra='" + extra + '\'' +
                 ", key='" + key + '\'' +
+                ", extra='" + extra + '\'' +
+                ", extra2='" + extra2 + '\'' +
                 '}';
     }
 }
